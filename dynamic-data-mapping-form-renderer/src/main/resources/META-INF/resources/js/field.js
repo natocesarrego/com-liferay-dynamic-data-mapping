@@ -162,7 +162,7 @@ AUI.add(
 					focus: function() {
 						var instance = this;
 
-						instance.get('container').scrollIntoView();
+						instance.scrollIntoView();
 
 						instance.getInputNode().focus();
 					},
@@ -356,6 +356,12 @@ AUI.add(
 						instance.fire('render');
 
 						return instance;
+					},
+
+					scrollIntoView: function() {
+						var instance = this;
+
+						instance.get('container').scrollIntoView(false);
 					},
 
 					setValue: function(value) {
