@@ -20,6 +20,7 @@ import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
+import com.liferay.dynamic.data.mapping.storage.FieldConstants;
 import com.liferay.dynamic.data.mapping.util.DDM;
 import com.liferay.dynamic.data.mapping.util.DDMIndexer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -92,82 +93,108 @@ public class DDMIndexerImpl implements DDMIndexer {
 					continue;
 				}
 
+				List<DDMFormFieldValue> ddmFormFieldValues =
+					ddmFormFieldValuesMap.get(ddmFormField.getName());
+
+				if (ddmFormFieldValues.isEmpty()) {
+					continue;
+				}
+
 				for (Locale locale : locales) {
+					String dataType = ddmFormField.getDataType();
+
+					boolean isRepeatable = ddmFormField.isRepeatable();
+
 					String name = encodeName(
 						ddmStructure.getStructureId(), ddmFormField.getName(),
 						locale, indexType);
 
-					List<DDMFormFieldValue> ddmFormFieldValues =
-						ddmFormFieldValuesMap.get(ddmFormField.getName());
+					List<String> valuesStrings =
+						getValuesStrings(ddmFormFieldValues, locale);
 
-					Serializable value = ddmFormFieldValues.get(0);
+					if (dataType.equals(FieldConstants.BOOLEAN)) {
+						Boolean[] values =
+							valuesStrings.toArray(
+								new Boolean[valuesStrings.size()]);
 
-					if (value instanceof BigDecimal) {
-						document.addNumberSortable(name, (BigDecimal)value);
-					}
-					else if (value instanceof BigDecimal[]) {
-						document.addNumberSortable(name, (BigDecimal[])value);
-					}
-					else if (value instanceof Boolean) {
-						document.addKeywordSortable(name, (Boolean)value);
-					}
-					else if (value instanceof Boolean[]) {
-						document.addKeywordSortable(name, (Boolean[])value);
-					}
-					else if (value instanceof Date) {
-						document.addDateSortable(name, (Date)value);
-					}
-					else if (value instanceof Date[]) {
-						document.addDateSortable(name, (Date[])value);
-					}
-					else if (value instanceof Double) {
-						document.addNumberSortable(name, (Double)value);
-					}
-					else if (value instanceof Double[]) {
-						document.addNumberSortable(name, (Double[])value);
-					}
-					else if (value instanceof Integer) {
-						document.addNumberSortable(name, (Integer)value);
-					}
-					else if (value instanceof Integer[]) {
-						document.addNumberSortable(name, (Integer[])value);
-					}
-					else if (value instanceof Long) {
-						document.addNumberSortable(name, (Long)value);
-					}
-					else if (value instanceof Long[]) {
-						document.addNumberSortable(name, (Long[])value);
-					}
-					else if (value instanceof Float) {
-						document.addNumberSortable(name, (Float)value);
-					}
-					else if (value instanceof Float[]) {
-						document.addNumberSortable(name, (Float[])value);
-					}
-					else if (value instanceof Number[]) {
-						Number[] numbers = (Number[])value;
-
-						Double[] doubles = new Double[numbers.length];
-
-						for (int i = 0; i < numbers.length; i++) {
-							doubles[i] = numbers[i].doubleValue();
-						}
-
-						document.addNumberSortable(name, doubles);
-					}
-					else if (value instanceof Object[]) {
-						String[] valuesString = ArrayUtil.toStringArray(
-							(Object[])value);
-
-						if (indexType.equals("keyword")) {
-							document.addKeywordSortable(name, valuesString);
+						if (isRepeatable) {
+							document.addKeywordSortable(name, values);
 						}
 						else {
-							document.addTextSortable(name, valuesString);
+							document.addKeywordSortable(name, values[0]);
 						}
 					}
+					else if (dataType.equals(FieldConstants.DATE)) {
+						Date[] values =
+							valuesStrings.toArray(
+								new Date[valuesStrings.size()]);
+
+						if (isRepeatable) {
+							document.addDateSortable(name, values);
+						}
+						else {
+							document.addDateSortable(name, values[0]);
+						}
+					}
+					else if (dataType.equals(FieldConstants.DOUBLE)) {
+						Double[] values =
+							valuesStrings.toArray(
+								new Double[valuesStrings.size()]);
+
+						if (isRepeatable) {
+							document.addNumberSortable(name, values);
+						}
+						else {
+							document.addNumberSortable(name, values[0]);
+						}
+					}
+					else if (dataType.equals(FieldConstants.INTEGER)) {
+						Integer[] values =
+							valuesStrings.toArray(
+								new Integer[valuesStrings.size()]);
+
+						if (isRepeatable) {
+							document.addNumberSortable(name, values);
+						}
+						else {
+							document.addNumberSortable(name, values[0]);
+						}
+					}
+					else if (dataType.equals(FieldConstants.LONG)) {
+						Long[] values =
+							valuesStrings.toArray(
+								new Long[valuesStrings.size()]);
+
+						if (isRepeatable) {
+							document.addNumberSortable(name, values);
+						}
+						else {
+							document.addNumberSortable(name, values[0]);
+						}
+					}
+					else if (dataType.equals(FieldConstants.FLOAT)) {
+						Float[] values =
+							valuesStrings.toArray(
+								new Float[valuesStrings.size()]);
+
+						if (isRepeatable) {
+							document.addNumberSortable(name, values);
+						}
+						else {
+							document.addNumberSortable(name, values[0]);
+						}
+					}
+					else if (dataType.equals(FieldConstants.NUMBER) &&
+						isRepeatable) {
+
+						Double[] values =
+							valuesStrings.toArray(
+								new Double[valuesStrings.size()]);
+
+						document.addNumberSortable(name, values);
+					}
 					else {
-						String valueString = String.valueOf(value);
+						String valueString = valuesStrings.get(0);
 
 						String type = ddmFormField.getType();
 
@@ -308,34 +335,45 @@ public class DDMIndexerImpl implements DDMIndexer {
 				List<DDMFormFieldValue> ddmFormFieldValues =
 					ddmFormFieldValuesMap.get(ddmFormField.getName());
 
-				Serializable value = ddmFormFieldValues.get(0);
+				if (ddmFormFieldValues.isEmpty()) {
+					continue;
+				}
 
-				if (value instanceof Boolean || value instanceof Number) {
+				String dataType = ddmFormField.getDataType();
+
+				List<String> valuesStrings =
+					getValuesStrings(ddmFormFieldValues, locale);
+
+				if (dataType.equals(FieldConstants.BOOLEAN)) {
+					Boolean value = GetterUtil.getBoolean(valuesStrings.get(0));
+
 					sb.append(value);
 					sb.append(StringPool.SPACE);
 				}
-				else if (value instanceof Date) {
-					sb.append(dateFormat.format(value));
+				else if (dataType.equals(FieldConstants.NUMBER)) {
+					Number value = GetterUtil.getNumber(valuesStrings.get(0));
+
+					sb.append(value);
 					sb.append(StringPool.SPACE);
 				}
-				else if (value instanceof Date[]) {
-					Date[] dates = (Date[])value;
+				else if (dataType.equals(FieldConstants.DATE)) {
+					Date[] values =
+						valuesStrings.toArray(
+							new Date[valuesStrings.size()]);
 
-					for (Date date : dates) {
-						sb.append(dateFormat.format(date));
-						sb.append(StringPool.SPACE);
+					if (ddmFormField.isRepeatable()) {
+						for (Date value : values) {
+							sb.append(dateFormat.format(value));
+							sb.append(StringPool.SPACE);
+						}
 					}
-				}
-				else if (value instanceof Object[]) {
-					Object[] values = (Object[])value;
-
-					for (Object object : values) {
-						sb.append(object);
+					else {
+						sb.append(dateFormat.format(values[0]));
 						sb.append(StringPool.SPACE);
 					}
 				}
 				else {
-					String valueString = String.valueOf(value);
+					String valueString = valuesStrings.get(0);
 
 					String type = ddmFormField.getType();
 
@@ -424,6 +462,20 @@ public class DDMIndexerImpl implements DDMIndexer {
 		}
 
 		return ddmFormFieldValuesMap;
+	}
+
+	protected List<String> getValuesStrings(
+		List<DDMFormFieldValue> ddmFormFieldValues, Locale locale) {
+
+		List<String> values = new ArrayList<>();
+
+		for (DDMFormFieldValue ddmFormFieldValue : ddmFormFieldValues) {
+			if (Validator.isNotNull(ddmFormFieldValue.getValue())) {
+				values.add(ddmFormFieldValue.getValue().getString(locale));
+			}
+		}
+
+		return values;
 	}
 
 	@Reference(unbind = "-")
