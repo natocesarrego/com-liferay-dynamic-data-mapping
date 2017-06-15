@@ -14,11 +14,12 @@
 
 package com.liferay.dynamic.data.mapping.internal.util;
 
+import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
+import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
-import com.liferay.dynamic.data.mapping.storage.Field;
 import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.dynamic.data.mapping.util.DDM;
 import com.liferay.dynamic.data.mapping.util.DDMFormValuesToFieldsConverter;
@@ -51,8 +52,13 @@ import java.math.BigDecimal;
 
 import java.text.Format;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
@@ -71,12 +77,18 @@ public class DDMIndexerImpl implements DDMIndexer {
 
 		Set<Locale> locales = ddmFormValues.getAvailableLocales();
 
-		Fields fields = toFields(ddmStructure, ddmFormValues);
+		Map<String, DDMFormField> ddmFormFieldsMap =
+			ddmStructure.getFullHierarchyDDMFormFieldsMap(true);
 
-		for (Field field : fields) {
+		Collection<DDMFormField> ddmFormFields = ddmFormFieldsMap.values();
+
+		Map<String, List<DDMFormFieldValue>> ddmFormFieldValuesMap =
+			getAllDDMFormFieldValuesMap(ddmFormValues.getDDMFormFieldValues());
+
+		for (DDMFormField ddmFormField : ddmFormFields) {
 			try {
 				String indexType = ddmStructure.getFieldProperty(
-					field.getName(), "indexType");
+					ddmFormField.getName(), "indexType");
 
 				if (Validator.isNull(indexType)) {
 					continue;
@@ -84,10 +96,13 @@ public class DDMIndexerImpl implements DDMIndexer {
 
 				for (Locale locale : locales) {
 					String name = encodeName(
-						ddmStructure.getStructureId(), field.getName(), locale,
-						indexType);
+						ddmStructure.getStructureId(), ddmFormField.getName(),
+						locale, indexType);
 
-					Serializable value = field.getValue(locale);
+					List<DDMFormFieldValue> ddmFormFieldValues =
+						ddmFormFieldValuesMap.get(ddmFormField.getName());
+
+					Serializable value = ddmFormFieldValues.get(0);
 
 					if (value instanceof BigDecimal) {
 						document.addNumberSortable(name, (BigDecimal)value);
@@ -156,7 +171,7 @@ public class DDMIndexerImpl implements DDMIndexer {
 					else {
 						String valueString = String.valueOf(value);
 
-						String type = field.getType();
+						String type = ddmFormField.getType();
 
 						if (type.equals(DDMFormFieldType.GEOLOCATION)) {
 							JSONObject jsonObject =
@@ -275,18 +290,27 @@ public class DDMIndexerImpl implements DDMIndexer {
 
 		StringBundler sb = new StringBundler();
 
-		Fields fields = toFields(ddmStructure, ddmFormValues);
+		Map<String, DDMFormField> ddmFormFieldsMap =
+			ddmStructure.getFullHierarchyDDMFormFieldsMap(true);
 
-		for (Field field : fields) {
+		Collection<DDMFormField> ddmFormFields = ddmFormFieldsMap.values();
+
+		Map<String, List<DDMFormFieldValue>> ddmFormFieldValuesMap =
+			getAllDDMFormFieldValuesMap(ddmFormValues.getDDMFormFieldValues());
+
+		for (DDMFormField ddmFormField : ddmFormFields) {
 			try {
 				String indexType = ddmStructure.getFieldProperty(
-					field.getName(), "indexType");
+					ddmFormField.getName(), "indexType");
 
 				if (Validator.isNull(indexType)) {
 					continue;
 				}
 
-				Serializable value = field.getValue(locale);
+				List<DDMFormFieldValue> ddmFormFieldValues =
+					ddmFormFieldValuesMap.get(ddmFormField.getName());
+
+				Serializable value = ddmFormFieldValues.get(0);
 
 				if (value instanceof Boolean || value instanceof Number) {
 					sb.append(value);
@@ -315,7 +339,7 @@ public class DDMIndexerImpl implements DDMIndexer {
 				else {
 					String valueString = String.valueOf(value);
 
-					String type = field.getType();
+					String type = ddmFormField.getType();
 
 					if (type.equals(DDMImpl.TYPE_SELECT)) {
 						JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
@@ -371,6 +395,37 @@ public class DDMIndexerImpl implements DDMIndexer {
 		}
 
 		return sb.toString();
+	}
+
+	protected Map<String, List<DDMFormFieldValue>> getAllDDMFormFieldValuesMap(
+		List<DDMFormFieldValue> ddmFormFieldValues) {
+
+		Map<String, List<DDMFormFieldValue>> ddmFormFieldValuesMap =
+			new LinkedHashMap<>();
+
+		for (DDMFormFieldValue ddmFormFieldValue : ddmFormFieldValues) {
+			List<DDMFormFieldValue> listDDMFormFieldValues =
+				ddmFormFieldValuesMap.get(ddmFormFieldValue.getName());
+
+			if (listDDMFormFieldValues == null) {
+				listDDMFormFieldValues = new ArrayList<>();
+
+				ddmFormFieldValuesMap.put(
+					ddmFormFieldValue.getName(), listDDMFormFieldValues);
+			}
+
+			listDDMFormFieldValues.add(ddmFormFieldValue);
+
+			if (!ddmFormFieldValue.getNestedDDMFormFieldValues().isEmpty()) {
+				Map<String, List<DDMFormFieldValue>>
+					nestedDDMFormFieldValuesMap = getAllDDMFormFieldValuesMap(
+						ddmFormFieldValue.getNestedDDMFormFieldValues());
+
+				ddmFormFieldValuesMap.putAll(nestedDDMFormFieldValuesMap);
+			}
+		}
+
+		return ddmFormFieldValuesMap;
 	}
 
 	@Reference(unbind = "-")
