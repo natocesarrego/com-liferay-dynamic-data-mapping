@@ -20,9 +20,7 @@ import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
-import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.dynamic.data.mapping.util.DDM;
-import com.liferay.dynamic.data.mapping.util.DDMFormValuesToFieldsConverter;
 import com.liferay.dynamic.data.mapping.util.DDMIndexer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -434,37 +432,15 @@ public class DDMIndexerImpl implements DDMIndexer {
 	}
 
 	@Reference(unbind = "-")
-	protected void setDDMFormValuesToFieldsConverter(
-		DDMFormValuesToFieldsConverter ddmFormValuesToFieldsConverter) {
-
-		_ddmFormValuesToFieldsConverter = ddmFormValuesToFieldsConverter;
-	}
-
-	@Reference(unbind = "-")
 	protected void setDDMStructureLocalService(
 		DDMStructureLocalService ddmStructureLocalService) {
 
 		_ddmStructureLocalService = ddmStructureLocalService;
 	}
 
-	protected Fields toFields(
-		DDMStructure ddmStructure, DDMFormValues ddmFormValues) {
-
-		try {
-			return _ddmFormValuesToFieldsConverter.convert(
-				ddmStructure, ddmFormValues);
-		}
-		catch (PortalException pe) {
-			_log.error("Unable to convert DDMFormValues to Fields", pe);
-		}
-
-		return new Fields();
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(DDMIndexerImpl.class);
 
 	private DDM _ddm;
-	private DDMFormValuesToFieldsConverter _ddmFormValuesToFieldsConverter;
 	private DDMStructureLocalService _ddmStructureLocalService;
 
 }
