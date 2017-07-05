@@ -106,8 +106,12 @@ public class DDMIndexerImplTest {
 
 		String fieldValue = "新規作成";
 
+		Map<Locale, String> fieldValues = new HashMap<>();
+
+		fieldValues.put(translationLocale, fieldValue);
+
 		DDMFormFieldValue ddmFormFieldValue = createDDMFormFieldValue(
-			fieldName, translationLocale, fieldValue, defaultLocale);
+			fieldName, fieldValues, defaultLocale);
 
 		Document document = createDocument();
 
@@ -146,8 +150,12 @@ public class DDMIndexerImplTest {
 
 		String fieldValue = "新規作成";
 
+		Map<Locale, String> fieldValues = new HashMap<>();
+
+		fieldValues.put(translationLocale, fieldValue);
+
 		DDMFormFieldValue ddmFormFieldValue = createDDMFormFieldValue(
-			fieldName, translationLocale, fieldValue, defaultLocale);
+			fieldName, fieldValues, defaultLocale);
 
 		Document document = createDocument();
 
@@ -189,18 +197,20 @@ public class DDMIndexerImplTest {
 		String fieldValueJP = "新規作成";
 		String fieldValueUS = "Create New";
 
-		DDMFormFieldValue ddmFormFieldValueJP = createDDMFormFieldValue(
-			fieldName, defaultLocale, fieldValueJP, defaultLocale);
+		Map<Locale, String> fieldValues = new HashMap<>();
 
-		DDMFormFieldValue ddmFormFieldValueUS = createDDMFormFieldValue(
-			fieldName, translationLocale, fieldValueUS, defaultLocale);
+		fieldValues.put(defaultLocale, fieldValueJP);
+		fieldValues.put(translationLocale, fieldValueUS);
+
+		DDMFormFieldValue ddmFormFieldValue = createDDMFormFieldValue(
+			fieldName, fieldValues, defaultLocale);
 
 		Document document = createDocument();
 
 		DDMStructure ddmStructure = createDDMStructure(ddmForm);
 
 		DDMFormValues ddmFormValues = createDDMFormValues(
-			ddmForm, ddmFormFieldValueJP, ddmFormFieldValueUS);
+			ddmForm, ddmFormFieldValue);
 
 		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
 
@@ -230,11 +240,13 @@ public class DDMIndexerImplTest {
 	}
 
 	protected DDMFormFieldValue createDDMFormFieldValue(
-		String name, Locale locale, String valueString, Locale defaultLocale) {
+		String name, Map<Locale, String> values, Locale defaultLocale) {
 
 		LocalizedValue localizedValue = new LocalizedValue(defaultLocale);
 
-		localizedValue.addString(locale, valueString);
+		Map<Locale, String> actualValues = localizedValue.getValues();
+
+		actualValues.putAll(values);
 
 		return DDMFormValuesTestUtil.createDDMFormFieldValue(
 			name, localizedValue);
