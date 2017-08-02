@@ -109,6 +109,11 @@ public class DDMFormTestUtil {
 		return ddmFormField;
 	}
 
+	public static DDMForm createDDMFormWithUSLocale() {
+		return createDDMForm(
+			createAvailableLocales(LocaleUtil.US), LocaleUtil.US);
+	}
+
 	public static DDMFormField createLocalizableTextDDMFormField(String name) {
 		return createTextDDMFormField(name, true, false, false);
 	}
