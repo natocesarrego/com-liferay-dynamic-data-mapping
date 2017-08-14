@@ -2668,7 +2668,18 @@ AUI.add(
 					getValue: function() {
 						var instance = this;
 
-						return instance.getInputNode().all('option:selected').val();
+						var selectedItems = instance.getInputNode().all('option:selected');
+
+						var value;
+
+						if (selectedItems._nodes && selectedItems._nodes.length > 0) {
+							value = selectedItems.val();
+						}
+						else {
+							value = [];
+						}
+
+						return value;
 					},
 
 					setLabel: function() {
