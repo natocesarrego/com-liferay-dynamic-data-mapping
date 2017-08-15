@@ -29,17 +29,26 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormTestUtil;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormValuesTestUtil;
 import com.liferay.dynamic.data.mapping.util.DDMIndexer;
+import com.liferay.portal.json.JSONArrayImpl;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.json.JSONObjectImpl;
+import com.liferay.portal.kernel.json.JSONException;
+import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.util.DateFormatFactory;
+import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.Html;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.test.util.FieldValuesAssert;
 import com.liferay.portal.search.test.util.indexing.DocumentFixture;
+import com.liferay.portal.util.HtmlImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -58,12 +67,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.mockito.Mockito;
-
 import org.powermock.core.classloader.annotations.PrepareOnlyThisForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -84,6 +93,20 @@ import org.powermock.modules.junit4.PowerMockRunner;
 )
 public class DDMIndexerImplTest {
 
+	@BeforeClass
+	public static void setUpClass() throws JSONException {
+		setUpDateFormatFactoryUtil();
+		setUpHtmlUtil();
+		setUpJSONFactoryUtil();
+	}
+
+	@AfterClass
+	public static void tearDownClass() {
+		tearDownDateFormatFactoryUtil();
+		tearDownHtmlUtil();
+		tearDownJSONFactoryUtil();
+	}
+
 	@Before
 	public void setUp() throws Exception {
 		ddmFixture.setUp();
@@ -93,7 +116,6 @@ public class DDMIndexerImplTest {
 	@After
 	public void tearDown() throws Exception {
 		ddmFixture.tearDown();
-
 		documentFixture.tearDown();
 	}
 
@@ -313,6 +335,13 @@ public class DDMIndexerImplTest {
 		return jsonObject.toJSONString();
 	}
 
+	protected static String executeExtractText(String textHtmlFieldValue) {
+		String extractedText = textHtmlFieldValue.replace(
+			"<p>", StringPool.BLANK);
+
+		return extractedText.replace("</p>", StringPool.BLANK);
+	}
+
 	protected static String getFieldValue(String type) {
 		String fieldValue = "field_value";
 
@@ -399,6 +428,94 @@ public class DDMIndexerImplTest {
 		}
 
 		return fieldValue;
+	}
+
+	protected static void setUpDateFormatFactoryUtil() {
+		dateFormatFactory = DateFormatFactoryUtil.getDateFormatFactory();
+
+		DateFormatFactoryUtil dateFormatFactoryUtil =
+			new DateFormatFactoryUtil();
+
+		DateFormatFactory dateFormatFactory = Mockito.mock(
+			DateFormatFactory.class);
+
+		Mockito.when(
+			dateFormatFactory.getSimpleDateFormat("yyyy-MM-dd")
+		).thenReturn(
+			new SimpleDateFormat("yyyy-MM-dd")
+		);
+
+		dateFormatFactoryUtil.setDateFormatFactory(dateFormatFactory);
+	}
+
+	protected static void setUpHtmlUtil() {
+		html = HtmlUtil.getHtml();
+
+		HtmlUtil htmlUtil = new HtmlUtil();
+
+		Html html = Mockito.mock(Html.class);
+
+		String textHtmlFieldValue = getFieldValue(DDMFormFieldType.TEXT_HTML);
+
+		Mockito.when(
+			html.extractText(textHtmlFieldValue)
+		).thenReturn(
+			executeExtractText(textHtmlFieldValue)
+		);
+
+		htmlUtil.setHtml(html);
+	}
+
+	protected static void setUpJSONFactoryUtil() throws JSONException {
+		jsonFactory = JSONFactoryUtil.getJSONFactory();
+
+		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
+
+		JSONFactory jsonFactory = Mockito.mock(JSONFactory.class);
+
+		String geolocationFieldValue = getFieldValue(
+			DDMFormFieldType.GEOLOCATION);
+
+		Mockito.when(
+			jsonFactory.createJSONObject(geolocationFieldValue)
+		).thenReturn(
+			new JSONObjectImpl(geolocationFieldValue)
+		);
+
+		String selectFieldValue = getFieldValue(DDMFormFieldType.SELECT);
+
+		Mockito.when(
+			jsonFactory.createJSONArray(selectFieldValue)
+		).thenReturn(
+			new JSONArrayImpl(selectFieldValue)
+		);
+
+		jsonFactoryUtil.setJSONFactory(jsonFactory);
+	}
+
+	protected static void tearDownDateFormatFactoryUtil() {
+		DateFormatFactoryUtil dateFormatFactoryUtil =
+			new DateFormatFactoryUtil();
+
+		dateFormatFactoryUtil.setDateFormatFactory(dateFormatFactory);
+
+		dateFormatFactory = null;
+	}
+
+	protected static void tearDownHtmlUtil() {
+		HtmlUtil htmlUtil = new HtmlUtil();
+
+		htmlUtil.setHtml(html);
+
+		html = null;
+	}
+
+	protected static void tearDownJSONFactoryUtil() {
+		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
+
+		jsonFactoryUtil.setJSONFactory(jsonFactory);
+
+		jsonFactory = null;
 	}
 
 	protected DDMFormField createDDMFormFieldByType(String type) {
@@ -590,6 +707,10 @@ public class DDMIndexerImplTest {
 	protected static final String GROUP_ID = "20128";
 
 	protected static final String UUID = "6c9137db-e338-a8bf-b5f2-3366f7381479";
+
+	protected static DateFormatFactory dateFormatFactory;
+	protected static Html html = new HtmlImpl();
+	protected static JSONFactory jsonFactory = new JSONFactoryImpl();
 
 	protected final DDMFixture ddmFixture = new DDMFixture();
 	protected final DDMFormJSONSerializer ddmFormJSONSerializer =
