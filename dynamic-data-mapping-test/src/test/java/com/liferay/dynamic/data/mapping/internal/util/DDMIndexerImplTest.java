@@ -30,16 +30,24 @@ import com.liferay.dynamic.data.mapping.test.util.DDMFormTestUtil;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormValuesTestUtil;
 import com.liferay.dynamic.data.mapping.util.DDMIndexer;
 import com.liferay.portal.json.JSONFactoryImpl;
+import com.liferay.portal.json.JSONObjectImpl;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.test.util.FieldValuesAssert;
 import com.liferay.portal.search.test.util.indexing.DocumentFixture;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -122,7 +130,7 @@ public class DDMIndexerImplTest {
 
 		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
 
-		Map<String, String> map = _withSortableValues(
+		Map<String, String> map = _withDefaultSortableValues(
 			Collections.singletonMap(
 				"ddm__text__NNNNN__text1_ja_JP", fieldValue));
 
@@ -166,7 +174,7 @@ public class DDMIndexerImplTest {
 
 		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
 
-		Map<String, String> map = _withSortableValues(
+		Map<String, String> map = _withDefaultSortableValues(
 			Collections.singletonMap(
 				"ddm__text__NNNNN__text1_ja_JP", fieldValue));
 
@@ -214,7 +222,7 @@ public class DDMIndexerImplTest {
 
 		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
 
-		Map<String, String> map = _withSortableValues(
+		Map<String, String> map = _withDefaultSortableValues(
 			new HashMap<String, String>() {
 				{
 					put("ddm__text__NNNNN__text1_ja_JP", fieldValueJP);
@@ -297,6 +305,292 @@ public class DDMIndexerImplTest {
 			DDMForm.class.getName());
 	}
 
+	protected static String createJSONObjectString(
+		Map<String, String> fieldValueProperties) {
+
+		JSONObject jsonObject = new JSONObjectImpl(fieldValueProperties);
+
+		return jsonObject.toJSONString();
+	}
+
+	protected static String getFieldValue(String type) {
+		String fieldValue = "field_value";
+
+		if (type.equals(DDMFormFieldType.CHECKBOX)) {
+			fieldValue = "true";
+		}
+		else if (type.equals(DDMFormFieldType.CHECKBOX_MULTIPLE) ||
+				 type.equals(DDMFormFieldType.SELECT)) {
+
+			fieldValue = "[\"Option1\"]";
+		}
+		else if (type.equals(DDMFormFieldType.DATE)) {
+			fieldValue = "2017-07-05";
+		}
+		else if (type.equals(DDMFormFieldType.DECIMAL)) {
+			fieldValue = "10.0";
+		}
+		else if (type.equals(DDMFormFieldType.DOCUMENT_LIBRARY)) {
+			Map<String, String> fieldValueProperties = new HashMap<>();
+
+			fieldValueProperties.put("groupId", GROUP_ID);
+			fieldValueProperties.put("title", "document.doc");
+			fieldValueProperties.put("type", "document");
+			fieldValueProperties.put("uuid", UUID);
+
+			fieldValue = createJSONObjectString(fieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.GEOLOCATION)) {
+			Map<String, String> fieldValueProperties = new HashMap<>();
+
+			fieldValueProperties.put("latitude", "-8.0386948");
+			fieldValueProperties.put("longitude", "-34.9127080045413");
+
+			fieldValue = createJSONObjectString(fieldValueProperties);
+		}
+		else if (type.equals("grid")) {
+			Map<String, String> fieldValueProperties = new HashMap<>();
+
+			fieldValueProperties.put("Row1", "Column1");
+			fieldValueProperties.put("Row1", "Column2");
+
+			fieldValue = createJSONObjectString(fieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.IMAGE)) {
+			Map<String, String> fieldValueProperties = new HashMap<>();
+
+			fieldValueProperties.put("alt", "Green Button");
+			fieldValueProperties.put("fileEntryId", "30656");
+			fieldValueProperties.put("groupId", GROUP_ID);
+			fieldValueProperties.put("name", "Green button.png");
+			fieldValueProperties.put("resourcePrimKey", "30651");
+			fieldValueProperties.put("title", "Green button.png");
+			fieldValueProperties.put("type", "journal");
+			fieldValueProperties.put("uuid", UUID);
+
+			fieldValue = createJSONObjectString(fieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.INTEGER) ||
+				 type.equals(DDMFormFieldType.NUMBER) ||
+				 type.equals(DDMFormFieldType.NUMERIC)) {
+
+			fieldValue = "10";
+		}
+		else if (type.equals(DDMFormFieldType.JOURNAL_ARTICLE)) {
+			Map<String, String> fieldValueProperties = new HashMap<>();
+
+			fieldValueProperties.put(
+				"className", "com.liferay.journal.model.JournalArticle");
+			fieldValueProperties.put("classPK", "30638");
+
+			fieldValue = createJSONObjectString(fieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.LINK_TO_PAGE)) {
+			String layoutId = "1";
+			String layoutType = "public";
+			String layoutGroupId = GROUP_ID;
+
+			fieldValue =
+				layoutId + StringPool.AT + layoutType + StringPool.AT +
+					layoutGroupId;
+		}
+		else if (type.equals(DDMFormFieldType.TEXT_HTML)) {
+			fieldValue = "<p>" + fieldValue + "</p>";
+		}
+
+		return fieldValue;
+	}
+
+	protected DDMFormField createDDMFormFieldByType(String type) {
+		String fieldName = type + "_field";
+
+		String dataType = getDataType(type);
+
+		DDMFormField ddmFormField = DDMFormTestUtil.createDDMFormField(
+			fieldName, fieldName, type, dataType, false, false, true);
+
+		ddmFormField.setIndexType(getIndexType(type));
+
+		return ddmFormField;
+	}
+
+	protected DDMFormFieldValue createDDMFormFieldValueByTypeWithUSLocale(
+		String name, String type) {
+
+		Locale locale = LocaleUtil.US;
+
+		Map<Locale, String> values = new HashMap<>();
+
+		values.put(locale, getFieldValue(type));
+
+		return createDDMFormFieldValue(name, values, locale);
+	}
+
+	protected String getDataType(String type) {
+		String dataType = "string";
+
+		if (type.equals(DDMFormFieldType.CHECKBOX)) {
+			dataType = "boolean";
+		}
+		else if (type.equals(DDMFormFieldType.DATE)) {
+			dataType = "date";
+		}
+		else if (type.equals(DDMFormFieldType.DECIMAL)) {
+			dataType = "double";
+		}
+		else if (type.equals(DDMFormFieldType.DOCUMENT_LIBRARY)) {
+			dataType = "ddm-documentlibrary";
+		}
+		else if (type.equals(DDMFormFieldType.GEOLOCATION)) {
+			dataType = "geolocation";
+		}
+		else if (type.equals(DDMFormFieldType.IMAGE)) {
+			dataType = "image";
+		}
+		else if (type.equals(DDMFormFieldType.INTEGER)) {
+			dataType = "integer";
+		}
+		else if (type.equals(DDMFormFieldType.JOURNAL_ARTICLE)) {
+			dataType = "journal-article";
+		}
+		else if (type.equals(DDMFormFieldType.LINK_TO_PAGE)) {
+			dataType = "link-to-page";
+		}
+		else if (type.equals(DDMFormFieldType.NUMBER)) {
+			dataType = "number";
+		}
+		else if (type.equals(DDMFormFieldType.TEXT_HTML)) {
+			dataType = "html";
+		}
+
+		return dataType;
+	}
+
+	protected String getIndexedFieldValue(String type) {
+		String indexedFieldValue = "field_value";
+
+		if (type.equals(DDMFormFieldType.CHECKBOX)) {
+			indexedFieldValue = "true";
+		}
+		else if (type.equals(DDMFormFieldType.CHECKBOX_MULTIPLE)) {
+			indexedFieldValue = "[\"Option1\"]";
+		}
+		else if (type.equals(DDMFormFieldType.DATE)) {
+			Calendar calendar = new GregorianCalendar();
+
+			calendar.setTimeInMillis(0);
+
+			calendar.set(Calendar.YEAR, 2017);
+			calendar.set(Calendar.MONTH, Calendar.JULY);
+			calendar.set(Calendar.DAY_OF_MONTH, 5);
+
+			Date date = calendar.getTime();
+
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+			indexedFieldValue = dateFormat.format(date);
+		}
+		else if (type.equals(DDMFormFieldType.DECIMAL)) {
+			indexedFieldValue = "10.0";
+		}
+		else if (type.equals(DDMFormFieldType.DOCUMENT_LIBRARY)) {
+			Map<String, String> indexedFieldValueProperties = new HashMap<>();
+
+			indexedFieldValueProperties.put("groupId", GROUP_ID);
+			indexedFieldValueProperties.put("title", "document.doc");
+			indexedFieldValueProperties.put("type", "document");
+			indexedFieldValueProperties.put("uuid", UUID);
+
+			indexedFieldValue = createJSONObjectString(
+				indexedFieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.GEOLOCATION)) {
+			indexedFieldValue = "lat: -8.0386948, lon: -34.9127080045413";
+		}
+		else if (type.equals("grid")) {
+			Map<String, String> indexedFieldValueProperties = new HashMap<>();
+
+			indexedFieldValueProperties.put("Row1", "Column1");
+			indexedFieldValueProperties.put("Row1", "Column2");
+
+			indexedFieldValue = createJSONObjectString(
+				indexedFieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.IMAGE)) {
+			Map<String, String> indexedFieldValueProperties = new HashMap<>();
+
+			indexedFieldValueProperties.put("alt", "Green Button");
+			indexedFieldValueProperties.put("fileEntryId", "30656");
+			indexedFieldValueProperties.put("groupId", GROUP_ID);
+			indexedFieldValueProperties.put("name", "Green button.png");
+			indexedFieldValueProperties.put("resourcePrimKey", "30651");
+			indexedFieldValueProperties.put("title", "Green button.png");
+			indexedFieldValueProperties.put("type", "journal");
+			indexedFieldValueProperties.put("uuid", UUID);
+
+			indexedFieldValue = createJSONObjectString(
+				indexedFieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.INTEGER) ||
+				 type.equals(DDMFormFieldType.NUMBER) ||
+				 type.equals(DDMFormFieldType.NUMERIC)) {
+
+			indexedFieldValue = "10";
+		}
+		else if (type.equals(DDMFormFieldType.JOURNAL_ARTICLE)) {
+			Map<String, String> fieldValueProperties = new HashMap<>();
+
+			fieldValueProperties.put(
+				"className", "com.liferay.journal.model.JournalArticle");
+			fieldValueProperties.put("classPK", "30638");
+
+			indexedFieldValue = createJSONObjectString(fieldValueProperties);
+		}
+		else if (type.equals(DDMFormFieldType.LINK_TO_PAGE)) {
+			String layoutId = "1";
+			String layoutType = "public";
+			String layoutGroupId = GROUP_ID;
+
+			indexedFieldValue =
+				layoutId + StringPool.AT + layoutType + StringPool.AT +
+					layoutGroupId;
+		}
+		else if (type.equals(DDMFormFieldType.SELECT)) {
+			indexedFieldValue = "Option1";
+		}
+
+		return indexedFieldValue;
+	}
+
+	protected String getIndexedSortableDateFieldValue() {
+		Calendar calendar = new GregorianCalendar();
+
+		calendar.setTimeInMillis(0);
+
+		calendar.set(Calendar.YEAR, 2017);
+		calendar.set(Calendar.MONTH, Calendar.JULY);
+		calendar.set(Calendar.DAY_OF_MONTH, 5);
+
+		return String.valueOf(calendar.getTimeInMillis());
+	}
+
+	protected String getIndexType(String type) {
+		String indexType = "keyword";
+
+		if (type.equals(DDMFormFieldType.IMAGE) ||
+			type.equals(DDMFormFieldType.TEXT_AREA) ||
+			type.equals(DDMFormFieldType.TEXT_HTML)) {
+
+			indexType = "text";
+		}
+
+		return indexType;
+	}
+
+	protected static final String GROUP_ID = "20128";
+
+	protected static final String UUID = "6c9137db-e338-a8bf-b5f2-3366f7381479";
+
 	protected final DDMFixture ddmFixture = new DDMFixture();
 	protected final DDMFormJSONSerializer ddmFormJSONSerializer =
 		createDDMFormJSONSerializer();
@@ -316,8 +610,20 @@ public class DDMIndexerImplTest {
 				Map.Entry::getValue));
 	}
 
-	private static Map<String, String> _withSortableValues(
+	private static Map<String, String> _withDefaultSortableValues(
 		Map<String, String> map) {
+
+		return _withSortableValues(map, "_sortable");
+	}
+
+	private static Map<String, String> _withNumberSortableValues(
+		Map<String, String> map) {
+
+		return _withSortableValues(map, "_Number_sortable");
+	}
+
+	private static Map<String, String> _withSortableValues(
+		Map<String, String> map, String suffix) {
 
 		Set<Entry<String, String>> entrySet = map.entrySet();
 
@@ -325,7 +631,7 @@ public class DDMIndexerImplTest {
 
 		Map<String, String> map2 = entries.collect(
 			Collectors.toMap(
-				entry -> entry.getKey() + "_sortable",
+				entry -> entry.getKey() + suffix,
 				entry -> StringUtil.toLowerCase(entry.getValue())));
 
 		map2.putAll(map);
