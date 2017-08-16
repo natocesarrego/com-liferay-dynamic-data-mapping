@@ -54,6 +54,7 @@ import com.liferay.portal.util.HtmlImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -74,7 +75,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.mockito.Mockito;
+
 import org.powermock.core.classloader.annotations.PrepareOnlyThisForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -308,6 +311,15 @@ public class DDMIndexerImplTest {
 
 		FieldValuesAssert.assertFieldValues(
 			indexedFields, indexedFieldNamePrefix, document, fieldName);
+
+		DDMFormField repeatableDDMFormField = ddmForm.getDDMFormFields().get(0);
+
+		repeatableDDMFormField.setRepeatable(true);
+
+		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
+
+		FieldValuesAssert.assertFieldValues(
+			indexedFields, indexedFieldNamePrefix, document, fieldName);
 	}
 
 	@Test
@@ -413,6 +425,15 @@ public class DDMIndexerImplTest {
 
 		FieldValuesAssert.assertFieldValues(
 			indexedFields, indexedFieldNamePrefix, document, fieldName);
+
+		DDMFormField repeatableDDMFormField = ddmForm.getDDMFormFields().get(0);
+
+		repeatableDDMFormField.setRepeatable(true);
+
+		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
+
+		FieldValuesAssert.assertFieldValues(
+			indexedFields, indexedFieldNamePrefix, document, fieldName);
 	}
 
 	@Test
@@ -460,6 +481,15 @@ public class DDMIndexerImplTest {
 			indexedFields);
 
 		String indexedFieldNamePrefix = indexedFieldName.substring(0, 2);
+
+		FieldValuesAssert.assertFieldValues(
+			indexedFields, indexedFieldNamePrefix, document, fieldName);
+
+		DDMFormField repeatableDDMFormField = ddmForm.getDDMFormFields().get(0);
+
+		repeatableDDMFormField.setRepeatable(true);
+
+		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
 
 		FieldValuesAssert.assertFieldValues(
 			indexedFields, indexedFieldNamePrefix, document, fieldName);
@@ -709,6 +739,15 @@ public class DDMIndexerImplTest {
 
 		FieldValuesAssert.assertFieldValues(
 			indexedFields, indexedFieldNamePrefix, document, fieldName);
+
+		DDMFormField repeatableDDMFormField = ddmForm.getDDMFormFields().get(0);
+
+		repeatableDDMFormField.setRepeatable(true);
+
+		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
+
+		FieldValuesAssert.assertFieldValues(
+			indexedFields, indexedFieldNamePrefix, document, fieldName);
 	}
 
 	@Test
@@ -948,6 +987,58 @@ public class DDMIndexerImplTest {
 		String indexedFieldValue = getIndexedFieldValue(DDMFormFieldType.RADIO);
 
 		Map<String, String> indexedFields = _withDefaultSortableValues(
+			Collections.singletonMap(indexedFieldName, indexedFieldValue));
+
+		indexedFields = _replaceKeys(
+			"NNNNN", String.valueOf(ddmStructure.getStructureId()),
+			indexedFields);
+
+		String indexedFieldNamePrefix = indexedFieldName.substring(0, 2);
+
+		FieldValuesAssert.assertFieldValues(
+			indexedFields, indexedFieldNamePrefix, document, fieldName);
+	}
+
+	@Test
+	public void testIndexRepeatableNumberFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.NUMBER);
+
+		ddmFormField.setRepeatable(true);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.NUMBER);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		Document document = createDocument();
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		ddmIndexer.addAttributes(document, ddmStructure, ddmFormValues);
+
+		StringBundler sb = new StringBundler();
+
+		sb.append("ddm__");
+		sb.append(ddmFormField.getIndexType());
+		sb.append("__NNNNN__");
+		sb.append(fieldName);
+		sb.append("_en_US");
+
+		String indexedFieldName = sb.toString();
+
+		String indexedFieldValue = getRepeatableIndexedFieldValue(
+			DDMFormFieldType.NUMBER);
+
+		Map<String, String> indexedFields = _withNumberSortableValues(
 			Collections.singletonMap(indexedFieldName, indexedFieldValue));
 
 		indexedFields = _replaceKeys(
@@ -1485,6 +1576,12 @@ public class DDMIndexerImplTest {
 	}
 
 	protected String getIndexedFieldValue(String type) {
+		boolean repeatable = false;
+
+		return getIndexedFieldValue(type, repeatable);
+	}
+
+	protected String getIndexedFieldValue(String type, boolean repeatable) {
 		String indexedFieldValue = "field_value";
 
 		if (type.equals(DDMFormFieldType.CHECKBOX)) {
@@ -1508,7 +1605,9 @@ public class DDMIndexerImplTest {
 
 			indexedFieldValue = dateFormat.format(date);
 		}
-		else if (type.equals(DDMFormFieldType.DECIMAL)) {
+		else if (type.equals(DDMFormFieldType.DECIMAL) ||
+				 (type.equals(DDMFormFieldType.NUMBER) && repeatable)) {
+
 			indexedFieldValue = "10.0";
 		}
 		else if (type.equals(DDMFormFieldType.DOCUMENT_LIBRARY)) {
@@ -1603,6 +1702,12 @@ public class DDMIndexerImplTest {
 		}
 
 		return indexType;
+	}
+
+	protected String getRepeatableIndexedFieldValue(String type) {
+		boolean repeatable = true;
+
+		return getIndexedFieldValue(type, repeatable);
 	}
 
 	protected static final String GROUP_ID = "20128";
