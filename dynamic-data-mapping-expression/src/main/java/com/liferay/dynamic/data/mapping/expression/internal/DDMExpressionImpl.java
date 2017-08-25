@@ -458,6 +458,30 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 			});
 
 		expression.addFunction(
+			expression.new Function("isEmailAddresses", 1) {
+
+				@Override
+				public BigDecimal eval(List<BigDecimal> parameters) {
+					String string = decodeString(parameters.get(0));
+
+					if (Validator.isNull(string)) {
+						return BigDecimal.ZERO;
+					}
+
+					String[] emails = string.split(",", -1);
+
+					for (String email : emails) {
+						if (!Validator.isEmailAddress(email)) {
+							return BigDecimal.ZERO;
+						}
+					}
+
+					return BigDecimal.ONE;
+				}
+
+			});
+
+		expression.addFunction(
 			expression.new Function("isURL", 1) {
 
 				@Override

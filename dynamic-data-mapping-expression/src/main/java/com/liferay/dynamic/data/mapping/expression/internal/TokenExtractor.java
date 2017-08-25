@@ -142,7 +142,7 @@ public class TokenExtractor {
 	private static final Set<String> _allowedFunctions = SetUtil.fromArray(
 		new String[] {
 			"between", "concat", "contains", "equals", "if", "isemailaddress",
-			"isurl", "max", "min", "not", "sum"
+			"isurl", "max", "min", "not", "sum", "isemailaddresses"
 		});
 	private static final Set<String> _availableFunctions = SetUtil.fromArray(
 		new String[] {
@@ -150,7 +150,7 @@ public class TokenExtractor {
 			"contains", "cos", "cosh", "deg", "equals", "floor", "if",
 			"isemailaddress", "isurl", "log", "log10", "max", "min", "not",
 			"rad", "random", "round", "sin", "sinh", "sqrt", "sum", "tan",
-			"tanh"
+			"tanh", "isemailaddresses"
 		});
 	private static final Set<String> _booleanConstants = SetUtil.fromArray(
 		new String[] {"false", "true"});
