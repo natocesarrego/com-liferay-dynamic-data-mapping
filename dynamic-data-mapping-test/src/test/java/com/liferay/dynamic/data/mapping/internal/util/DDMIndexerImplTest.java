@@ -71,6 +71,7 @@ import java.util.stream.Stream;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -263,6 +264,624 @@ public class DDMIndexerImplTest {
 			_replaceKeys(
 				"NNNNN", String.valueOf(ddmStructure.getStructureId()), map),
 			"ddm__text", document, fieldValueJP);
+	}
+
+	@Test
+	public void testGetIndexableCheckboxFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.CHECKBOX);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.CHECKBOX);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.CHECKBOX);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableCheckboxMultipleFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.CHECKBOX_MULTIPLE);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.CHECKBOX_MULTIPLE);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.CHECKBOX_MULTIPLE);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableDateFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.DATE);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.DATE);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.DATE);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+
+		DDMFormField repeatableDDMFormField = ddmForm.getDDMFormFields().get(0);
+
+		repeatableDDMFormField.setRepeatable(true);
+
+		indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableDecimalFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.DECIMAL);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.DECIMAL);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.DECIMAL);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableDocumentLibraryFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.DOCUMENT_LIBRARY);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.DOCUMENT_LIBRARY);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.DOCUMENT_LIBRARY);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableGeolocationFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.GEOLOCATION);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.GEOLOCATION);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.GEOLOCATION);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableGridFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType("grid");
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(fieldName, "grid");
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue("grid");
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableImageFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.IMAGE);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.IMAGE);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.IMAGE);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableIntegerFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.INTEGER);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.INTEGER);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.INTEGER);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableJournalArticleFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.JOURNAL_ARTICLE);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.JOURNAL_ARTICLE);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.JOURNAL_ARTICLE);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableLinkToPageFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.LINK_TO_PAGE);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.LINK_TO_PAGE);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.LINK_TO_PAGE);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableNumberFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.NUMBER);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.NUMBER);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.NUMBER);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableNumericFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.NUMERIC);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.NUMERIC);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.NUMERIC);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableRadioFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.RADIO);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.RADIO);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.RADIO);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableSelectFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.SELECT);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.SELECT);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.SELECT);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableTextAreaFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.TEXT_AREA);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.TEXT_AREA);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.TEXT_AREA);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableTextFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.TEXT);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.TEXT);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.TEXT);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
+	}
+
+	@Test
+	public void testGetIndexableTextHtmlFieldWithUSLocale() {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMFormWithUSLocale();
+
+		DDMFormField ddmFormField = createDDMFormFieldByType(
+			DDMFormFieldType.TEXT_HTML);
+
+		ddmForm.addDDMFormField(ddmFormField);
+
+		String fieldName = ddmFormField.getName();
+
+		DDMFormFieldValue ddmFormFieldValue =
+			createDDMFormFieldValueByTypeWithUSLocale(
+				fieldName, DDMFormFieldType.TEXT_HTML);
+
+		DDMFormValues ddmFormValues = createDDMFormValues(
+			ddmForm, ddmFormFieldValue);
+
+		DDMStructure ddmStructure = createDDMStructure(ddmForm);
+
+		Locale locale = LocaleUtil.US;
+
+		String indexableFieldValue = ddmIndexer.extractIndexableAttributes(
+			ddmStructure, ddmFormValues, locale);
+
+		String expectedIndexableFieldValue = getIndexableFieldValue(
+			DDMFormFieldType.TEXT_HTML);
+
+		expectedIndexableFieldValue =
+			expectedIndexableFieldValue + StringPool.SPACE;
+
+		Assert.assertEquals(expectedIndexableFieldValue, indexableFieldValue);
 	}
 
 	@Test
@@ -1609,6 +2228,22 @@ public class DDMIndexerImplTest {
 		}
 
 		return dataType;
+	}
+
+	protected String getIndexableFieldValue(String type) {
+		String indexableFieldValue;
+
+		if (type.equals(DDMFormFieldType.DATE) ||
+			type.equals(DDMFormFieldType.SELECT) ||
+			type.equals(DDMFormFieldType.TEXT_HTML)) {
+
+			indexableFieldValue = getIndexedFieldValue(type);
+		}
+		else {
+			indexableFieldValue = getFieldValue(type);
+		}
+
+		return indexableFieldValue;
 	}
 
 	protected String getIndexedFieldValue(String type) {
