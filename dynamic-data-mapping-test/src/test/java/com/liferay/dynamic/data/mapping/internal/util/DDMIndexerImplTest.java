@@ -100,6 +100,8 @@ public class DDMIndexerImplTest {
 
 	@BeforeClass
 	public static void setUpClass() throws JSONException {
+		createTestDate();
+
 		setUpDateFormatFactoryUtil();
 		setUpHtmlUtil();
 		setUpJSONFactoryUtil();
@@ -1258,6 +1260,28 @@ public class DDMIndexerImplTest {
 		return jsonObject.toJSONString();
 	}
 
+	protected static void createTestDate() {
+		Calendar calendar = new GregorianCalendar();
+
+		calendar.setTimeInMillis(0);
+
+		calendar.set(Calendar.YEAR, 2017);
+		calendar.set(Calendar.MONTH, Calendar.JULY);
+		calendar.set(Calendar.DAY_OF_MONTH, 5);
+
+		dateInMilliseconds = String.valueOf(calendar.getTimeInMillis());
+
+		Date date = calendar.getTime();
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		dateShortFormat = dateFormat.format(date);
+
+		dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		dateLongFormat = dateFormat.format(date);
+	}
+
 	protected static String executeExtractText(String textHtmlFieldValue) {
 		String extractedText = textHtmlFieldValue.replace(
 			"<p>", StringPool.BLANK);
@@ -1277,7 +1301,7 @@ public class DDMIndexerImplTest {
 			fieldValue = "[\"Option1\"]";
 		}
 		else if (type.equals(DDMFormFieldType.DATE)) {
-			fieldValue = "2017-07-05";
+			fieldValue = getTestDateShortFormat();
 		}
 		else if (type.equals(DDMFormFieldType.DECIMAL)) {
 			fieldValue = "10.0";
@@ -1351,6 +1375,18 @@ public class DDMIndexerImplTest {
 		}
 
 		return fieldValue;
+	}
+
+	protected static String getTestDateInMilliseconds() {
+		return dateInMilliseconds;
+	}
+
+	protected static String getTestDateLongFormat() {
+		return dateLongFormat;
+	}
+
+	protected static String getTestDateShortFormat() {
+		return dateShortFormat;
 	}
 
 	protected static void setUpDateFormatFactoryUtil() {
@@ -1591,19 +1627,7 @@ public class DDMIndexerImplTest {
 			indexedFieldValue = "[\"Option1\"]";
 		}
 		else if (type.equals(DDMFormFieldType.DATE)) {
-			Calendar calendar = new GregorianCalendar();
-
-			calendar.setTimeInMillis(0);
-
-			calendar.set(Calendar.YEAR, 2017);
-			calendar.set(Calendar.MONTH, Calendar.JULY);
-			calendar.set(Calendar.DAY_OF_MONTH, 5);
-
-			Date date = calendar.getTime();
-
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-
-			indexedFieldValue = dateFormat.format(date);
+			indexedFieldValue = getTestDateLongFormat();
 		}
 		else if (type.equals(DDMFormFieldType.DECIMAL) ||
 				 (type.equals(DDMFormFieldType.NUMBER) && repeatable)) {
@@ -1680,15 +1704,7 @@ public class DDMIndexerImplTest {
 	}
 
 	protected String getIndexedSortableDateFieldValue() {
-		Calendar calendar = new GregorianCalendar();
-
-		calendar.setTimeInMillis(0);
-
-		calendar.set(Calendar.YEAR, 2017);
-		calendar.set(Calendar.MONTH, Calendar.JULY);
-		calendar.set(Calendar.DAY_OF_MONTH, 5);
-
-		return String.valueOf(calendar.getTimeInMillis());
+		return getTestDateInMilliseconds();
 	}
 
 	protected String getIndexType(String type) {
@@ -1715,6 +1731,9 @@ public class DDMIndexerImplTest {
 	protected static final String UUID = "6c9137db-e338-a8bf-b5f2-3366f7381479";
 
 	protected static DateFormatFactory dateFormatFactory;
+	protected static String dateInMilliseconds;
+	protected static String dateLongFormat;
+	protected static String dateShortFormat;
 	protected static Html html = new HtmlImpl();
 	protected static JSONFactory jsonFactory = new JSONFactoryImpl();
 
