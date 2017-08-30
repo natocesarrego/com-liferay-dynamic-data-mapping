@@ -3010,6 +3010,7 @@ AUI.add(
 						var drag = A.DD.DDM.getDrag(fieldContainer);
 
 						drag.addInvalid('.alloy-editor');
+						drag.addInvalid('.cke');
 						drag.addInvalid('.lfr-source-editor');
 					},
 
