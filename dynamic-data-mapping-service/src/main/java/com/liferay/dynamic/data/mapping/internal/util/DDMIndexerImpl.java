@@ -87,15 +87,17 @@ public class DDMIndexerImpl implements DDMIndexer {
 
 		for (DDMFormField ddmFormField : ddmFormFields) {
 			try {
+				String name = ddmFormField.getName();
+
 				String indexType = ddmStructure.getFieldProperty(
-					ddmFormField.getName(), "indexType");
+					name, "indexType");
 
 				if (Validator.isNull(indexType)) {
 					continue;
 				}
 
 				List<DDMFormFieldValue> ddmFormFieldValues =
-					ddmFormFieldValuesMap.get(ddmFormField.getName());
+					ddmFormFieldValuesMap.get(name);
 
 				if (ddmFormFieldValues.isEmpty()) {
 					continue;
@@ -107,12 +109,11 @@ public class DDMIndexerImpl implements DDMIndexer {
 					continue;
 				}
 
-				for (Locale locale : locales) {
-					boolean repeatable = ddmFormField.isRepeatable();
+				boolean repeatable = ddmFormField.isRepeatable();
 
-					String name = encodeName(
-						ddmStructure.getStructureId(), ddmFormField.getName(),
-						locale, indexType);
+				for (Locale locale : locales) {
+					String encodedName = encodeName(
+						ddmStructure.getStructureId(), name, locale, indexType);
 
 					List<String> valuesStrings = getValuesStrings(
 						ddmFormFieldValues, locale);
@@ -122,58 +123,69 @@ public class DDMIndexerImpl implements DDMIndexer {
 
 					if (dataType.equals(FieldConstants.BOOLEAN)) {
 						if (repeatable) {
-							document.addKeywordSortable(name, (String[])values);
+							document.addKeywordSortable(
+								encodedName, (String[])values);
 						}
 						else {
 							document.addKeywordSortable(
-								name, (String)values[0]);
+								encodedName, (String)values[0]);
 						}
 					}
 					else if (dataType.equals(FieldConstants.DATE)) {
 						if (repeatable) {
-							document.addDateSortable(name, (Date[])values);
+							document.addDateSortable(
+								encodedName, (Date[])values);
 						}
 						else {
-							document.addDateSortable(name, (Date)values[0]);
+							document.addDateSortable(
+								encodedName, (Date)values[0]);
 						}
 					}
 					else if (dataType.equals(FieldConstants.DOUBLE)) {
 						if (repeatable) {
-							document.addNumberSortable(name, (Double[])values);
+							document.addNumberSortable(
+								encodedName, (Double[])values);
 						}
 						else {
-							document.addNumberSortable(name, (Double)values[0]);
+							document.addNumberSortable(
+								encodedName, (Double)values[0]);
 						}
 					}
 					else if (dataType.equals(FieldConstants.INTEGER)) {
 						if (repeatable) {
-							document.addNumberSortable(name, (Integer[])values);
+							document.addNumberSortable(
+								encodedName, (Integer[])values);
 						}
 						else {
 							document.addNumberSortable(
-								name, (Integer)values[0]);
+								encodedName, (Integer)values[0]);
 						}
 					}
 					else if (dataType.equals(FieldConstants.LONG)) {
 						if (repeatable) {
-							document.addNumberSortable(name, (Long[])values);
+							document.addNumberSortable(
+								encodedName, (Long[])values);
 						}
 						else {
-							document.addNumberSortable(name, (Long)values[0]);
+							document.addNumberSortable(
+								encodedName, (Long)values[0]);
 						}
 					}
 					else if (dataType.equals(FieldConstants.FLOAT)) {
 						if (repeatable) {
-							document.addNumberSortable(name, (Float[])values);
+							document.addNumberSortable(
+								encodedName, (Float[])values);
 						}
 						else {
-							document.addNumberSortable(name, (Float)values[0]);
+							document.addNumberSortable(
+								encodedName, (Float)values[0]);
 						}
 					}
 					else if (dataType.equals(FieldConstants.NUMBER) &&
 							 repeatable) {
 
-						document.addNumberSortable(name, (Double[])values);
+						document.addNumberSortable(
+							encodedName, (Double[])values);
 					}
 					else {
 						String valueString = (String)values[0];
@@ -190,7 +202,7 @@ public class DDMIndexerImpl implements DDMIndexer {
 								"longitude", 0);
 
 							document.addGeoLocation(
-								name.concat("_geolocation"), latitude,
+								encodedName.concat("_geolocation"), latitude,
 								longitude);
 						}
 						else if (type.equals(DDMImpl.TYPE_SELECT)) {
@@ -200,7 +212,8 @@ public class DDMIndexerImpl implements DDMIndexer {
 							String[] stringArray = ArrayUtil.toStringArray(
 								jsonArray);
 
-							document.addKeywordSortable(name, stringArray);
+							document.addKeywordSortable(
+								encodedName, stringArray);
 						}
 						else {
 							if (type.equals(DDMImpl.TYPE_DDM_TEXT_HTML)) {
@@ -208,10 +221,12 @@ public class DDMIndexerImpl implements DDMIndexer {
 							}
 
 							if (indexType.equals("keyword")) {
-								document.addKeywordSortable(name, valueString);
+								document.addKeywordSortable(
+									encodedName, valueString);
 							}
 							else {
-								document.addTextSortable(name, valueString);
+								document.addTextSortable(
+									encodedName, valueString);
 							}
 						}
 					}
@@ -307,15 +322,17 @@ public class DDMIndexerImpl implements DDMIndexer {
 
 		for (DDMFormField ddmFormField : ddmFormFields) {
 			try {
+				String name = ddmFormField.getName();
+
 				String indexType = ddmStructure.getFieldProperty(
-					ddmFormField.getName(), "indexType");
+					name, "indexType");
 
 				if (Validator.isNull(indexType)) {
 					continue;
 				}
 
 				List<DDMFormFieldValue> ddmFormFieldValues =
-					ddmFormFieldValuesMap.get(ddmFormField.getName());
+					ddmFormFieldValuesMap.get(name);
 
 				if (ddmFormFieldValues.isEmpty()) {
 					continue;
