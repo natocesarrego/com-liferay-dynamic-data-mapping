@@ -101,9 +101,13 @@ public class DDMIndexerImpl implements DDMIndexer {
 					continue;
 				}
 
-				for (Locale locale : locales) {
-					String dataType = ddmFormField.getDataType();
+				String dataType = ddmFormField.getDataType();
 
+				if (Validator.isNull(dataType)) {
+					continue;
+				}
+
+				for (Locale locale : locales) {
 					boolean repeatable = ddmFormField.isRepeatable();
 
 					String name = encodeName(
