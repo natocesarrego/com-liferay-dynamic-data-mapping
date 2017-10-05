@@ -34,6 +34,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Bruno Basto
@@ -140,17 +141,29 @@ public class StringFieldRenderer extends BaseFieldRenderer {
 			return StringPool.BLANK;
 		}
 
+		DDMStructure ddmStructure = field.getDDMStructure();
+
+		DDMFormField ddmFormField = ddmStructure.getDDMFormField(
+			field.getName());
+
 		StringBundler sb = new StringBundler(jsonArray.length() * 2);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
-			LocalizedValue label = getFieldOptionLabel(
-				field, jsonArray.getString(i));
+			String optionValue = jsonArray.getString(i);
 
-			if (label == null) {
-				continue;
+			if (isManualDataSourceType(ddmFormField)) {
+				LocalizedValue label = getFieldOptionLabel(field, optionValue);
+
+				if (label == null) {
+					continue;
+				}
+
+				sb.append(label.getString(locale));
+			}
+			else {
+				sb.append(optionValue);
 			}
 
-			sb.append(label.getString(locale));
 			sb.append(StringPool.COMMA_AND_SPACE);
 		}
 
@@ -159,6 +172,17 @@ public class StringFieldRenderer extends BaseFieldRenderer {
 		}
 
 		return sb.toString();
+	}
+
+	protected boolean isManualDataSourceType(DDMFormField ddmFormField) {
+		String dataSourceType = GetterUtil.getString(
+			ddmFormField.getProperty("dataSourceType"), "manual");
+
+		if (Objects.equals(dataSourceType, "manual")) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
