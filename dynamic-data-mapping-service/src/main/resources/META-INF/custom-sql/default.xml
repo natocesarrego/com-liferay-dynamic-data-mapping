@@ -100,14 +100,17 @@
 				(DDMTemplate.classNameId = ?) AND
 				(
 					(DDMTemplate.classPK = 0) OR
-					(DDMTemplate.classPK IN (
-						SELECT
-							DDMStructure.structureId
-						FROM
-							DDMStructure
-						WHERE
-							(DDMStructure.classNameId = ?)
-					))
+					(
+						DDMTemplate.classPK IN
+							(
+								SELECT
+									DDMStructure.structureId
+								FROM
+									DDMStructure
+								WHERE
+									(DDMStructure.classNameId = ?)
+							)
+					)
 				)
 				[$STATUS$]
 		]]>
@@ -145,14 +148,17 @@
 				(classNameId = ?) AND
 				(
 					(classPK = 0) OR
-					(classPK IN (
-						SELECT
-							DDMStructure.structureId
-						FROM
-							DDMStructure
-						WHERE
-							(DDMStructure.classNameId = ?)
-					))
+					(
+						classPK IN
+							(
+								SELECT
+									DDMStructure.structureId
+								FROM
+									DDMStructure
+								WHERE
+									(DDMStructure.classNameId = ?)
+							)
+					)
 				)
 				[$STATUS$]
 			ORDER BY
