@@ -253,7 +253,10 @@ public class TemplateHandlerRegistryImpl implements TemplateHandlerRegistry {
 				DDMTemplate ddmTemplate = _ddmTemplateManager.fetchTemplate(
 					group.getGroupId(), classNameId, templateKey);
 
-				if (ddmTemplate != null) {
+				if ((ddmTemplate != null) &&
+					((ddmTemplate.getUserId() != userId) ||
+						(ddmTemplate.getVersionUserId() != userId))) {
+
 					continue;
 				}
 
