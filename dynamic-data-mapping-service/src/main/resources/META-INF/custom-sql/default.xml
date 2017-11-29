@@ -108,7 +108,7 @@
 								FROM
 									DDMStructure
 								WHERE
-									(DDMStructure.classNameId = ?)
+									DDMStructure.classNameId = ?
 							)
 					)
 				)
@@ -156,7 +156,7 @@
 								FROM
 									DDMStructure
 								WHERE
-									(DDMStructure.classNameId = ?)
+									DDMStructure.classNameId = ?
 							)
 					)
 				)
