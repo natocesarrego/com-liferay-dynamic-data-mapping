@@ -21,7 +21,6 @@ import com.liferay.dynamic.data.mapping.model.DDMStorageLink;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -88,7 +87,7 @@ public class DDMStorageLinkCacheModel implements CacheModel<DDMStorageLink>,
 		DDMStorageLinkImpl ddmStorageLinkImpl = new DDMStorageLinkImpl();
 
 		if (uuid == null) {
-			ddmStorageLinkImpl.setUuid(StringPool.BLANK);
+			ddmStorageLinkImpl.setUuid("");
 		}
 		else {
 			ddmStorageLinkImpl.setUuid(uuid);
@@ -124,7 +123,7 @@ public class DDMStorageLinkCacheModel implements CacheModel<DDMStorageLink>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(uuid);
