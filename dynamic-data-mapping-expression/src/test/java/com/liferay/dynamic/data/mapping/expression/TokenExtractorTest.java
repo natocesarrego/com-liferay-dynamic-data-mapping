@@ -41,9 +41,9 @@ public class TokenExtractorTest {
 
 		Collection<String> values = variableMap.values();
 
-		Assert.assertTrue(values.contains("1"));
-		Assert.assertTrue(values.contains("2"));
-		Assert.assertTrue(values.contains("3"));
+		Assert.assertTrue(values.toString(), values.contains("1"));
+		Assert.assertTrue(values.toString(), values.contains("2"));
+		Assert.assertTrue(values.toString(), values.contains("3"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -67,7 +67,7 @@ public class TokenExtractorTest {
 
 		Collection<String> values = variableMap.values();
 
-		Assert.assertTrue(values.contains("Joe"));
+		Assert.assertTrue(values.toString(), values.contains("Joe"));
 	}
 
 	@Test
@@ -88,8 +88,8 @@ public class TokenExtractorTest {
 
 		Collection<String> values = variableMap.values();
 
-		Assert.assertTrue(values.contains("3456.12"));
-		Assert.assertTrue(values.contains("10000"));
+		Assert.assertTrue(values.toString(), values.contains("3456.12"));
+		Assert.assertTrue(values.toString(), values.contains("10000"));
 	}
 
 	@Test
@@ -139,8 +139,8 @@ public class TokenExtractorTest {
 
 		Collection<String> values = variableMap.values();
 
-		Assert.assertTrue(values.contains("11"));
-		Assert.assertTrue(values.contains("111"));
+		Assert.assertTrue(values.toString(), values.contains("11"));
+		Assert.assertTrue(values.toString(), values.contains("111"));
 
 		String variableName11 = getVariableName(variableMap, "11");
 		String variableName111 = getVariableName(variableMap, "111");
@@ -164,7 +164,7 @@ public class TokenExtractorTest {
 
 		Collection<String> values = variableMap.values();
 
-		Assert.assertTrue(values.contains("Joe"));
+		Assert.assertTrue(values.toString(), values.contains("Joe"));
 	}
 
 	@Test
@@ -183,7 +183,7 @@ public class TokenExtractorTest {
 
 		Collection<String> values = variableMap.values();
 
-		Assert.assertTrue(values.contains("5"));
+		Assert.assertTrue(values.toString(), values.contains("5"));
 	}
 
 	protected String getVariableName(

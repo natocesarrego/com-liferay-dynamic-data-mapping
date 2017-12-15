@@ -100,6 +100,7 @@ public class DDMRESTDataProviderTest {
 
 		for (KeyValuePair expectedKeyValuePair : expectedKeyValuePairs) {
 			Assert.assertTrue(
+				actualKeyValuePairs.toString(),
 				actualKeyValuePairs.contains(expectedKeyValuePair));
 		}
 	}
