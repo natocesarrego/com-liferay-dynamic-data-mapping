@@ -105,9 +105,7 @@ public class FieldsToDDMFormValuesConverterImpl
 
 		int repetitions = 0;
 
-		for (int i = 0; i < ddmFieldsDisplayValues.length; i++) {
-			String fieldDisplayName = ddmFieldsDisplayValues[i];
-
+		for (String fieldDisplayName : ddmFieldsDisplayValues) {
 			if (offset > parentOffset) {
 				break;
 			}
@@ -352,9 +350,7 @@ public class FieldsToDDMFormValuesConverterImpl
 
 		int repetitions = 0;
 
-		for (int i = 0; i < ddmFieldsDisplayValues.length; i++) {
-			String fieldDisplayName = ddmFieldsDisplayValues[i];
-
+		for (String fieldDisplayName : ddmFieldsDisplayValues) {
 			if (offset > parentOffset) {
 				break;
 			}
