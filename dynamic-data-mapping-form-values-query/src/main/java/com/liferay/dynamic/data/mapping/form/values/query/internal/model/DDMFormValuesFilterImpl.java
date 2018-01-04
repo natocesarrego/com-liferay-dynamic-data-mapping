@@ -67,7 +67,9 @@ public class DDMFormValuesFilterImpl implements DDMFormValuesFilter {
 	protected void addNestedDDMFormFieldValues(
 		List<DDMFormFieldValue> ddmFormFieldValues) {
 
-		for (DDMFormFieldValue ddmFormFieldValue : ddmFormFieldValues) {
+		for (int i = 0; i < ddmFormFieldValues.size(); i++) {
+			DDMFormFieldValue ddmFormFieldValue = ddmFormFieldValues.get(i);
+
 			ddmFormFieldValues.addAll(
 				ddmFormFieldValue.getNestedDDMFormFieldValues());
 		}
