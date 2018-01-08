@@ -22,6 +22,18 @@ AUI.add(
 						);
 					},
 
+					getTemplate: function() {
+						var instance = this;
+
+						var container = instance.fetchContainer();
+
+						instance._formGroupNode = container.one('.form-group');
+
+						var fieldName = instance._formGroupNode.attr('data-fieldname');
+
+						return '<div class="form-group" data-fieldname="' + fieldName + '"></div>';
+					},
+
 					getTemplateRenderer: function() {
 						var instance = this;
 
@@ -30,6 +42,18 @@ AUI.add(
 
 					getValue: function() {
 						return '';
+					},
+
+					render: function() {
+						var instance = this;
+
+						var container = instance.get('container');
+
+						container.empty();
+
+						instance._formGroupNode.appendTo(container);
+
+						return instance;
 					},
 
 					renderTemplate: function() {
