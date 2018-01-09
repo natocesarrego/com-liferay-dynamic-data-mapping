@@ -1195,9 +1195,9 @@ public class UpgradeDynamicDataMappingTest {
 
 		sb.append("insert into DDLRecord (uuid_, recordId, groupId, ");
 		sb.append("companyId, userId, userName, versionUserId, ");
-		sb.append("versionUserName, createDate, modifiedDate, ");
-		sb.append("DDMStorageId, recordSetId, version, displayIndex) ");
-		sb.append("values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+		sb.append("versionUserName, createDate, modifiedDate, DDMStorageId, ");
+		sb.append("recordSetId, version, displayIndex) values (?, ?, ?, ?, ");
+		sb.append("?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 
 		String sql = sb.toString();
 
@@ -1235,8 +1235,8 @@ public class UpgradeDynamicDataMappingTest {
 		sb.append("insert into DDLRecordSet (uuid_, recordSetId, groupId, ");
 		sb.append("companyId, userId, userName, createDate, modifiedDate, ");
 		sb.append("DDMStructureId, recordSetKey, name, description, ");
-		sb.append("minDisplayRows, scope) ");
-		sb.append("values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+		sb.append("minDisplayRows, scope) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ");
+		sb.append("?, ?, ?, ?, ?) ");
 
 		String sql = sb.toString();
 
@@ -1272,8 +1272,8 @@ public class UpgradeDynamicDataMappingTest {
 		sb.append("insert into DDLRecordVersion (recordVersionId, groupId, ");
 		sb.append("companyId, userId, userName, createDate, DDMStorageId, ");
 		sb.append("recordSetId, recordId, version, displayIndex, status, ");
-		sb.append("statusByUserId, statusByUserName, statusDate) ");
-		sb.append("values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+		sb.append("statusByUserId, statusByUserName, statusDate) values (?, ");
+		sb.append("?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 
 		String sql = sb.toString();
 
@@ -1360,15 +1360,14 @@ public class UpgradeDynamicDataMappingTest {
 			String definition, String storageType)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(6);
 
 		sb.append("insert into DDMStructure (uuid_, structureId, groupId, ");
 		sb.append("companyId, userId, userName, versionUserId, ");
 		sb.append("versionUserName, createDate, modifiedDate, ");
 		sb.append("parentStructureId, classNameId, structureKey, version, ");
-		sb.append("name, description, definition, storageType, type_) ");
-		sb.append("values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ");
-		sb.append("?, ?, ?)");
+		sb.append("name, description, definition, storageType, type_) values ");
+		sb.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 		String sql = sb.toString();
 
