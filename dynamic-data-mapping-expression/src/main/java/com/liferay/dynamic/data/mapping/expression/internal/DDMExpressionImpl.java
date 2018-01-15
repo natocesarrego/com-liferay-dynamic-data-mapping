@@ -22,6 +22,8 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
+import com.udojava.evalex.Expression;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -67,8 +69,7 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 	@SuppressWarnings("unchecked")
 	public T evaluate() throws DDMExpressionException {
 		try {
-			com.udojava.evalex.Expression expression =
-				new com.udojava.evalex.Expression(_expressionString);
+			Expression expression = new Expression(_expressionString);
 
 			for (Map.Entry<String, Variable> entry : _variables.entrySet()) {
 				BigDecimal variableValue = getVariableValue(entry.getValue());
@@ -210,7 +211,7 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 		return new BigDecimal(bigInteger);
 	}
 
-	protected BigDecimal evaluate(com.udojava.evalex.Expression expression) {
+	protected BigDecimal evaluate(Expression expression) {
 		setExpressionCustomFunctions(expression);
 		setExpressionCustomOperators(expression);
 		setExpressionMathContext(expression);
@@ -218,12 +219,10 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 		return expression.eval();
 	}
 
-	protected com.udojava.evalex.Expression getExpression(
-			String expressionString)
+	protected Expression getExpression(String expressionString)
 		throws DDMExpressionException {
 
-		com.udojava.evalex.Expression expression =
-			new com.udojava.evalex.Expression(expressionString);
+		Expression expression = new Expression(expressionString);
 
 		TokenExtractor tokenExtractor = new TokenExtractor(expressionString);
 
@@ -242,15 +241,14 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 		return expression;
 	}
 
-	protected com.udojava.evalex.Expression getExpression(Variable variable)
+	protected Expression getExpression(Variable variable)
 		throws DDMExpressionException {
 
 		if (variable.getExpressionString() == null) {
 			return null;
 		}
 
-		com.udojava.evalex.Expression expression = getExpression(
-			variable.getExpressionString());
+		Expression expression = getExpression(variable.getExpressionString());
 
 		return expression;
 	}
@@ -264,7 +262,7 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 			return variableValue;
 		}
 
-		com.udojava.evalex.Expression expression = getExpression(variable);
+		Expression expression = getExpression(variable);
 
 		if (expression == null) {
 			return variable.getValue();
@@ -347,9 +345,7 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 		return variableDependencies;
 	}
 
-	protected void setExpressionCustomFunctions(
-		com.udojava.evalex.Expression expression) {
-
+	protected void setExpressionCustomFunctions(Expression expression) {
 		expression.addFunction(
 			expression.new Function("between", 3) {
 
@@ -494,9 +490,7 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 			});
 	}
 
-	protected void setExpressionCustomOperators(
-		com.udojava.evalex.Expression expression) {
-
+	protected void setExpressionCustomOperators(Expression expression) {
 		expression.addOperator(
 			expression.new Operator("+", 20, true) {
 
@@ -578,9 +572,7 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 			});
 	}
 
-	protected void setExpressionMathContext(
-		com.udojava.evalex.Expression expression) {
-
+	protected void setExpressionMathContext(Expression expression) {
 		expression.setPrecision(_mathContext.getPrecision());
 		expression.setRoundingMode(_mathContext.getRoundingMode());
 	}

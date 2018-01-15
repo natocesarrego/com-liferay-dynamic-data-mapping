@@ -17,6 +17,7 @@ package com.liferay.dynamic.data.mapping.data.provider.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProvider;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext;
+import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormValuesTestUtil;
 import com.liferay.dynamic.data.mapping.util.DDMFormFactory;
@@ -61,8 +62,7 @@ public class DDMRESTDataProviderTest {
 	public void testGetCountries() throws Exception {
 		Class<?> ddmDataProviderSettings = _ddmDataProvider.getSettings();
 
-		com.liferay.dynamic.data.mapping.model.DDMForm ddmForm =
-			DDMFormFactory.create(ddmDataProviderSettings);
+		DDMForm ddmForm = DDMFormFactory.create(ddmDataProviderSettings);
 
 		DDMFormValues ddmFormValues = DDMFormValuesTestUtil.createDDMFormValues(
 			ddmForm);

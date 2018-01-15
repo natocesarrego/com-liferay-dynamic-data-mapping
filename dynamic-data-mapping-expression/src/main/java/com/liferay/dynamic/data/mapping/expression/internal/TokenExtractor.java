@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+import com.udojava.evalex.Expression;
 import com.udojava.evalex.Expression.ExpressionException;
 
 import java.util.HashMap;
@@ -115,8 +116,7 @@ public class TokenExtractor {
 	}
 
 	protected Iterator<String> getExpressionTokens() {
-		com.udojava.evalex.Expression expression =
-			new com.udojava.evalex.Expression(_expression);
+		Expression expression = new Expression(_expression);
 
 		return expression.getExpressionTokenizer();
 	}
