@@ -15,6 +15,13 @@ classes {
 	dependsOn wrapSoyTemplates
 }
 
+mergeLang {
+	sourceDirs = [
+		"../dynamic-data-mapping-lang/src/main/resources/content",
+		"src/main/resources/content"
+	]
+}
+
 transpileJS {
 	soySrcIncludes = ""
 	srcIncludes = "**/*.es.js"
@@ -33,11 +40,4 @@ wrapSoyTemplates {
 			soyJsFile.text = soyJsWrapperHeader + soyJsFile.text.replace("(typeof ddm == 'undefined') { var ddm = {}; }", "(typeof ddm == 'undefined') { window.ddm = {}; }") + soyJsWrapperFooter
 		}
 	}
-}
-
-mergeLang {
-	sourceDirs = [
-		"../dynamic-data-mapping-lang/src/main/resources/content",
-		"src/main/resources/content"
-	]
 }
