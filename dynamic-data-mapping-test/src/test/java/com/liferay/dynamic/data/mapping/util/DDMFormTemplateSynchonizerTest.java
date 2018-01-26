@@ -316,7 +316,7 @@ public class DDMFormTemplateSynchonizerTest extends BaseDDMTestCase {
 	}
 
 	protected void testFormTemplatesAfterChangeDDMFormFieldOptionsProperty(
-			DDMForm structureForm, String...fields)
+			DDMForm structureForm, String... fields)
 		throws Exception {
 
 		Map<String, DDMFormField> structureDDMFormFieldsMap =
