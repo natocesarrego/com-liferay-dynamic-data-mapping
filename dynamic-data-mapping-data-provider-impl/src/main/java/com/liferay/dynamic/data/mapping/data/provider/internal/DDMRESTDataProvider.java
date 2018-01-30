@@ -94,7 +94,8 @@ public class DDMRESTDataProvider implements DDMDataProvider {
 
 		HttpResponse httpResponse = httpRequest.send();
 
-		JSONArray jsonArray = _jsonFactory.createJSONArray(httpResponse.body());
+		JSONArray jsonArray = _jsonFactory.createJSONArray(
+			httpResponse.bodyText());
 
 		List<KeyValuePair> results = new ArrayList<>();
 
