@@ -80,6 +80,7 @@ AUI.add(
 										extraPlugins: 'ae_placeholder,ae_selectionregion,ae_uicore',
 										removePlugins: 'contextmenu,elementspath,image,link,liststyle,resize,tabletools,toolbar',
 										srcNode: editorNode,
+										uiNode: editorNode.get('parentNode'),
 										toolbars: {
 											add: {
 												buttons: ['hline', 'table']
