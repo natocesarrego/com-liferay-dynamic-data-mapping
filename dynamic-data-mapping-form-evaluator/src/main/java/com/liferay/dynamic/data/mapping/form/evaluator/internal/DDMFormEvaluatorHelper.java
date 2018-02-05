@@ -182,8 +182,14 @@ public class DDMFormEvaluatorHelper {
 			String validationExpression = getValidationExpression(
 				ddmFormFieldValidation);
 
-			boolean valid = evaluateBooleanExpression(
-				validationExpression, ancestorDDMFormFieldValues);
+			boolean valid;
+			try {
+				valid = evaluateBooleanExpression(
+					validationExpression, ancestorDDMFormFieldValues);
+			}
+			catch (NumberFormatException nfe) {
+				valid = false;
+			}
 
 			ddmFormFieldEvaluationResult.setValid(valid);
 
@@ -342,7 +348,7 @@ public class DDMFormEvaluatorHelper {
 		}
 		else if (variableType.equals("integer")) {
 			ddmExpression.setIntegerVariableValue(
-				variableName, GetterUtil.getInteger(variableValue));
+				variableName, Integer.parseInt(variableValue));
 		}
 		else if (variableType.equals("string")) {
 			ddmExpression.setStringVariableValue(variableName, variableValue);
