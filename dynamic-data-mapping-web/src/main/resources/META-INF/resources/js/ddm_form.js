@@ -860,10 +860,7 @@ AUI.add(
 
 						var changeableDefaultLanguage = translationManager.get('changeableDefaultLanguage');
 
-						if (changeableDefaultLanguage &&
-						   typeof availableLocales !== "undefined" &&
-						   availableLocales.indexOf(defaultLocale) == -1) {
-
+						if (changeableDefaultLanguage && typeof availableLocales !== "undefined" && availableLocales.indexOf(defaultLocale) == -1) {
 							var length = availableLocales.length;
 
 							availableLocales[length] = defaultLocale;
