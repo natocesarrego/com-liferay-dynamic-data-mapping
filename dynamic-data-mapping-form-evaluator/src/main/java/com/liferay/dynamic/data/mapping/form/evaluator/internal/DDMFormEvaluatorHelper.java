@@ -115,8 +115,14 @@ public class DDMFormEvaluatorHelper {
 		DDMExpression<Boolean> ddmExpression =
 			_ddmExpressionFactory.createBooleanDDMExpression(expressionString);
 
-		setDDMExpressionVariables(
-			ddmExpression, _rootDDMFormFieldValues, ancestorDDMFormFieldValues);
+		try {
+			setDDMExpressionVariables(
+				ddmExpression, _rootDDMFormFieldValues,
+				ancestorDDMFormFieldValues);
+		}
+		catch (NumberFormatException nfe) {
+			return false;
+		}
 
 		try {
 			return ddmExpression.evaluate();
@@ -182,14 +188,8 @@ public class DDMFormEvaluatorHelper {
 			String validationExpression = getValidationExpression(
 				ddmFormFieldValidation);
 
-			boolean valid;
-			try {
-				valid = evaluateBooleanExpression(
-					validationExpression, ancestorDDMFormFieldValues);
-			}
-			catch (NumberFormatException nfe) {
-				valid = false;
-			}
+			boolean valid = evaluateBooleanExpression(
+				validationExpression, ancestorDDMFormFieldValues);
 
 			ddmFormFieldEvaluationResult.setValid(valid);
 
