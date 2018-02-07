@@ -119,12 +119,7 @@ public class DDMFormEvaluatorHelper {
 			setDDMExpressionVariables(
 				ddmExpression, _rootDDMFormFieldValues,
 				ancestorDDMFormFieldValues);
-		}
-		catch (NumberFormatException nfe) {
-			return false;
-		}
 
-		try {
 			return ddmExpression.evaluate();
 		}
 		catch (DDMExpressionException ddmee) {
@@ -134,6 +129,9 @@ public class DDMFormEvaluatorHelper {
 						"reference to a field no longer available: " +
 							expressionString);
 			}
+		}
+		catch (NumberFormatException nfe) {
+			return false;
 		}
 
 		return true;
@@ -348,7 +346,7 @@ public class DDMFormEvaluatorHelper {
 		}
 		else if (variableType.equals("integer")) {
 			ddmExpression.setIntegerVariableValue(
-				variableName, Integer.parseInt(variableValue));
+				variableName, GetterUtil.getIntegerStrict(variableValue));
 		}
 		else if (variableType.equals("string")) {
 			ddmExpression.setStringVariableValue(variableName, variableValue);
