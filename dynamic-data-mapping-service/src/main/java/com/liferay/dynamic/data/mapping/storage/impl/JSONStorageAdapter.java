@@ -14,6 +14,7 @@
 
 package com.liferay.dynamic.data.mapping.storage.impl;
 
+import com.liferay.dynamic.data.mapping.constants.DDMWebKeys;
 import com.liferay.dynamic.data.mapping.io.DDMFormValuesJSONDeserializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormValuesJSONSerializer;
 import com.liferay.dynamic.data.mapping.model.DDMContent;
@@ -179,7 +180,8 @@ public class JSONStorageAdapter extends BaseStorageAdapter {
 		throws Exception {
 
 		boolean validateDDMFormValues = GetterUtil.getBoolean(
-			serviceContext.getAttribute("validateDDMFormValues"), true);
+			serviceContext.getAttribute(DDMWebKeys.VALIDATE_DDM_FORM_VALUES),
+			true);
 
 		if (!validateDDMFormValues) {
 			return;
