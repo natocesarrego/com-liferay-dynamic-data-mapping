@@ -339,14 +339,11 @@ public class DDMStructureStagedModelDataHandler
 			if (existingStructure == null) {
 				serviceContext.setUuid(structure.getUuid());
 
-				// Force a new structure key if a structure with the same key
-				// already exists
-
-				String structureKey = null;
-
 				existingStructure = _ddmStructureLocalService.fetchStructure(
 					targetGroupId, structure.getClassNameId(),
 					structure.getStructureKey());
+
+				String structureKey = null;
 
 				if (existingStructure == null) {
 					structureKey = structure.getStructureKey();

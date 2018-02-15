@@ -399,14 +399,11 @@ public class DDMTemplateStagedModelDataHandler
 				if (existingTemplate == null) {
 					serviceContext.setUuid(template.getUuid());
 
-					// Force a new template key if a template with the same key
-					// already exists
-
-					String templateKey = null;
-
 					existingTemplate = _ddmTemplateLocalService.fetchTemplate(
 						portletDataContext.getScopeGroupId(),
 						template.getClassNameId(), template.getTemplateKey());
+
+					String templateKey = null;
 
 					if (existingTemplate == null) {
 						templateKey = template.getTemplateKey();
