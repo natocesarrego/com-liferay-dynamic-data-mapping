@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
@@ -130,9 +132,6 @@ public class DDMFormEvaluatorHelper {
 							expressionString);
 			}
 		}
-		catch (NumberFormatException nfe) {
-			return false;
-		}
 
 		return true;
 	}
@@ -186,14 +185,28 @@ public class DDMFormEvaluatorHelper {
 			String validationExpression = getValidationExpression(
 				ddmFormFieldValidation);
 
-			boolean valid = evaluateBooleanExpression(
-				validationExpression, ancestorDDMFormFieldValues);
+			try {
+				boolean valid = evaluateBooleanExpression(
+					validationExpression, ancestorDDMFormFieldValues);
 
-			ddmFormFieldEvaluationResult.setValid(valid);
+				ddmFormFieldEvaluationResult.setValid(valid);
 
-			if (!valid) {
+				if (!valid) {
+					ddmFormFieldEvaluationResult.setErrorMessage(
+						ddmFormFieldValidation.getErrorMessage());
+				}
+			}
+			catch (NumberFormatException nfe) {
+				ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+					"content.Language", _locale, getClass());
+
 				ddmFormFieldEvaluationResult.setErrorMessage(
-					ddmFormFieldValidation.getErrorMessage());
+					LanguageUtil.get(
+						resourceBundle,
+						"the-text-is-not-a-number-or-exceeds-the-maximum-" +
+							"value"));
+
+				ddmFormFieldEvaluationResult.setValid(false);
 			}
 		}
 
