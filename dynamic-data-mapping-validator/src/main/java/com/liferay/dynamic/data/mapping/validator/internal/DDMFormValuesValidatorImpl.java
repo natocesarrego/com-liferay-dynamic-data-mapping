@@ -109,8 +109,8 @@ public class DDMFormValuesValidatorImpl implements DDMFormValuesValidator {
 					expressionString);
 
 			if (dataType.equals(FieldConstants.INTEGER)) {
-				ddmExpression.setIntegerVariableValue(
-					ddmFormFieldName, GetterUtil.getInteger(valueString));
+				ddmExpression.setLongVariableValue(
+					ddmFormFieldName, GetterUtil.getLong(valueString));
 			}
 			else if (dataType.equals(FieldConstants.BOOLEAN)) {
 				ddmExpression.setBooleanVariableValue(
