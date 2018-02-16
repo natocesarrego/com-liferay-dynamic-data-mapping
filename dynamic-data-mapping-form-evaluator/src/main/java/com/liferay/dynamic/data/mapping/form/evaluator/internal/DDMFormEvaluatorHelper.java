@@ -358,8 +358,8 @@ public class DDMFormEvaluatorHelper {
 				variableName, Double.parseDouble(variableValue));
 		}
 		else if (variableType.equals("integer")) {
-			ddmExpression.setIntegerVariableValue(
-				variableName, GetterUtil.getIntegerStrict(variableValue));
+			ddmExpression.setLongVariableValue(
+				variableName, GetterUtil.getLongStrict(variableValue));
 		}
 		else if (variableType.equals("string")) {
 			ddmExpression.setStringVariableValue(variableName, variableValue);
