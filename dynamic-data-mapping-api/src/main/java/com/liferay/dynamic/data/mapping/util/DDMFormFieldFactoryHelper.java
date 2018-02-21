@@ -46,6 +46,7 @@ public class DDMFormFieldFactoryHelper {
 
 	public DDMFormFieldFactoryHelper(Method method) {
 		_method = method;
+
 		_ddmFormField = method.getAnnotation(DDMFormField.class);
 	}
 
