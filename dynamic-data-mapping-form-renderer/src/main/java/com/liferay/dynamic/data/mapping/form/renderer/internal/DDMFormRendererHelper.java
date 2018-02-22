@@ -54,8 +54,9 @@ public class DDMFormRendererHelper {
 		DDMForm ddmForm, DDMFormRenderingContext ddmFormRenderingContext) {
 
 		_ddmForm = ddmForm;
-		_ddmFormFieldsMap = ddmForm.getDDMFormFieldsMap(true);
 		_ddmFormRenderingContext = ddmFormRenderingContext;
+
+		_ddmFormFieldsMap = ddmForm.getDDMFormFieldsMap(true);
 
 		DDMFormValues ddmFormValues =
 			ddmFormRenderingContext.getDDMFormValues();

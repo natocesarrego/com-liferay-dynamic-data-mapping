@@ -42,9 +42,10 @@ public class OptionsDDMFormFieldContextHelper {
 
 		_jsonFactory = jsonFactory;
 		_ddmFormFieldOptions = ddmFormFieldOptions;
+		_locale = locale;
+
 		_value = toString(value);
 		_predefinedValue = toString(predefinedValue.getString(locale));
-		_locale = locale;
 	}
 
 	public List<Object> getOptions() {
