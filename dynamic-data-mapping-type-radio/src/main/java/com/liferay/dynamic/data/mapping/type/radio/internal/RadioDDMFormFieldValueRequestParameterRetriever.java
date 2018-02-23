@@ -37,18 +37,21 @@ public class RadioDDMFormFieldValueRequestParameterRetriever
 		HttpServletRequest httpServletRequest, String ddmFormFieldParameterName,
 		String defaultDDMFormFieldParameterValue) {
 
-		String[] defaultDDMFormFieldParameterValues =
-			{defaultDDMFormFieldParameterValue};
+		String[] defaultDDMFormFieldParameterValues;
 		String[] parameterValues;
 
-		if (Validator.isNotNull(defaultDDMFormFieldParameterValues)) {
-			parameterValues = ParamUtil.getParameterValues(httpServletRequest,
-				ddmFormFieldParameterName, defaultDDMFormFieldParameterValues);
+		if (Validator.isNull(defaultDDMFormFieldParameterValue)) {
+			defaultDDMFormFieldParameterValues =
+				GetterUtil.DEFAULT_STRING_VALUES;
 		}
 		else {
-			parameterValues = ParamUtil.getParameterValues(httpServletRequest,
-				ddmFormFieldParameterName, GetterUtil.DEFAULT_STRING_VALUES);
+			defaultDDMFormFieldParameterValues =
+				new String[] {defaultDDMFormFieldParameterValue};
 		}
+
+		parameterValues = ParamUtil.getParameterValues(
+			httpServletRequest, ddmFormFieldParameterName,
+			defaultDDMFormFieldParameterValues);
 
 		return jsonFactory.serialize(parameterValues);
 	}
