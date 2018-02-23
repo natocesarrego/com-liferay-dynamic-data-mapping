@@ -269,6 +269,14 @@ public class DDMFormEvaluatorHelper {
 		return valueString;
 	}
 
+	protected String getVariableType(String dataType, String valueString) {
+		if (dataType.equals("integer") && !Validator.isNumber(valueString)) {
+			return "double";
+		}
+
+		return dataType;
+	}
+
 	protected boolean isDDMFormFieldValueEmpty(
 		DDMFormFieldValue ddmFormFieldValue) {
 
@@ -325,7 +333,8 @@ public class DDMFormEvaluatorHelper {
 
 			if (valueString != null) {
 				setExpressionVariableValue(
-					ddmExpression, name, ddmFormField.getDataType(),
+					ddmExpression, name,
+					getVariableType(ddmFormField.getDataType(), valueString),
 					valueString);
 			}
 
@@ -347,6 +356,10 @@ public class DDMFormEvaluatorHelper {
 		else if (variableType.equals("integer")) {
 			ddmExpression.setIntegerVariableValue(
 				variableName, GetterUtil.getIntegerStrict(variableValue));
+		}
+		else if (variableType.equals("double")) {
+			ddmExpression.setDoubleVariableValue(
+				variableName, Double.parseDouble(variableValue));
 		}
 		else if (variableType.equals("string")) {
 			ddmExpression.setStringVariableValue(variableName, variableValue);
