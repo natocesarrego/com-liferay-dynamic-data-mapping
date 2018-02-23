@@ -712,12 +712,14 @@ AUI.add(
 
 							var value;
 
-							if (Lang.isString(localizationMap)) {
-								value = localizationMap;
-							}
-							else if (!A.Object.isEmpty(localizationMap)) {
-								value = localizationMap[instance.get('displayLocale')];
-							}
+                            if (instance.get('localizable')) {
+                                if (!A.Object.isEmpty(localizationMap)) {
+                                    value = localizationMap[instance.get('displayLocale')];
+                                }
+                            }
+                            else {
+                                value = instance.getValue();
+                            }
 
 							if (Lang.isUndefined(value)) {
 								value = instance.getValue();
