@@ -690,7 +690,30 @@ AUI.add(
 						if (inputNode) {
 							inputNode.attr('disabled', instance.get('readOnly'));
 						}
-					},
+
+                        var container = instance.get('container');
+
+                        if(container){
+                            var selectorInput = container.one('.selector-input');
+
+                            if (selectorInput) {
+                                selectorInput.attr('disabled', instance.get('readOnly'));
+                            }
+
+                            var checkboxInput = container.one("input[type='checkbox']");
+
+                            if (checkboxInput) {
+                                checkboxInput.attr('disabled', instance.get('readOnly'));
+                            }
+
+                            var disableCheckboxInput = container.one("input[type='checkbox'][name$='disable']");
+
+                            if (inputNode && disableCheckboxInput && disableCheckboxInput.get("checked")) {
+                                inputNode.attr('disabled', true);
+                            }
+                        }
+
+                    },
 
 					syncRepeatablelUI: function() {
 						var instance = this;
@@ -1272,7 +1295,17 @@ AUI.add(
 						var selectButtonNode = container.one('#' + instance.getInputName() + 'SelectButton');
 
 						selectButtonNode.attr('disabled', instance.get('readOnly'));
-					},
+
+                        var clearButtonNode = container.one('#' + instance.getInputName() + 'ClearButton');
+
+                        clearButtonNode.attr('disabled', instance.get('readOnly'));
+
+                        var altNode = container.one('#' + instance.getInputName() + 'Alt');
+
+                        if(altNode) {
+                            altNode.set('readOnly', instance.get('readOnly'));
+                        }
+                    },
 
 					_handleButtonsClick: function(event) {
 						var instance = this;
@@ -1438,6 +1471,10 @@ AUI.add(
 						var selectButtonNode = container.one('#' + instance.getInputName() + 'SelectButton');
 
 						selectButtonNode.attr('disabled', instance.get('readOnly'));
+
+                        var clearButtonNode = container.one('#' + instance.getInputName() + 'ClearButton');
+
+                        clearButtonNode.attr('disabled', instance.get('readOnly'));
 					},
 
 					_handleButtonsClick: function(event) {
@@ -1615,7 +1652,11 @@ AUI.add(
 						var selectButtonNode = container.one('#' + instance.getInputName() + 'SelectButton');
 
 						selectButtonNode.attr('disabled', instance.get('readOnly'));
-					},
+
+                        var clearButtonNode = container.one('#' + instance.getInputName() + 'ClearButton');
+
+                        clearButtonNode.attr('disabled', instance.get('readOnly'));
+                    },
 
 					_addBreadcrumbElement: function(label, layoutId, groupId, privateLayout) {
 						var instance = this;
@@ -1851,14 +1892,16 @@ AUI.add(
 					_handleControlButtonsClick: function(event) {
 						var instance = this;
 
-						var currentTarget = event.currentTarget;
+                        if (!instance.get('readOnly')) {
+                            var currentTarget = event.currentTarget;
 
-						if (currentTarget.test('.select-button')) {
-							instance._handleSelectButtonClick(event);
-						}
-						else {
-							instance._handleClearButtonClick(event);
-						}
+                            if (currentTarget.test('.select-button')) {
+                                instance._handleSelectButtonClick(event);
+                            }
+                            else {
+                                instance._handleClearButtonClick(event);
+                            }
+                        }
 					},
 
 					_handleListEntryClick: function(event) {
