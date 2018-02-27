@@ -1471,6 +1471,10 @@ AUI.add(
 						var selectButtonNode = container.one('#' + instance.getInputName() + 'SelectButton');
 
 						selectButtonNode.attr('disabled', instance.get('readOnly'));
+
+                        var clearButtonNode = container.one('#' + instance.getInputName() + 'ClearButton');
+
+                        clearButtonNode.attr('disabled', instance.get('readOnly'));
 					},
 
 					_handleButtonsClick: function(event) {
@@ -1888,14 +1892,16 @@ AUI.add(
 					_handleControlButtonsClick: function(event) {
 						var instance = this;
 
-						var currentTarget = event.currentTarget;
+                        if (!instance.get('readOnly')) {
+                            var currentTarget = event.currentTarget;
 
-						if (currentTarget.test('.select-button')) {
-							instance._handleSelectButtonClick(event);
-						}
-						else {
-							instance._handleClearButtonClick(event);
-						}
+                            if (currentTarget.test('.select-button')) {
+                                instance._handleSelectButtonClick(event);
+                            }
+                            else {
+                                instance._handleClearButtonClick(event);
+                            }
+                        }
 					},
 
 					_handleListEntryClick: function(event) {
