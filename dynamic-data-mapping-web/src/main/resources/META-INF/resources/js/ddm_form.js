@@ -712,12 +712,14 @@ AUI.add(
 
 							var value;
 
-							if (Lang.isString(localizationMap)) {
-								value = localizationMap;
-							}
-							else if (!A.Object.isEmpty(localizationMap)) {
-								value = localizationMap[instance.get('displayLocale')];
-							}
+                            if (instance.get('localizable')) {
+                                if (!A.Object.isEmpty(localizationMap)) {
+                                    value = localizationMap[instance.get('displayLocale')];
+                                }
+                            }
+                            else {
+                                value = instance.getValue();
+                            }
 
 							if (Lang.isUndefined(value)) {
 								value = instance.getValue();
@@ -862,14 +864,12 @@ AUI.add(
 
 						var locales = [defaultLocale].concat(availableLocales);
 
-						if (localizable) {
-							if (locales.indexOf(event.prevVal) > -1) {
-								instance.updateLocalizationMap(event.prevVal);
-							}
+						if (locales.indexOf(event.prevVal) > -1) {
+							instance.updateLocalizationMap(event.prevVal);
+						}
 
-							if (locales.indexOf(event.newVal) > -1) {
-								instance.addLocaleToLocalizationMap(event.newVal);
-							}
+						if (locales.indexOf(event.newVal) > -1) {
+							instance.addLocaleToLocalizationMap(event.newVal);
 						}
 
 						instance.set('displayLocale', event.newVal);
