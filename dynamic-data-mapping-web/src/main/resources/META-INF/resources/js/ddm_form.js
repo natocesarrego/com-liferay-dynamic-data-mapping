@@ -1273,6 +1273,7 @@ AUI.add(
 
 											instance.setValue(
 												{
+													fileEntryId: itemValue.fileEntryId,
 													groupId: itemValue.groupId,
 													title: itemValue.title,
 													type: itemValue.type,
