@@ -353,13 +353,13 @@ public class DDMFormEvaluatorHelper {
 			ddmExpression.setBooleanVariableValue(
 				variableName, GetterUtil.getBoolean(variableValue));
 		}
-		else if (variableType.equals("integer")) {
-			ddmExpression.setIntegerVariableValue(
-				variableName, GetterUtil.getIntegerStrict(variableValue));
-		}
 		else if (variableType.equals("double")) {
 			ddmExpression.setDoubleVariableValue(
 				variableName, Double.parseDouble(variableValue));
+		}
+		else if (variableType.equals("integer")) {
+			ddmExpression.setIntegerVariableValue(
+				variableName, GetterUtil.getIntegerStrict(variableValue));
 		}
 		else if (variableType.equals("string")) {
 			ddmExpression.setStringVariableValue(variableName, variableValue);
