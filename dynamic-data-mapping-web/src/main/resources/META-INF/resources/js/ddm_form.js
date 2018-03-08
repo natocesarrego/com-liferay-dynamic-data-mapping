@@ -693,7 +693,7 @@ AUI.add(
 
 						var container = instance.get('container');
 
-						if (container){
+						if (container) {
 							var selectorInput = container.one('.selector-input');
 
 							if (selectorInput) {
