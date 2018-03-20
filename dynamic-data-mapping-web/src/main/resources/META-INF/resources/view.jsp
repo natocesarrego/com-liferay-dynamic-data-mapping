@@ -164,7 +164,9 @@ structureSearch.setOrderByType(ddmDisplayContext.getOrderByType());
 				/>
 			</liferay-ui:search-container-row>
 
-			<liferay-ui:search-iterator markupView="lexicon" />
+			<liferay-ui:search-iterator
+				markupView="lexicon"
+			/>
 		</liferay-ui:search-container>
 	</div>
 </aui:form>
@@ -182,6 +184,9 @@ structureSearch.setOrderByType(ddmDisplayContext.getOrderByType());
 	</liferay-portlet:renderURL>
 
 	<liferay-frontend:add-menu>
-		<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "add") %>' url="<%= addStructureURL %>" />
+		<liferay-frontend:add-menu-item
+			title='<%= LanguageUtil.get(request, "add") %>'
+			url="<%= addStructureURL %>"
+		/>
 	</liferay-frontend:add-menu>
 </c:if>

@@ -82,7 +82,10 @@ ddmDataProviderSearch.setOrderByType(ddmDataProviderDisplayContext.getOrderByTyp
 				/>
 			</liferay-ui:search-container-row>
 
-			<liferay-ui:search-iterator displayStyle="descriptive" markupView="lexicon" />
+			<liferay-ui:search-iterator
+				displayStyle="descriptive"
+				markupView="lexicon"
+			/>
 		</liferay-ui:search-container>
 	</aui:form>
 </div>
@@ -101,7 +104,10 @@ ddmDataProviderSearch.setOrderByType(ddmDataProviderDisplayContext.getOrderByTyp
 				<portlet:param name="type" value="<%= ddmDataProviderType %>" />
 			</portlet:renderURL>
 
-			<liferay-frontend:add-menu-item title="<%= LanguageUtil.get(request, ddmDataProviderType) %>" url="<%= addDataProviderURL.toString() %>" />
+			<liferay-frontend:add-menu-item
+				title="<%= LanguageUtil.get(request, ddmDataProviderType) %>"
+				url="<%= addDataProviderURL.toString() %>"
+			/>
 
 		<%
 		}

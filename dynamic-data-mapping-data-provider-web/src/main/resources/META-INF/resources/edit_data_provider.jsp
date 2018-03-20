@@ -52,7 +52,9 @@ renderResponse.setTitle((ddmDataProviderInstance == null) ? LanguageUtil.get(req
 	<aui:fieldset-group markupView="lexicon">
 		<div class="container-fluid-1280">
 			<aui:fieldset>
-				<liferay-util:buffer var="requiredMark">
+				<liferay-util:buffer
+					var="requiredMark"
+				>
 					<span class="icon-asterisk text-warning">
 						<span class="hide-accessible"><liferay-ui:message key="required" /></span>
 					</span>
