@@ -286,6 +286,26 @@ public class DDMExpressionEvaluationTest {
 	}
 
 	@Test
+	public void testEvaluateIsEmailAddressesExpression() throws Exception {
+		DDMExpression<Boolean> ddmExpression =
+			_ddmExpressionFactory.createBooleanDDMExpression(
+				"isEmailAddresses(var1)");
+
+		ddmExpression.setStringVariableValue("var1", "invalid_email");
+
+		Assert.assertFalse(ddmExpression.evaluate());
+
+		ddmExpression.setStringVariableValue("var1", "test@liferay.com");
+
+		Assert.assertTrue(ddmExpression.evaluate());
+
+		ddmExpression.setStringVariableValue(
+			"var1", "test@liferay.com,test1@liferay.com");
+
+		Assert.assertTrue(ddmExpression.evaluate());
+	}
+
+	@Test
 	public void testEvaluateIsEmailAddressExpression() throws Exception {
 		DDMExpression<Boolean> ddmExpression =
 			_ddmExpressionFactory.createBooleanDDMExpression(
