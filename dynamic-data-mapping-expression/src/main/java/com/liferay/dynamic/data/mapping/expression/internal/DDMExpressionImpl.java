@@ -170,6 +170,8 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 			throw new DDMExpressionException.NumberExceedsSupportedRange();
 		}
 		else {
+			variableValue = variableValue.trim();
+
 			setVariableValue(variableName, new BigDecimal(variableValue));
 		}
 	}
