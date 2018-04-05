@@ -368,7 +368,7 @@ public class DDMFormEvaluatorHelper {
 		}
 		else if (variableType.equals("double")) {
 			ddmExpression.setDoubleVariableValue(
-				variableName, Double.parseDouble(variableValue));
+				variableName, GetterUtil.getDouble(variableValue));
 		}
 		else if (variableType.equals("integer")) {
 			ddmExpression.setLongVariableValue(
