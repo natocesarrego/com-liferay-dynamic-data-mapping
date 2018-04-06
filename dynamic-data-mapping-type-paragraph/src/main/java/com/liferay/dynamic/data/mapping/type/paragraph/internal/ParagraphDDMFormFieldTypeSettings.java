@@ -68,7 +68,7 @@ public interface ParagraphDDMFormFieldTypeSettings
 	extends DefaultDDMFormFieldTypeSettings {
 
 	@DDMFormField(
-		label = "%title", properties = {"placeholder=%enter-a-title"},
+		label = "%title", properties = "placeholder=%enter-a-title",
 		required = true, type = "key-value"
 	)
 	@Override
@@ -92,7 +92,7 @@ public interface ParagraphDDMFormFieldTypeSettings
 
 	@DDMFormField(
 		dataType = "string", label = "%body-text",
-		properties = {"placeholder=%enter-body-text"}, required = true,
+		properties = "placeholder=%enter-body-text", required = true,
 		type = "editor"
 	)
 	public String text();

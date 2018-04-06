@@ -70,8 +70,8 @@ public interface TextDDMFormFieldTypeSettings
 	@DDMFormField(
 		label = "%my-text-field-has",
 		optionLabels = {"%a-single-line", "%multiple-lines"},
-		optionValues = {"singleline", "multiline"},
-		properties = {"inline=true"}, type = "radio"
+		optionValues = {"singleline", "multiline"}, properties = "inline=true",
+		type = "radio"
 	)
 	public String displayStyle();
 

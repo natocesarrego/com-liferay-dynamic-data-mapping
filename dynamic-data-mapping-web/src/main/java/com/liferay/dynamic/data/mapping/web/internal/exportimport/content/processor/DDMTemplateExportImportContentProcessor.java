@@ -26,9 +26,7 @@ import org.osgi.service.component.annotations.Component;
  * @deprecated As of 1.0.0
  */
 @Component(
-	property = {
-		"model.class.name=com.liferay.dynamic.data.mapping.model.DDMTemplate"
-	},
+	property = "model.class.name=com.liferay.dynamic.data.mapping.model.DDMTemplate",
 	service = {
 		DDMTemplateExportImportContentProcessor.class,
 		ExportImportContentProcessor.class

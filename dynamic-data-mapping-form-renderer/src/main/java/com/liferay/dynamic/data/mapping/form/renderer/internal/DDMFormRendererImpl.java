@@ -45,7 +45,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Marcellus Tavares
  */
 @Component(
-	immediate = true, property = {"templatePath=/META-INF/resources/form.soy"}
+	immediate = true, property = "templatePath=/META-INF/resources/form.soy"
 )
 public class DDMFormRendererImpl implements DDMFormRenderer {
 
