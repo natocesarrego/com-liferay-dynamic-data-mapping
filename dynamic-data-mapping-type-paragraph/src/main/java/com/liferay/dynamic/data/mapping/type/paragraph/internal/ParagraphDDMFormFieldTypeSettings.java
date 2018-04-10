@@ -68,6 +68,11 @@ public interface ParagraphDDMFormFieldTypeSettings
 	extends DefaultDDMFormFieldTypeSettings {
 
 	@DDMFormField(
+		predefinedValue = "", required = true, visibilityExpression = "FALSE"
+	)
+	public String dataType();
+
+	@DDMFormField(
 		label = "%title", properties = "placeholder=%enter-a-title",
 		required = true, type = "key-value"
 	)
