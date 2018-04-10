@@ -240,6 +240,14 @@ public class DDMFormEvaluatorHelper {
 		return ddmFormFieldEvaluationResults;
 	}
 
+	protected double getDoubleValue(String variableValue) {
+		if (Validator.isNull(variableValue)) {
+			return 0.0;
+		}
+
+		return Double.parseDouble(variableValue);
+	}
+
 	protected String getJSONArrayValueString(String valueString) {
 		try {
 			JSONArray jsonArray = _jsonFactory.createJSONArray(valueString);
@@ -256,6 +264,14 @@ public class DDMFormEvaluatorHelper {
 
 			return valueString;
 		}
+	}
+
+	protected long getLongValue(String variableValue) {
+		if (Validator.isNull(variableValue)) {
+			return 0L;
+		}
+
+		return GetterUtil.getLongStrict(variableValue);
 	}
 
 	protected String getValidationExpression(
@@ -368,11 +384,11 @@ public class DDMFormEvaluatorHelper {
 		}
 		else if (variableType.equals("double")) {
 			ddmExpression.setDoubleVariableValue(
-				variableName, GetterUtil.getDouble(variableValue));
+				variableName, getDoubleValue(variableValue));
 		}
 		else if (variableType.equals("integer")) {
 			ddmExpression.setLongVariableValue(
-				variableName, GetterUtil.getLongStrict(variableValue));
+				variableName, getLongValue(variableValue));
 		}
 		else if (variableType.equals("string")) {
 			ddmExpression.setStringVariableValue(variableName, variableValue);
