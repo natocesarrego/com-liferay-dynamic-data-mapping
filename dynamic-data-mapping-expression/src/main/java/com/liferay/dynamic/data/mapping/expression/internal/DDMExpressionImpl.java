@@ -309,10 +309,10 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 		variableDependencies = new VariableDependencies(variable.getName());
 
 		if (variable.getExpressionString() != null) {
-			TokenExtractor tokensExtractor = new TokenExtractor(
+			TokenExtractor tokenExtractor = new TokenExtractor(
 				variable.getExpressionString());
 
-			Map<String, String> variableMap = tokensExtractor.getVariableMap();
+			Map<String, String> variableMap = tokenExtractor.getVariableMap();
 
 			Set<String> variableNames = variableMap.keySet();
 

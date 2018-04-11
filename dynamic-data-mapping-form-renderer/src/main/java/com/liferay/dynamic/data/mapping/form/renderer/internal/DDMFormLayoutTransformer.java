@@ -130,11 +130,11 @@ public class DDMFormLayoutTransformer {
 		return pages;
 	}
 
-	protected Map<String, Object> getRow(DDMFormLayoutRow ddFormLayoutRow) {
+	protected Map<String, Object> getRow(DDMFormLayoutRow ddmFormLayoutRow) {
 		Map<String, Object> row = new HashMap<>();
 
 		row.put(
-			"columns", getColumns(ddFormLayoutRow.getDDMFormLayoutColumns()));
+			"columns", getColumns(ddmFormLayoutRow.getDDMFormLayoutColumns()));
 
 		return row;
 	}
