@@ -18,10 +18,12 @@ import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldValueRequest
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,7 +48,7 @@ public class CheckboxMultipleDDMFormFieldValueRequestParameterRetriever
 			getDefaultDDMFormFieldParameterValues(
 				defaultDDMFormFieldParameterValue);
 
-		String[] parameterValues = ParamUtil.getParameterValues(
+		String[] parameterValues = getParameterValues(
 			httpServletRequest, ddmFormFieldParameterName,
 			defaultDDMFormFieldParameterValues);
 
@@ -71,6 +73,23 @@ public class CheckboxMultipleDDMFormFieldValueRequestParameterRetriever
 
 			return StringUtil.split(defaultDDMFormFieldParameterValue);
 		}
+	}
+
+	protected String[] getParameterValues(
+		HttpServletRequest request, String ddmFormFieldParameterName,
+		String[] defaultDDMFormFieldParameterValues) {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		if (themeDisplay.isLifecycleAction()) {
+			return ParamUtil.getParameterValues(
+				request, ddmFormFieldParameterName);
+		}
+
+		return ParamUtil.getParameterValues(
+			request, ddmFormFieldParameterName,
+			defaultDDMFormFieldParameterValues);
 	}
 
 	@Reference
