@@ -58,10 +58,10 @@ public class DDMWebDav {
 
 	public static final String TYPE_TEMPLATES = "Templates";
 
-	public int addResource(WebDAVRequest webDavRequest, long classNameId)
+	public int addResource(WebDAVRequest webDAVRequest, long classNameId)
 		throws Exception {
 
-		String[] pathArray = webDavRequest.getPathArray();
+		String[] pathArray = webDAVRequest.getPathArray();
 
 		if (pathArray.length != 4) {
 			return HttpServletResponse.SC_FORBIDDEN;
@@ -71,7 +71,7 @@ public class DDMWebDav {
 		String typeId = pathArray[3];
 
 		if (type.equals(TYPE_STRUCTURES)) {
-			HttpServletRequest request = webDavRequest.getHttpServletRequest();
+			HttpServletRequest request = webDAVRequest.getHttpServletRequest();
 
 			String definition = StringUtil.read(request.getInputStream());
 
@@ -91,7 +91,7 @@ public class DDMWebDav {
 			serviceContext.setAddGuestPermissions(true);
 
 			_ddmStructureLocalService.addStructure(
-				webDavRequest.getUserId(), webDavRequest.getGroupId(),
+				webDAVRequest.getUserId(), webDAVRequest.getGroupId(),
 				classNameId, nameMap, null, ddmForm, ddmFormLayout,
 				StorageType.JSON.toString(), serviceContext);
 
