@@ -541,7 +541,7 @@ public class DDMStructureStagedModelDataHandler
 				continue;
 			}
 
-			long oldDDMDataProviderInstanceId = Long.valueOf(
+			long oldDDMDataProviderInstanceId = GetterUtil.getLong(
 				String.valueOf(
 					ddmFormField.getProperty("ddmDataProviderInstanceId")));
 
