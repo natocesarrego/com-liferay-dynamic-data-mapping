@@ -19,6 +19,9 @@ import com.liferay.dynamic.data.mapping.expression.DDMExpressionException;
 import com.liferay.dynamic.data.mapping.expression.DDMExpressionFactory;
 import com.liferay.dynamic.data.mapping.form.evaluator.DDMFormEvaluationResult;
 import com.liferay.dynamic.data.mapping.form.evaluator.DDMFormFieldEvaluationResult;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldValueAccessor;
+import com.liferay.dynamic.data.mapping.form.field.type.DefaultDDMFormFieldValueAccessor;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldValidation;
@@ -44,7 +47,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -54,7 +56,11 @@ import java.util.Set;
 public class DDMFormEvaluatorHelper {
 
 	public DDMFormEvaluatorHelper(
-		DDMForm ddmForm, DDMFormValues ddmFormValues, Locale locale) {
+		DDMForm ddmForm, DDMFormValues ddmFormValues,
+		DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
+		Locale locale) {
+
+		_ddmFormFieldTypeServicesTracker = ddmFormFieldTypeServicesTracker;
 
 		_ddmFormFieldsMap = ddmForm.getDDMFormFieldsMap(true);
 
@@ -248,6 +254,19 @@ public class DDMFormEvaluatorHelper {
 		return ddmFormFieldEvaluationResults;
 	}
 
+	protected DDMFormFieldValueAccessor<?> getDDMFormFieldValueAccessor(
+		String type) {
+
+		DDMFormFieldValueAccessor<?> ddmFormFieldValueAccessor =
+			_ddmFormFieldTypeServicesTracker.getDDMFormFieldValueAccessor(type);
+
+		if (ddmFormFieldValueAccessor != null) {
+			return ddmFormFieldValueAccessor;
+		}
+
+		return _defaultDDMFormFieldValueAccessor;
+	}
+
 	protected double getDoubleValue(String variableValue) {
 		if (Validator.isNull(variableValue)) {
 			return 0.0;
@@ -292,18 +311,20 @@ public class DDMFormEvaluatorHelper {
 		return ddmFormFieldValidation.getExpression();
 	}
 
-	protected String getValueString(Value value, String type) {
-		if (value == null) {
+	protected String getValueString(
+		DDMFormFieldValue ddmFormFieldValue, String type) {
+
+		if (ddmFormFieldValue == null) {
 			return null;
 		}
 
-		String valueString = value.getString(_locale);
+		DDMFormFieldValueAccessor<?> ddmFormFieldValueAccessor =
+			getDDMFormFieldValueAccessor(type);
 
-		if (type.equals("select") || type.equals("radio")) {
-			valueString = getJSONArrayValueString(valueString);
-		}
+		Object value = ddmFormFieldValueAccessor.getValue(
+			ddmFormFieldValue, _locale);
 
-		return valueString;
+		return value.toString();
 	}
 
 	protected String getVariableType(String dataType, String valueString) {
@@ -317,29 +338,12 @@ public class DDMFormEvaluatorHelper {
 	protected boolean isDDMFormFieldValueEmpty(
 		DDMFormFieldValue ddmFormFieldValue) {
 
-		Value value = ddmFormFieldValue.getValue();
-
-		if (value == null) {
-			return true;
-		}
-
-		String valueString = GetterUtil.getString(value.getString(_locale));
-
-		if (valueString.isEmpty()) {
-			return true;
-		}
-
 		DDMFormField ddmFormField = ddmFormFieldValue.getDDMFormField();
 
-		String dataType = ddmFormField.getDataType();
+		DDMFormFieldValueAccessor<?> ddmFormFieldValueAccessor =
+			getDDMFormFieldValueAccessor(ddmFormField.getType());
 
-		if (Objects.equals(dataType, "boolean") &&
-			Objects.equals(valueString, "false")) {
-
-			return true;
-		}
-
-		return false;
+		return ddmFormFieldValueAccessor.isEmpty(ddmFormFieldValue, _locale);
 	}
 
 	protected void setDDMExpressionFactory(
@@ -366,7 +370,7 @@ public class DDMFormEvaluatorHelper {
 			}
 
 			String valueString = getValueString(
-				ddmFormFieldValue.getValue(), ddmFormField.getType());
+				ddmFormFieldValue, ddmFormField.getType());
 
 			if (valueString != null) {
 				setExpressionVariableValue(
@@ -412,6 +416,11 @@ public class DDMFormEvaluatorHelper {
 
 	private DDMExpressionFactory _ddmExpressionFactory;
 	private final Map<String, DDMFormField> _ddmFormFieldsMap;
+	private final DDMFormFieldTypeServicesTracker
+		_ddmFormFieldTypeServicesTracker;
+	private final DDMFormFieldValueAccessor<String>
+		_defaultDDMFormFieldValueAccessor =
+			new DefaultDDMFormFieldValueAccessor();
 	private JSONFactory _jsonFactory;
 	private final Locale _locale;
 	private final List<DDMFormFieldValue> _rootDDMFormFieldValues;
