@@ -31,7 +31,7 @@ AUI.add(
 					getTemplateContext: function() {
 						var instance = this;
 
-						var value = instance.getContextValue();
+						var value = instance.getValue();
 
 						return A.merge(
 							CheckboxField.superclass.getTemplateContext.apply(instance, arguments),
@@ -45,9 +45,19 @@ AUI.add(
 					getValue: function() {
 						var instance = this;
 
-						var inputNode = instance.getInputNode();
+						var value = instance.getContextValue();
 
-						return inputNode.attr('checked');
+						var container = instance.get('container');
+
+						if (container) {
+							var inputNode = instance.getInputNode();
+
+							if (inputNode) {
+								value = inputNode.attr('checked');
+							}
+						}
+
+						return value;
 					},
 
 					setValue: function(value) {
@@ -56,6 +66,16 @@ AUI.add(
 						var inputNode = instance.getInputNode();
 
 						inputNode.attr('checked', DataTypeBoolean.parse(value));
+
+						instance.render();
+					},
+
+					_onValueChange: function(event) {
+						var instance = this;
+
+						var value = instance.getValue();
+
+						instance.setValue(value);
 					},
 
 					_renderErrorMessage: function() {
