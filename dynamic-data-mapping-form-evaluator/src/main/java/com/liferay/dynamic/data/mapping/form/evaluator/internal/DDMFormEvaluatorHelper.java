@@ -197,14 +197,22 @@ public class DDMFormEvaluatorHelper {
 				}
 			}
 			catch (NumberFormatException nfe) {
-				ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-					"content.Language", _locale, getClass());
+				String errorMessage = ddmFormFieldValidation.getErrorMessage();
 
-				ddmFormFieldEvaluationResult.setErrorMessage(
-					LanguageUtil.get(
-						resourceBundle,
-						"the-text-is-not-a-number-or-exceeds-the-maximum-" +
-							"value"));
+				if (!errorMessage.equals("")) {
+					ddmFormFieldEvaluationResult.setErrorMessage(errorMessage);
+				}
+				else {
+					ResourceBundle resourceBundle =
+						ResourceBundleUtil.getBundle(
+							"content.Language", _locale, getClass());
+
+					ddmFormFieldEvaluationResult.setErrorMessage(
+						LanguageUtil.get(
+							resourceBundle,
+							"the-text-is-not-a-number-or-exceeds-the-maximum-" +
+								"value"));
+				}
 
 				ddmFormFieldEvaluationResult.setValid(false);
 			}
