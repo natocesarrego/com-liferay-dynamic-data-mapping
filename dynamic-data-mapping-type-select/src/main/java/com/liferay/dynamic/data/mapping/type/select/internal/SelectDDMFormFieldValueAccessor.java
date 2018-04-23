@@ -55,6 +55,17 @@ public class SelectDDMFormFieldValueAccessor
 		}
 	}
 
+	@Override
+	public boolean isEmpty(DDMFormFieldValue ddmFormFieldValue, Locale locale) {
+		JSONArray jsonArray = getValue(ddmFormFieldValue, locale);
+
+		if (jsonArray.length() > 0) {
+			return false;
+		}
+
+		return true;
+	}
+
 	@Reference
 	protected JSONFactory jsonFactory;
 
