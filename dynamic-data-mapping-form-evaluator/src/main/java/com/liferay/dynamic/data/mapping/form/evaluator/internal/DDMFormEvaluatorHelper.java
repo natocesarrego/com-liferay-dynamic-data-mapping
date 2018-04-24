@@ -245,7 +245,7 @@ public class DDMFormEvaluatorHelper {
 			return 0.0;
 		}
 
-		return Double.parseDouble(variableValue);
+		return GetterUtil.getDouble(variableValue);
 	}
 
 	protected String getJSONArrayValueString(String valueString) {
