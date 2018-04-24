@@ -542,8 +542,11 @@ public class DDMStructureStagedModelDataHandler
 			}
 
 			long oldDDMDataProviderInstanceId = GetterUtil.getLong(
-				String.valueOf(
-					ddmFormField.getProperty("ddmDataProviderInstanceId")));
+				ddmFormField.getProperty("ddmDataProviderInstanceId"));
+
+			if (oldDDMDataProviderInstanceId == 0) {
+				continue;
+			}
 
 			long newDDMDataProviderInstanceId = MapUtil.getLong(
 				dataProviderInstanceIdsMap, oldDDMDataProviderInstanceId);
