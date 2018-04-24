@@ -2151,6 +2151,8 @@ public class DDMStorageLinkPersistenceImpl extends BasePersistenceImpl<DDMStorag
 
 	@Override
 	protected DDMStorageLink removeImpl(DDMStorageLink ddmStorageLink) {
+		ddmStorageLink = toUnwrappedModel(ddmStorageLink);
+
 		Session session = null;
 
 		try {
@@ -2181,6 +2183,8 @@ public class DDMStorageLinkPersistenceImpl extends BasePersistenceImpl<DDMStorag
 
 	@Override
 	public DDMStorageLink updateImpl(DDMStorageLink ddmStorageLink) {
+		ddmStorageLink = toUnwrappedModel(ddmStorageLink);
+
 		boolean isNew = ddmStorageLink.isNew();
 
 		DDMStorageLinkModelImpl ddmStorageLinkModelImpl = (DDMStorageLinkModelImpl)ddmStorageLink;
@@ -2312,6 +2316,26 @@ public class DDMStorageLinkPersistenceImpl extends BasePersistenceImpl<DDMStorag
 		ddmStorageLink.resetOriginalValues();
 
 		return ddmStorageLink;
+	}
+
+	protected DDMStorageLink toUnwrappedModel(DDMStorageLink ddmStorageLink) {
+		if (ddmStorageLink instanceof DDMStorageLinkImpl) {
+			return ddmStorageLink;
+		}
+
+		DDMStorageLinkImpl ddmStorageLinkImpl = new DDMStorageLinkImpl();
+
+		ddmStorageLinkImpl.setNew(ddmStorageLink.isNew());
+		ddmStorageLinkImpl.setPrimaryKey(ddmStorageLink.getPrimaryKey());
+
+		ddmStorageLinkImpl.setUuid(ddmStorageLink.getUuid());
+		ddmStorageLinkImpl.setStorageLinkId(ddmStorageLink.getStorageLinkId());
+		ddmStorageLinkImpl.setCompanyId(ddmStorageLink.getCompanyId());
+		ddmStorageLinkImpl.setClassNameId(ddmStorageLink.getClassNameId());
+		ddmStorageLinkImpl.setClassPK(ddmStorageLink.getClassPK());
+		ddmStorageLinkImpl.setStructureId(ddmStorageLink.getStructureId());
+
+		return ddmStorageLinkImpl;
 	}
 
 	/**
