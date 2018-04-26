@@ -57,10 +57,10 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class DDMDataProviderInstanceServiceHttp {
 	public static com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance addDataProviderInstance(
 		HttpPrincipal httpPrincipal, long groupId,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
+		java.util.Map<java.util.Locale, String> nameMap,
+		java.util.Map<java.util.Locale, String> descriptionMap,
 		com.liferay.dynamic.data.mapping.storage.DDMFormValues ddmFormValues,
-		java.lang.String type,
+		String type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
@@ -190,7 +190,7 @@ public class DDMDataProviderInstanceServiceHttp {
 
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance> search(
 		HttpPrincipal httpPrincipal, long companyId, long[] groupIds,
-		java.lang.String keywords, int start, int end,
+		String keywords, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance> orderByComparator) {
 		try {
 			MethodKey methodKey = new MethodKey(DDMDataProviderInstanceServiceUtil.class,
@@ -219,8 +219,8 @@ public class DDMDataProviderInstanceServiceHttp {
 
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance> search(
 		HttpPrincipal httpPrincipal, long companyId, long[] groupIds,
-		java.lang.String name, java.lang.String description,
-		boolean andOperator, int start, int end,
+		String name, String description, boolean andOperator, int start,
+		int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance> orderByComparator) {
 		try {
 			MethodKey methodKey = new MethodKey(DDMDataProviderInstanceServiceUtil.class,
@@ -249,7 +249,7 @@ public class DDMDataProviderInstanceServiceHttp {
 	}
 
 	public static int searchCount(HttpPrincipal httpPrincipal, long companyId,
-		long[] groupIds, java.lang.String keywords) {
+		long[] groupIds, String keywords) {
 		try {
 			MethodKey methodKey = new MethodKey(DDMDataProviderInstanceServiceUtil.class,
 					"searchCount", _searchCountParameterTypes6);
@@ -276,8 +276,7 @@ public class DDMDataProviderInstanceServiceHttp {
 	}
 
 	public static int searchCount(HttpPrincipal httpPrincipal, long companyId,
-		long[] groupIds, java.lang.String name, java.lang.String description,
-		boolean andOperator) {
+		long[] groupIds, String name, String description, boolean andOperator) {
 		try {
 			MethodKey methodKey = new MethodKey(DDMDataProviderInstanceServiceUtil.class,
 					"searchCount", _searchCountParameterTypes7);
@@ -305,8 +304,8 @@ public class DDMDataProviderInstanceServiceHttp {
 
 	public static com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance updateDataProviderInstance(
 		HttpPrincipal httpPrincipal, long dataProviderInstanceId,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
+		java.util.Map<java.util.Locale, String> nameMap,
+		java.util.Map<java.util.Locale, String> descriptionMap,
 		com.liferay.dynamic.data.mapping.storage.DDMFormValues ddmFormValues,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -345,8 +344,7 @@ public class DDMDataProviderInstanceServiceHttp {
 	private static final Class<?>[] _addDataProviderInstanceParameterTypes0 = new Class[] {
 			long.class, java.util.Map.class, java.util.Map.class,
 			com.liferay.dynamic.data.mapping.storage.DDMFormValues.class,
-			java.lang.String.class,
-			com.liferay.portal.kernel.service.ServiceContext.class
+			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteDataProviderInstanceParameterTypes1 = new Class[] {
 			long.class
@@ -358,20 +356,19 @@ public class DDMDataProviderInstanceServiceHttp {
 			long.class
 		};
 	private static final Class<?>[] _searchParameterTypes4 = new Class[] {
-			long.class, long[].class, java.lang.String.class, int.class,
-			int.class, com.liferay.portal.kernel.util.OrderByComparator.class
+			long.class, long[].class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[] _searchParameterTypes5 = new Class[] {
-			long.class, long[].class, java.lang.String.class,
-			java.lang.String.class, boolean.class, int.class, int.class,
+			long.class, long[].class, String.class, String.class, boolean.class,
+			int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[] _searchCountParameterTypes6 = new Class[] {
-			long.class, long[].class, java.lang.String.class
+			long.class, long[].class, String.class
 		};
 	private static final Class<?>[] _searchCountParameterTypes7 = new Class[] {
-			long.class, long[].class, java.lang.String.class,
-			java.lang.String.class, boolean.class
+			long.class, long[].class, String.class, String.class, boolean.class
 		};
 	private static final Class<?>[] _updateDataProviderInstanceParameterTypes8 = new Class[] {
 			long.class, java.util.Map.class, java.util.Map.class,

@@ -71,13 +71,11 @@ import java.util.Map;
 public class DDMStructureServiceSoap {
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap addStructure(
 		long userId, long groupId, long classNameId,
-		java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues,
+		String[] nameMapLanguageIds, String[] nameMapValues,
+		String[] descriptionMapLanguageIds, String[] descriptionMapValues,
 		com.liferay.dynamic.data.mapping.model.DDMForm ddmForm,
 		com.liferay.dynamic.data.mapping.model.DDMFormLayout ddmFormLayout,
-		java.lang.String storageType,
+		String storageType,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -122,10 +120,9 @@ public class DDMStructureServiceSoap {
 	@Deprecated
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap addStructure(
 		long userId, long groupId, long classNameId,
-		java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues, java.lang.String xsd,
+		String[] nameMapLanguageIds, String[] nameMapValues,
+		String[] descriptionMapLanguageIds, String[] descriptionMapValues,
+		String xsd,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -149,13 +146,12 @@ public class DDMStructureServiceSoap {
 
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap addStructure(
 		long groupId, long parentStructureId, long classNameId,
-		java.lang.String structureKey, java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues,
+		String structureKey, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues,
 		com.liferay.dynamic.data.mapping.model.DDMForm ddmForm,
 		com.liferay.dynamic.data.mapping.model.DDMFormLayout ddmFormLayout,
-		java.lang.String storageType, int type,
+		String storageType, int type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -209,11 +205,10 @@ public class DDMStructureServiceSoap {
 	@Deprecated
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap addStructure(
 		long groupId, long parentStructureId, long classNameId,
-		java.lang.String structureKey, java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues, java.lang.String xsd,
-		java.lang.String storageType, int type,
+		String structureKey, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues, String xsd, String storageType,
+		int type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -236,15 +231,13 @@ public class DDMStructureServiceSoap {
 	}
 
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap addStructure(
-		long userId, long groupId, java.lang.String parentStructureKey,
-		long classNameId, java.lang.String structureKey,
-		java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues,
+		long userId, long groupId, String parentStructureKey, long classNameId,
+		String structureKey, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues,
 		com.liferay.dynamic.data.mapping.model.DDMForm ddmForm,
 		com.liferay.dynamic.data.mapping.model.DDMFormLayout ddmFormLayout,
-		java.lang.String storageType, int type,
+		String storageType, int type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -300,13 +293,11 @@ public class DDMStructureServiceSoap {
 	*/
 	@Deprecated
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap addStructure(
-		long userId, long groupId, java.lang.String parentStructureKey,
-		long classNameId, java.lang.String structureKey,
-		java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues, java.lang.String xsd,
-		java.lang.String storageType, int type,
+		long userId, long groupId, String parentStructureKey, long classNameId,
+		String structureKey, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues, String xsd, String storageType,
+		int type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -344,10 +335,8 @@ public class DDMStructureServiceSoap {
 	* @return the new structure
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap copyStructure(
-		long structureId, java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues,
+		long structureId, String[] nameMapLanguageIds, String[] nameMapValues,
+		String[] descriptionMapLanguageIds, String[] descriptionMapValues,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -419,7 +408,7 @@ public class DDMStructureServiceSoap {
 	structure could not be found
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap fetchStructure(
-		long groupId, long classNameId, java.lang.String structureKey)
+		long groupId, long classNameId, String structureKey)
 		throws RemoteException {
 		try {
 			com.liferay.dynamic.data.mapping.model.DDMStructure returnValue = DDMStructureServiceUtil.fetchStructure(groupId,
@@ -435,7 +424,7 @@ public class DDMStructureServiceSoap {
 	}
 
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap fetchStructure(
-		long groupId, long classNameId, java.lang.String structureKey,
+		long groupId, long classNameId, String structureKey,
 		boolean includeAncestorStructures) throws RemoteException {
 		try {
 			com.liferay.dynamic.data.mapping.model.DDMStructure returnValue = DDMStructureServiceUtil.fetchStructure(groupId,
@@ -481,7 +470,7 @@ public class DDMStructureServiceSoap {
 	* @return the matching structure
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap getStructure(
-		long groupId, long classNameId, java.lang.String structureKey)
+		long groupId, long classNameId, String structureKey)
 		throws RemoteException {
 		try {
 			com.liferay.dynamic.data.mapping.model.DDMStructure returnValue = DDMStructureServiceUtil.getStructure(groupId,
@@ -518,7 +507,7 @@ public class DDMStructureServiceSoap {
 	* @return the matching structure
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap getStructure(
-		long groupId, long classNameId, java.lang.String structureKey,
+		long groupId, long classNameId, String structureKey,
 		boolean includeAncestorStructures) throws RemoteException {
 		try {
 			com.liferay.dynamic.data.mapping.model.DDMStructure returnValue = DDMStructureServiceUtil.getStructure(groupId,
@@ -569,8 +558,7 @@ public class DDMStructureServiceSoap {
 		}
 	}
 
-	public static void revertStructure(long structureId,
-		java.lang.String version,
+	public static void revertStructure(long structureId, String version,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -612,8 +600,8 @@ public class DDMStructureServiceSoap {
 	* @return the range of matching structures ordered by the comparator
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap[] search(
-		long companyId, long[] groupIds, long classNameId,
-		java.lang.String keywords, int status, int start, int end,
+		long companyId, long[] groupIds, long classNameId, String keywords,
+		int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMStructure> orderByComparator)
 		throws RemoteException {
 		try {
@@ -664,9 +652,8 @@ public class DDMStructureServiceSoap {
 	* @return the range of matching structures ordered by the comparator
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap[] search(
-		long companyId, long[] groupIds, long classNameId,
-		java.lang.String name, java.lang.String description,
-		java.lang.String storageType, int type, int status,
+		long companyId, long[] groupIds, long classNameId, String name,
+		String description, String storageType, int type, int status,
 		boolean andOperator, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMStructure> orderByComparator)
 		throws RemoteException {
@@ -698,7 +685,7 @@ public class DDMStructureServiceSoap {
 	* @return the number of matching structures
 	*/
 	public static int searchCount(long companyId, long[] groupIds,
-		long classNameId, java.lang.String keywords, int status)
+		long classNameId, String keywords, int status)
 		throws RemoteException {
 		try {
 			int returnValue = DDMStructureServiceUtil.searchCount(companyId,
@@ -733,9 +720,8 @@ public class DDMStructureServiceSoap {
 	* @return the number of matching structures
 	*/
 	public static int searchCount(long companyId, long[] groupIds,
-		long classNameId, java.lang.String name, java.lang.String description,
-		java.lang.String storageType, int type, int status, boolean andOperator)
-		throws RemoteException {
+		long classNameId, String name, String description, String storageType,
+		int type, int status, boolean andOperator) throws RemoteException {
 		try {
 			int returnValue = DDMStructureServiceUtil.searchCount(companyId,
 					groupIds, classNameId, name, description, storageType,
@@ -752,10 +738,9 @@ public class DDMStructureServiceSoap {
 
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap updateStructure(
 		long groupId, long parentStructureId, long classNameId,
-		java.lang.String structureKey, java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues,
+		String structureKey, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues,
 		com.liferay.dynamic.data.mapping.model.DDMForm ddmForm,
 		com.liferay.dynamic.data.mapping.model.DDMFormLayout ddmFormLayout,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -803,10 +788,9 @@ public class DDMStructureServiceSoap {
 	@Deprecated
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap updateStructure(
 		long groupId, long parentStructureId, long classNameId,
-		java.lang.String structureKey, java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues, java.lang.String definition,
+		String structureKey, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues, String definition,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -829,11 +813,9 @@ public class DDMStructureServiceSoap {
 	}
 
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap updateStructure(
-		long structureId, long parentStructureId,
-		java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues,
+		long structureId, long parentStructureId, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues,
 		com.liferay.dynamic.data.mapping.model.DDMForm ddmForm,
 		com.liferay.dynamic.data.mapping.model.DDMFormLayout ddmFormLayout,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -875,11 +857,9 @@ public class DDMStructureServiceSoap {
 	*/
 	@Deprecated
 	public static com.liferay.dynamic.data.mapping.model.DDMStructureSoap updateStructure(
-		long structureId, long parentStructureId,
-		java.lang.String[] nameMapLanguageIds,
-		java.lang.String[] nameMapValues,
-		java.lang.String[] descriptionMapLanguageIds,
-		java.lang.String[] descriptionMapValues, java.lang.String definition,
+		long structureId, long parentStructureId, String[] nameMapLanguageIds,
+		String[] nameMapValues, String[] descriptionMapLanguageIds,
+		String[] descriptionMapValues, String definition,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {

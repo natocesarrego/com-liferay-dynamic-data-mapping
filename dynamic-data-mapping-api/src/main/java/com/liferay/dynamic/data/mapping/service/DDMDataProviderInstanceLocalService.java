@@ -68,10 +68,9 @@ public interface DDMDataProviderInstanceLocalService extends BaseLocalService,
 	 * Never modify or reference this interface directly. Always use {@link DDMDataProviderInstanceLocalServiceUtil} to access the ddm data provider instance local service. Add custom service methods to {@link com.liferay.dynamic.data.mapping.service.impl.DDMDataProviderInstanceLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public DDMDataProviderInstance addDataProviderInstance(long userId,
-		long groupId, Map<Locale, java.lang.String> nameMap,
-		Map<Locale, java.lang.String> descriptionMap,
-		DDMFormValues ddmFormValues, java.lang.String type,
-		ServiceContext serviceContext) throws PortalException;
+		long groupId, Map<Locale, String> nameMap,
+		Map<Locale, String> descriptionMap, DDMFormValues ddmFormValues,
+		String type, ServiceContext serviceContext) throws PortalException;
 
 	/**
 	* Adds the ddm data provider instance to the database. Also notifies the appropriate model listeners.
@@ -206,7 +205,7 @@ public interface DDMDataProviderInstanceLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DDMDataProviderInstance fetchDDMDataProviderInstanceByUuidAndGroupId(
-		java.lang.String uuid, long groupId);
+		String uuid, long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -240,7 +239,7 @@ public interface DDMDataProviderInstanceLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DDMDataProviderInstance getDDMDataProviderInstanceByUuidAndGroupId(
-		java.lang.String uuid, long groupId) throws PortalException;
+		String uuid, long groupId) throws PortalException;
 
 	/**
 	* Returns a range of all the ddm data provider instances.
@@ -266,7 +265,7 @@ public interface DDMDataProviderInstanceLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DDMDataProviderInstance> getDDMDataProviderInstancesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId);
+		String uuid, long companyId);
 
 	/**
 	* Returns a range of ddm data provider instances matching the UUID and company.
@@ -280,7 +279,7 @@ public interface DDMDataProviderInstanceLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DDMDataProviderInstance> getDDMDataProviderInstancesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId, int start, int end,
+		String uuid, long companyId, int start, int end,
 		OrderByComparator<DDMDataProviderInstance> orderByComparator);
 
 	/**
@@ -303,7 +302,7 @@ public interface DDMDataProviderInstanceLocalService extends BaseLocalService,
 	*
 	* @return the OSGi service identifier
 	*/
-	public java.lang.String getOSGiServiceIdentifier();
+	public String getOSGiServiceIdentifier();
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -312,28 +311,26 @@ public interface DDMDataProviderInstanceLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DDMDataProviderInstance> search(long companyId,
-		long[] groupIds, java.lang.String keywords, int start, int end,
+		long[] groupIds, String keywords, int start, int end,
 		OrderByComparator<DDMDataProviderInstance> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DDMDataProviderInstance> search(long companyId,
-		long[] groupIds, java.lang.String name, java.lang.String description,
-		boolean andOperator, int start, int end,
+		long[] groupIds, String name, String description, boolean andOperator,
+		int start, int end,
 		OrderByComparator<DDMDataProviderInstance> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int searchCount(long companyId, long[] groupIds,
-		java.lang.String keywords);
+	public int searchCount(long companyId, long[] groupIds, String keywords);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int searchCount(long companyId, long[] groupIds,
-		java.lang.String name, java.lang.String description, boolean andOperator);
+	public int searchCount(long companyId, long[] groupIds, String name,
+		String description, boolean andOperator);
 
 	public DDMDataProviderInstance updateDataProviderInstance(long userId,
-		long dataProviderInstanceId, Map<Locale, java.lang.String> nameMap,
-		Map<Locale, java.lang.String> descriptionMap,
-		DDMFormValues ddmFormValues, ServiceContext serviceContext)
-		throws PortalException;
+		long dataProviderInstanceId, Map<Locale, String> nameMap,
+		Map<Locale, String> descriptionMap, DDMFormValues ddmFormValues,
+		ServiceContext serviceContext) throws PortalException;
 
 	/**
 	* Updates the ddm data provider instance in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

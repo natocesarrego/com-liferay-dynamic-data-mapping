@@ -82,10 +82,9 @@ public class DDMTemplateLocalServiceUtil {
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate addTemplate(
 		long userId, long groupId, long classNameId, long classPK,
 		long resourceClassNameId,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
-		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script,
+		java.util.Map<java.util.Locale, String> nameMap,
+		java.util.Map<java.util.Locale, String> descriptionMap, String type,
+		String mode, String language, String script,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -129,13 +128,11 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate addTemplate(
 		long userId, long groupId, long classNameId, long classPK,
-		long resourceClassNameId, java.lang.String templateKey,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
-		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script, boolean cacheable,
-		boolean smallImage, java.lang.String smallImageURL,
-		java.io.File smallImageFile,
+		long resourceClassNameId, String templateKey,
+		java.util.Map<java.util.Locale, String> nameMap,
+		java.util.Map<java.util.Locale, String> descriptionMap, String type,
+		String mode, String language, String script, boolean cacheable,
+		boolean smallImage, String smallImageURL, java.io.File smallImageFile,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -194,8 +191,8 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate copyTemplate(
 		long userId, long templateId,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
+		java.util.Map<java.util.Locale, String> nameMap,
+		java.util.Map<java.util.Locale, String> descriptionMap,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -230,7 +227,7 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> copyTemplates(
 		long userId, long classNameId, long oldClassPK, long newClassPK,
-		java.lang.String type,
+		String type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -412,7 +409,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @return the matching ddm template, or <code>null</code> if a matching ddm template could not be found
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate fetchDDMTemplateByUuidAndGroupId(
-		java.lang.String uuid, long groupId) {
+		String uuid, long groupId) {
 		return getService().fetchDDMTemplateByUuidAndGroupId(uuid, groupId);
 	}
 
@@ -439,7 +436,7 @@ public class DDMTemplateLocalServiceUtil {
 	template could not be found
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate fetchTemplate(
-		long groupId, long classNameId, java.lang.String templateKey) {
+		long groupId, long classNameId, String templateKey) {
 		return getService().fetchTemplate(groupId, classNameId, templateKey);
 	}
 
@@ -467,7 +464,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @throws PortalException if a portal exception occurred
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate fetchTemplate(
-		long groupId, long classNameId, java.lang.String templateKey,
+		long groupId, long classNameId, String templateKey,
 		boolean includeAncestorTemplates)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -501,7 +498,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @throws PortalException if a matching ddm template could not be found
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate getDDMTemplateByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
+		String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getDDMTemplateByUuidAndGroupId(uuid, groupId);
 	}
@@ -530,7 +527,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @return the matching ddm templates, or an empty list if no matches were found
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> getDDMTemplatesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId) {
+		String uuid, long companyId) {
 		return getService().getDDMTemplatesByUuidAndCompanyId(uuid, companyId);
 	}
 
@@ -545,7 +542,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @return the range of matching ddm templates, or an empty list if no matches were found
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> getDDMTemplatesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId, int start, int end,
+		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMTemplate> orderByComparator) {
 		return getService()
 				   .getDDMTemplatesByUuidAndCompanyId(uuid, companyId, start,
@@ -575,7 +572,7 @@ public class DDMTemplateLocalServiceUtil {
 	*
 	* @return the OSGi service identifier
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 
@@ -609,7 +606,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @throws PortalException if a portal exception occurred
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate getTemplate(
-		long groupId, long classNameId, java.lang.String templateKey)
+		long groupId, long classNameId, String templateKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getTemplate(groupId, classNameId, templateKey);
 	}
@@ -637,7 +634,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @throws PortalException if a portal exception occurred
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate getTemplate(
-		long groupId, long classNameId, java.lang.String templateKey,
+		long groupId, long classNameId, String templateKey,
 		boolean includeAncestorTemplates)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -712,7 +709,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @return the matching templates
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> getTemplates(
-		long groupId, long classNameId, long classPK, java.lang.String type) {
+		long groupId, long classNameId, long classPK, String type) {
 		return getService().getTemplates(groupId, classNameId, classPK, type);
 	}
 
@@ -731,8 +728,7 @@ public class DDMTemplateLocalServiceUtil {
 	* @return the matching templates
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> getTemplates(
-		long groupId, long classNameId, long classPK, java.lang.String type,
-		java.lang.String mode) {
+		long groupId, long classNameId, long classPK, String type, String mode) {
 		return getService()
 				   .getTemplates(groupId, classNameId, classPK, type, mode);
 	}
@@ -861,7 +857,7 @@ public class DDMTemplateLocalServiceUtil {
 	}
 
 	public static void revertTemplate(long userId, long templateId,
-		java.lang.String version,
+		String version,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService().revertTemplate(userId, templateId, version, serviceContext);
@@ -909,9 +905,8 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> search(
 		long companyId, long groupId, long classNameId, long classPK,
-		long resourceClassNameId, java.lang.String keywords,
-		java.lang.String type, java.lang.String mode, int status, int start,
-		int end,
+		long resourceClassNameId, String keywords, String type, String mode,
+		int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMTemplate> orderByComparator) {
 		return getService()
 				   .search(companyId, groupId, classNameId, classPK,
@@ -967,10 +962,9 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> search(
 		long companyId, long groupId, long classNameId, long classPK,
-		long resourceClassNameId, java.lang.String name,
-		java.lang.String description, java.lang.String type,
-		java.lang.String mode, java.lang.String language, int status,
-		boolean andOperator, int start, int end,
+		long resourceClassNameId, String name, String description, String type,
+		String mode, String language, int status, boolean andOperator,
+		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMTemplate> orderByComparator) {
 		return getService()
 				   .search(companyId, groupId, classNameId, classPK,
@@ -1020,9 +1014,8 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> search(
 		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
-		long resourceClassNameId, java.lang.String keywords,
-		java.lang.String type, java.lang.String mode, int status, int start,
-		int end,
+		long resourceClassNameId, String keywords, String type, String mode,
+		int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMTemplate> orderByComparator) {
 		return getService()
 				   .search(companyId, groupIds, classNameIds, classPKs,
@@ -1078,10 +1071,9 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static java.util.List<com.liferay.dynamic.data.mapping.model.DDMTemplate> search(
 		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
-		long resourceClassNameId, java.lang.String name,
-		java.lang.String description, java.lang.String type,
-		java.lang.String mode, java.lang.String language, int status,
-		boolean andOperator, int start, int end,
+		long resourceClassNameId, String name, String description, String type,
+		String mode, String language, int status, boolean andOperator,
+		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.dynamic.data.mapping.model.DDMTemplate> orderByComparator) {
 		return getService()
 				   .search(companyId, groupIds, classNameIds, classPKs,
@@ -1116,8 +1108,7 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static int searchCount(long companyId, long groupId,
 		long classNameId, long classPK, long resourceClassNameId,
-		java.lang.String keywords, java.lang.String type,
-		java.lang.String mode, int status) {
+		String keywords, String type, String mode, int status) {
 		return getService()
 				   .searchCount(companyId, groupId, classNameId, classPK,
 			resourceClassNameId, keywords, type, mode, status);
@@ -1154,10 +1145,9 @@ public class DDMTemplateLocalServiceUtil {
 	* @return the number of matching templates
 	*/
 	public static int searchCount(long companyId, long groupId,
-		long classNameId, long classPK, long resourceClassNameId,
-		java.lang.String name, java.lang.String description,
-		java.lang.String type, java.lang.String mode,
-		java.lang.String language, int status, boolean andOperator) {
+		long classNameId, long classPK, long resourceClassNameId, String name,
+		String description, String type, String mode, String language,
+		int status, boolean andOperator) {
 		return getService()
 				   .searchCount(companyId, groupId, classNameId, classPK,
 			resourceClassNameId, name, description, type, mode, language,
@@ -1191,8 +1181,7 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static int searchCount(long companyId, long[] groupIds,
 		long[] classNameIds, long[] classPKs, long resourceClassNameId,
-		java.lang.String keywords, java.lang.String type,
-		java.lang.String mode, int status) {
+		String keywords, String type, String mode, int status) {
 		return getService()
 				   .searchCount(companyId, groupIds, classNameIds, classPKs,
 			resourceClassNameId, keywords, type, mode, status);
@@ -1231,9 +1220,8 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static int searchCount(long companyId, long[] groupIds,
 		long[] classNameIds, long[] classPKs, long resourceClassNameId,
-		java.lang.String name, java.lang.String description,
-		java.lang.String type, java.lang.String mode,
-		java.lang.String language, int status, boolean andOperator) {
+		String name, String description, String type, String mode,
+		String language, int status, boolean andOperator) {
 		return getService()
 				   .searchCount(companyId, groupIds, classNameIds, classPKs,
 			resourceClassNameId, name, description, type, mode, language,
@@ -1280,12 +1268,10 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate updateTemplate(
 		long userId, long templateId, long classPK,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
-		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script, boolean cacheable,
-		boolean smallImage, java.lang.String smallImageURL,
-		java.io.File smallImageFile,
+		java.util.Map<java.util.Locale, String> nameMap,
+		java.util.Map<java.util.Locale, String> descriptionMap, String type,
+		String mode, String language, String script, boolean cacheable,
+		boolean smallImage, String smallImageURL, java.io.File smallImageFile,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -1318,10 +1304,9 @@ public class DDMTemplateLocalServiceUtil {
 	*/
 	public static com.liferay.dynamic.data.mapping.model.DDMTemplate updateTemplate(
 		long userId, long templateId, long classPK,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
-		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script, boolean cacheable,
+		java.util.Map<java.util.Locale, String> nameMap,
+		java.util.Map<java.util.Locale, String> descriptionMap, String type,
+		String mode, String language, String script, boolean cacheable,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
