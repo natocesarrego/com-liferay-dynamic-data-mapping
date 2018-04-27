@@ -89,7 +89,9 @@ public class OptionsDDMFormFieldContextHelper {
 			return jsonArray.getString(0);
 		}
 		catch (JSONException jsone) {
-			_log.error("Unable to parse JSON array", jsone);
+			if (_log.isDebugEnabled()) {
+				_log.debug("Unable to parse JSON array", jsone);
+			}
 
 			return StringPool.BLANK;
 		}
