@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Locale;
 
@@ -43,17 +44,25 @@ public class SelectDDMFormFieldValueAccessor
 	public JSONArray getValue(
 		DDMFormFieldValue ddmFormFieldValue, Locale locale) {
 
-		try {
-			Value value = ddmFormFieldValue.getValue();
+		Value value = ddmFormFieldValue.getValue();
 
-			return jsonFactory.createJSONArray(value.getString(locale));
+		String valueString = value.getString(locale);
+
+		try {
+			return jsonFactory.createJSONArray(valueString);
 		}
 		catch (JSONException jsone) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Unable to parse JSON array", jsone);
 			}
 
-			return jsonFactory.createJSONArray();
+			JSONArray jsonArray = jsonFactory.createJSONArray();
+
+			if (Validator.isNotNull(valueString)) {
+				jsonArray.put(valueString);
+			}
+
+			return jsonArray;
 		}
 	}
 
