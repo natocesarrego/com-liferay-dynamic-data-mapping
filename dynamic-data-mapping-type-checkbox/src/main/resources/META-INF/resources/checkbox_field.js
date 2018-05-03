@@ -76,6 +76,15 @@ AUI.add(
 						var value = instance.getValue();
 
 						instance.setValue(value);
+
+						instance.fire(
+							'valueChanged',
+							{
+								domEvent: event,
+								field: instance,
+								value: value
+							}
+						);
 					},
 
 					_renderErrorMessage: function() {
