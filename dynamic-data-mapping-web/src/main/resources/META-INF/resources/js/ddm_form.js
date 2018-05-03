@@ -738,6 +738,10 @@ AUI.add(
 								if (!A.Object.isEmpty(localizationMap)) {
 									value = localizationMap[instance.get('displayLocale')];
 								}
+
+								if (!value) {
+									value = localizationMap[instance.getDefaultLocale()];
+								}
 							}
 							else {
 								value = instance.getValue();
