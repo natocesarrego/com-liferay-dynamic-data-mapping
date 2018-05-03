@@ -1068,6 +1068,9 @@ AUI.add(
 													if (Array.isArray(val)) {
 														value = instance.formatDate(val[0]);
 													}
+													else if (val && val.length > 0) {
+														value = instance.formatDate(val);
+													}
 
 													return value;
 												},
