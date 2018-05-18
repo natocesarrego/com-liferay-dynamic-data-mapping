@@ -16,6 +16,7 @@ package com.liferay.dynamic.data.mapping.expression.internal;
 
 import com.liferay.dynamic.data.mapping.expression.DDMExpressionException;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -56,7 +57,7 @@ public class TokenExtractor {
 	}
 
 	protected String createRandomVariableName() {
-		return StringUtil.randomId();
+		return StringPool.UNDERLINE + StringUtil.randomId();
 	}
 
 	protected void createStringVariable(String token) {
@@ -159,7 +160,7 @@ public class TokenExtractor {
 	private static final Pattern _stringPattern = Pattern.compile(
 		"\"([^\"]*)\"");
 	private static final Pattern _variablePattern = Pattern.compile(
-		"\\b([^0-9_\\s]+[^\\s]*)(?!\\()\\b");
+		"\\b(_?)([^0-9_\\s]+[^\\s]*)(?!\\()\\b");
 
 	private String _expression;
 	private final Map<String, String> _variableMap = new HashMap<>();
