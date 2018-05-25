@@ -6,6 +6,9 @@ AUI.add(
 				ATTRS: {
 					type: {
 						value: 'captcha'
+					},
+					_formGroupNode: {
+						value: null
 					}
 				},
 
@@ -27,9 +30,15 @@ AUI.add(
 
 						var container = instance.fetchContainer();
 
-						instance._formGroupNode = container.one('.form-group');
+						var _formGroupNode = instance.get('_formGroupNode');
 
-						var fieldName = instance._formGroupNode.attr('data-fieldname');
+						if (!_formGroupNode) {
+							instance.set('_formGroupNode', container.one('.form-group').clone());
+						}
+
+						_formGroupNode = instance.get('_formGroupNode');
+
+						var fieldName = _formGroupNode.attr('data-fieldname');
 
 						return '<div class="form-group" data-fieldname="' + fieldName + '"></div>';
 					},
@@ -51,7 +60,9 @@ AUI.add(
 
 						container.empty();
 
-						instance._formGroupNode.appendTo(container);
+						var _formGroupNode = instance.get('_formGroupNode');
+
+						_formGroupNode.appendTo(container);
 
 						return instance;
 					},
