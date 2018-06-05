@@ -927,7 +927,7 @@ public class DDMTemplateLocalServiceImpl
 			templateVersion.getNameMap(), templateVersion.getDescriptionMap(),
 			template.getType(), template.getMode(),
 			templateVersion.getLanguage(), templateVersion.getScript(),
-			template.getCacheable(), serviceContext);
+			template.isCacheable(), serviceContext);
 	}
 
 	/**
