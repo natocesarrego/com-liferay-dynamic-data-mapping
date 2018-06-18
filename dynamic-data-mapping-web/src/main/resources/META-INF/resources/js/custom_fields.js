@@ -499,7 +499,6 @@ AUI.add(
 			}
 		);
 
-
 		var LinkToPageCellEditor = A.Component.create(
 			{
 				EXTENDS: A.DropDownCellEditor,
