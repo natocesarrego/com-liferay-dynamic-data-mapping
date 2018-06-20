@@ -142,7 +142,7 @@ public class DDMTemplateStagedModelDataHandlerTest
 			parentGroup, newParentGroup, template, structure);
 
 		exportJournalArticle(childGroup, journalArticle);
-		
+
 		childGroup = GroupTestUtil.deleteGroup(childGroup);
 
 		parentGroup = GroupTestUtil.deleteGroup(parentGroup);
