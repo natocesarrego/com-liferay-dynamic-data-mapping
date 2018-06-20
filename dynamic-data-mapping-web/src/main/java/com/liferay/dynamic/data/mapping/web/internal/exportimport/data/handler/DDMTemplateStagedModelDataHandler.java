@@ -486,7 +486,16 @@ public class DDMTemplateStagedModelDataHandler
 				return existingTemplate;
 			}
 
-			group = group.getParentGroup();
+			try {
+				group = group.getParentGroup();
+			}
+			catch (PortalException pe) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(pe, pe);
+				}
+
+				return null;
+			}
 		}
 
 		return null;
