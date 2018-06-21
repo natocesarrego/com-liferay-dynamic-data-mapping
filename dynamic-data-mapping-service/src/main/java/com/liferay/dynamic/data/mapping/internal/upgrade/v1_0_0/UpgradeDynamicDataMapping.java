@@ -25,7 +25,7 @@ import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.document.library.kernel.service.DLFileVersionLocalService;
 import com.liferay.document.library.kernel.service.DLFolderLocalService;
-import com.liferay.document.library.kernel.store.DLStoreUtil;
+import com.liferay.document.library.kernel.store.Store;
 import com.liferay.dynamic.data.mapping.io.DDMFormJSONDeserializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormJSONSerializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutJSONSerializer;
@@ -145,7 +145,8 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 		ExpandoValueLocalService expandoValueLocalService,
 		ResourceActions resourceActions,
 		ResourceLocalService resourceLocalService,
-		ResourcePermissionLocalService resourcePermissionLocalService) {
+		ResourcePermissionLocalService resourcePermissionLocalService,
+		Store store) {
 
 		_assetEntryLocalService = assetEntryLocalService;
 		_ddm = ddm;
@@ -163,6 +164,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 		_expandoValueLocalService = expandoValueLocalService;
 		_resourceLocalService = resourceLocalService;
 		_resourcePermissionLocalService = resourcePermissionLocalService;
+		_store = store;
 
 		_dlFolderModelPermissions = ModelPermissionsFactory.create(
 			_DLFOLDER_GROUP_PERMISSIONS, _DLFOLDER_GUEST_PERMISSIONS);
@@ -1587,6 +1589,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 	private final Map<Long, Long> _structureClassNameIds = new HashMap<>();
 	private final Map<Long, Map<String, String>>
 		_structureInvalidDDMFormFieldNamesMap = new HashMap<>();
+	private final Store _store;
 	private final Map<String, String> _structureModelResourceNames =
 		new HashMap<>();
 	private final Map<String, String> _templateModelResourceNames =
@@ -2428,7 +2431,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 
 		protected File fetchFile(String filePath) throws PortalException {
 			try {
-				return DLStoreUtil.getFile(
+				return _store.getFile(
 					_companyId, CompanyConstants.SYSTEM, filePath);
 			}
 			catch (PortalException pe) {
@@ -2555,7 +2558,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 
 				// File
 
-				DLStoreUtil.addFile(_companyId, dlFolderId, name, file);
+				_store.addFile(_companyId, dlFolderId, name, file);
 
 				return fileEntryUuid;
 			}

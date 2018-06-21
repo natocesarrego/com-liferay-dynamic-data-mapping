@@ -18,6 +18,7 @@ import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.document.library.kernel.service.DLFileVersionLocalService;
 import com.liferay.document.library.kernel.service.DLFolderLocalService;
+import com.liferay.document.library.kernel.store.Store;
 import com.liferay.dynamic.data.mapping.internal.upgrade.v1_0_0.UpgradeCompanyId;
 import com.liferay.dynamic.data.mapping.internal.upgrade.v1_0_0.UpgradeDynamicDataMapping;
 import com.liferay.dynamic.data.mapping.internal.upgrade.v1_0_0.UpgradeKernelPackage;
@@ -73,7 +74,7 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 				_dlFileVersionLocalService, _dlFolderLocalService,
 				_expandoRowLocalService, _expandoTableLocalService,
 				_expandoValueLocalService, _resourceActions,
-				_resourceLocalService, _resourcePermissionLocalService),
+				_resourceLocalService, _resourcePermissionLocalService, _store),
 			new UpgradeLastPublishDate());
 
 		registry.register(
@@ -217,5 +218,8 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 	private ResourceActions _resourceActions;
 	private ResourceLocalService _resourceLocalService;
 	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference(target = "(dl.store.upgrade=true)")
+	private Store _store;
 
 }
