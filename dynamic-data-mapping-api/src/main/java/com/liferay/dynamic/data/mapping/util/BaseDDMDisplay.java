@@ -299,7 +299,7 @@ public abstract class BaseDDMDisplay implements DDMDisplay {
 	}
 
 	/**
-	 * @deprecated As of 3.4.0
+	 * @deprecated As of Wilberforce
 	 */
 	@Deprecated
 	@Override
@@ -404,7 +404,7 @@ public abstract class BaseDDMDisplay implements DDMDisplay {
 	}
 
 	/**
-	 * @deprecated As of 3.6.0, with no direct replacement
+	 * @deprecated As of Judson, with no direct replacement
 	 */
 	@Deprecated
 	protected ResourceBundle getBaseDDMDisplayResourceBundle(
@@ -418,7 +418,7 @@ public abstract class BaseDDMDisplay implements DDMDisplay {
 	}
 
 	/**
-	 * @deprecated As of 3.6.0, with no direct replacement
+	 * @deprecated As of Judson, with no direct replacement
 	 */
 	@Deprecated
 	protected ResourceBundle getDDMDisplayResourceBundle(String languageId) {
@@ -447,7 +447,7 @@ public abstract class BaseDDMDisplay implements DDMDisplay {
 	}
 
 	/**
-	 * @deprecated As of 3.6.0, with no direct replacement
+	 * @deprecated As of Judson, with no direct replacement
 	 */
 	@Deprecated
 	protected ResourceBundle getPortalResourceBundle(String languageId) {
