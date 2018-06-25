@@ -42,7 +42,9 @@ AUI.add(
 						);
 
 						if (!instance.get('readOnly')) {
+							instance.bindContainerEvent('blur', instance._onBlurInput, '.form-control');
 							instance.bindContainerEvent('click', instance._onClickCalendar, '.input-group-addon');
+							instance.bindContainerEvent('focus', instance._fireFocusEvent, '.form-control');
 						}
 					},
 
@@ -91,6 +93,24 @@ AUI.add(
 						return container.one('.trigger');
 					},
 
+					hasFocus: function(node) {
+						var instance = this;
+
+						var hasFocus = false;
+
+						if (node) {
+							var calendar = datePicker.getCalendar();
+
+							var popover = datePicker.getPopover();
+
+							if (calendar.get('boundingBox').contains(node) || popover.get('visible')) {
+								hasFocus = true;
+							}
+						}
+
+						return hasFocus;
+					},
+
 					setValue: function(isoDate) {
 						var instance = this;
 
@@ -128,6 +148,14 @@ AUI.add(
 
 						if (event.newVal === triggerNode) {
 							datePicker.set('mask', instance.get('mask'));
+						}
+					},
+
+					_onBlurInput: function() {
+						var instance = this;
+
+						if (!instance.hasFocus(document.activeElement)) {
+							instance._fireBlurEvent();
 						}
 					},
 
