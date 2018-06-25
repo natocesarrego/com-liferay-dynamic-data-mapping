@@ -62,6 +62,15 @@ AUI.add(
 			showErrorMessage: function(errorMessage) {
 				var instance = this;
 
+				var root = instance.getRoot();
+
+				if (root) {
+					Liferay.fire("ddmFieldValidationError", {
+						formId: root.getFormId(),
+						fieldName: instance.get("fieldName")
+					});
+				}
+
 				instance.set('errorMessage', errorMessage);
 			},
 
