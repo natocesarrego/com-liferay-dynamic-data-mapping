@@ -117,6 +117,8 @@ AUI.add(
 
 							instance.validate();
 						}
+
+						instance._fireStartedFillingEvent();
 					},
 
 					_onActiveInputChange: function(event) {

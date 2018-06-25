@@ -77,6 +77,18 @@ AUI.add(
 						(new A.EventHandle(instance._eventHandlers)).detach();
 					},
 
+					getFormId: function() {
+						var instance = this;
+
+						var formNode = instance.getFormNode();
+
+						if (!formNode) {
+							return 0;
+						}
+
+						return formNode.getData('DDLRecordSetId');
+					},
+
 					getFormNode: function() {
 						var instance = this;
 

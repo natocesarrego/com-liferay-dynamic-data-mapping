@@ -73,6 +73,23 @@ AUI.add(
 				instance.bindInputEvent(['input', 'change'], instance._onValueChange);
 			},
 
+			_fireStartedFillingEvent: function() {
+				var instance = this;
+
+				if (!instance.get('startedFilling')) {
+					instance.set('startedFilling', true);
+
+					var root = instance.getRoot();
+
+					if (root) {
+						Liferay.fire("ddmFieldStartedFilling", {
+							fieldName: instance.get("fieldName"),
+							formId: root.getFormId()
+						});
+					}
+				}
+			},
+
 			_onInputBlur: function(event) {
 				var instance = this;
 

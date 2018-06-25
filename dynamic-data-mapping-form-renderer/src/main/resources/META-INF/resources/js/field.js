@@ -83,6 +83,10 @@ AUI.add(
 						value: true
 					},
 
+					startedFilling: {
+						value: false
+					},
+
 					tip: {
 						value: ''
 					},
