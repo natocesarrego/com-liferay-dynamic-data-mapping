@@ -89,6 +89,18 @@ AUI.add(
 						return formNode.getData('DDLRecordSetId');
 					},
 
+					getFormName: function() {
+						var instance = this;
+
+						var formNode = instance.getFormNode();
+
+						if (!formNode) {
+							return '';
+						}
+
+						return formNode.getData('DDLRecordSetName');
+					},
+
 					getFormNode: function() {
 						var instance = this;
 
@@ -150,6 +162,18 @@ AUI.add(
 
 						if (submitButton) {
 							submitButton.attr('disabled', false);
+						}
+
+						var formId = instance.getFormId();
+
+						if (formId > 0) {
+							Liferay.fire(
+								'ddmFormView',
+								{
+									formId: formId,
+									title: instance.getFormName()
+								}
+							);
 						}
 					},
 

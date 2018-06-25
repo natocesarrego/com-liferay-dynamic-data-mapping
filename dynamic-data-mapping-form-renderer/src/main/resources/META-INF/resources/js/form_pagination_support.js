@@ -131,6 +131,8 @@ AUI.add(
 						}
 					).render();
 				}
+
+				instance._firePageViewedEvent(1);
 			},
 
 			_afterPaginationPageChange: function(event) {
@@ -148,10 +150,49 @@ AUI.add(
 					instance._syncWizardUI(event.prevVal, event.newVal);
 				}
 
+				var formId = instance.getFormId();
+
+				if (formId > 0) {
+					Liferay.fire(
+						'ddmFormPageHide',
+						{
+							formId: formId,
+							page: event.prevVal - 1
+						}
+					);
+
+					instance._firePageViewedEvent(event.newVal);
+				}
+
 				var firstField = instance.getFirstPageField();
 
 				if (firstField) {
 					firstField.focus();
+				}
+			},
+
+			_firePageViewedEvent: function(page) {
+				var instance = this;
+
+				var formId = instance.getFormId();
+
+				if (formId > 0) {
+					var context = instance.getTemplateContext();
+
+					console.log(context);
+
+					var pageContext = context.pages[page - 1];
+
+					var pageTitle = pageContext.title;
+
+					Liferay.fire(
+						'ddmFormPageShow',
+						{
+							formId: formId,
+							page: page - 1,
+							title: pageTitle
+						}
+					);
 				}
 			},
 
