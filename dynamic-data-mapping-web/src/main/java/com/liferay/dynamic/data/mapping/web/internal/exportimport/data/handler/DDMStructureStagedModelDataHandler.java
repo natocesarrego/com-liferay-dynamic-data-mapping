@@ -329,14 +329,12 @@ public class DDMStructureStagedModelDataHandler
 
 		DDMStructure importedStructure = null;
 
-		Map<Long, Long> groupIds =
-			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
-				Group.class);
+		long groupId = portletDataContext.getScopeGroupId();
 
-		long targetGroupId = portletDataContext.getScopeGroupId();
+		long structureGroupId = structure.getGroupId();
 
-		if (groupIds.containsKey(structure.getGroupId())) {
-			targetGroupId = groupIds.get(structure.getGroupId());
+		if (structureGroupId == portletDataContext.getSourceCompanyGroupId()) {
+			groupId = portletDataContext.getCompanyGroupId();
 		}
 
 		if (portletDataContext.isDataStrategyMirror()) {
@@ -347,14 +345,14 @@ public class DDMStructureStagedModelDataHandler
 				element.attributeValue("preloaded"));
 
 			DDMStructure existingStructure = fetchExistingStructure(
-				structure.getUuid(), targetGroupId, structure.getClassNameId(),
+				structure.getUuid(), groupId, structure.getClassNameId(),
 				structure.getStructureKey(), preloaded);
 
 			if (existingStructure == null) {
 				serviceContext.setUuid(structure.getUuid());
 
 				existingStructure = _ddmStructureLocalService.fetchStructure(
-					targetGroupId, structure.getClassNameId(),
+					groupId, structure.getClassNameId(),
 					structure.getStructureKey());
 
 				String structureKey = null;
@@ -364,7 +362,7 @@ public class DDMStructureStagedModelDataHandler
 				}
 
 				importedStructure = _ddmStructureLocalService.addStructure(
-					userId, targetGroupId, parentStructureId,
+					userId, groupId, parentStructureId,
 					structure.getClassNameId(), structureKey,
 					structure.getNameMap(), structure.getDescriptionMap(),
 					ddmForm, ddmFormLayout, structure.getStorageType(),
@@ -390,11 +388,10 @@ public class DDMStructureStagedModelDataHandler
 		}
 		else {
 			importedStructure = _ddmStructureLocalService.addStructure(
-				userId, targetGroupId, parentStructureId,
-				structure.getClassNameId(), null, structure.getNameMap(),
-				structure.getDescriptionMap(), ddmForm, ddmFormLayout,
-				structure.getStorageType(), structure.getType(),
-				serviceContext);
+				userId, groupId, parentStructureId, structure.getClassNameId(),
+				null, structure.getNameMap(), structure.getDescriptionMap(),
+				ddmForm, ddmFormLayout, structure.getStorageType(),
+				structure.getType(), serviceContext);
 		}
 
 		portletDataContext.importClassedModel(structure, importedStructure);
