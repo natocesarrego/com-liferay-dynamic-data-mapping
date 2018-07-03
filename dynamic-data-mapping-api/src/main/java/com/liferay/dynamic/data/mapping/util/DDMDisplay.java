@@ -107,7 +107,7 @@ public interface DDMDisplay {
 		Locale locale);
 
 	/**
-	 * @deprecated As of Wilberforce
+	 * @deprecated As of Wilberforce (7.0.x)
 	 */
 	@Deprecated
 	public String getViewTemplatesTitle(
@@ -121,7 +121,7 @@ public interface DDMDisplay {
 	public boolean isShowAddButton(Group scopeGroup);
 
 	/**
-	 * @deprecated As of Judson, replaced by {@link #isShowAddButton(Group)}
+	 * @deprecated As of Judson (7.1.x), replaced by {@link #isShowAddButton(Group)}
 	 */
 	@Deprecated
 	public boolean isShowAddStructureButton();

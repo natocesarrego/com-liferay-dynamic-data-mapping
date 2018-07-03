@@ -142,7 +142,7 @@ public class DDMTemplatePermission extends BaseResourcePermissionChecker {
 	}
 
 	/**
-	 * @deprecated As of Wilberforce, replaced by {@link
+	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
 	 *             #contains(PermissionChecker, DDMTemplate, String)}
 	 */
 	@Deprecated
@@ -198,7 +198,7 @@ public class DDMTemplatePermission extends BaseResourcePermissionChecker {
 	}
 
 	/**
-	 * @deprecated As of Wilberforce, replaced by {@link
+	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
 	 *             #contains(PermissionChecker, long, String)}
 	 */
 	@Deprecated

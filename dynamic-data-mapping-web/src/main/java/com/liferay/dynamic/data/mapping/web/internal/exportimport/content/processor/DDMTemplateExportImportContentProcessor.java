@@ -23,7 +23,7 @@ import org.osgi.service.component.annotations.Component;
 
 /**
  * @author     Gergely Mathe
- * @deprecated As of Judson
+ * @deprecated As of Judson (7.1.x)
  */
 @Component(
 	property = "model.class.name=com.liferay.dynamic.data.mapping.model.DDMTemplate",
