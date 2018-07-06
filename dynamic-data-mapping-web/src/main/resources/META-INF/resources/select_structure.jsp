@@ -141,6 +141,7 @@ request.setAttribute(WebKeys.SEARCH_CONTAINER, structureSearch);
 <c:if test="<%= ddmDisplay.isShowAddStructureButton() && DDMStructurePermission.containsAddStruturePermission(permissionChecker, groupId, scopeClassNameId) %>">
 	<portlet:renderURL var="viewStructureURL">
 		<portlet:param name="mvcPath" value="/select_structure.jsp" />
+		<portlet:param name="groupId" value="<%= String.valueOf(groupId) %>" />
 		<portlet:param name="classPK" value="<%= String.valueOf(classPK) %>" />
 		<portlet:param name="eventName" value="<%= eventName %>" />
 	</portlet:renderURL>
