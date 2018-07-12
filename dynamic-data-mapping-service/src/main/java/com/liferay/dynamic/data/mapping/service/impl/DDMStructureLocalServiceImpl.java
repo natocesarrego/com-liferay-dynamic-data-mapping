@@ -705,7 +705,8 @@ public class DDMStructureLocalServiceImpl
 
 	@Override
 	public DDMStructure fetchStructureByUuidAndGroupId(
-		String uuid, long groupId, boolean includeAncestorStructures) {
+			String uuid, long groupId, boolean includeAncestorStructures)
+		throws PortalException {
 
 		DDMStructure structure = ddmStructurePersistence.fetchByUUID_G(
 			uuid, groupId);
