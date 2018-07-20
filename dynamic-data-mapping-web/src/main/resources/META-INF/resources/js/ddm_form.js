@@ -1895,6 +1895,24 @@ AUI.add(
 
 								instance._requestInitialLayouts(layoutId, groupId, privateLayout, instance._renderLayouts);
 							}
+							else if (currentTarget.getData('nodeType') === 'leaf') {
+								var inputRadioNode = currentTarget.getElementsByTagName('input').first();
+
+								inputRadioNode.attr('checked', 'true');
+
+								var path = instance.get('selectedLayoutPath');
+
+								instance.set(
+									'selectedLayout',
+									{
+										groupId: groupId,
+										label: label,
+										layoutId: layoutId,
+										path: path,
+										privateLayout: privateLayout
+									}
+								);
+							}
 						}
 						else if (event.target.hasClass('lfr-ddm-page-radio')) {
 							var path = instance.get('selectedLayoutPath');
