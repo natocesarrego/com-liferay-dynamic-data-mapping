@@ -1294,7 +1294,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 			PreparedStatement ps3 =
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
 					connection,
-					"update DDMTemplate set script = ?, language = ? where " +
+					"update DDMTemplate set language = ?, script = ? where " +
 						"templateId = ?");
 			PreparedStatement ps4 =
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
@@ -1347,8 +1347,8 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 				}
 
 				if (!script.equals(updatedScript)) {
-					ps3.setString(1, updatedScript);
-					ps3.setString(2, language);
+					ps3.setString(1, language);
+					ps3.setString(2, updatedScript);
 					ps3.setLong(3, templateId);
 
 					ps3.addBatch();
