@@ -1295,7 +1295,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
 					connection,
 					"update DDMTemplate set script = ?, language = ? where " +
-						" templateId = ?");
+						"templateId = ?");
 			PreparedStatement ps4 =
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
 					connection, sb.toString());
