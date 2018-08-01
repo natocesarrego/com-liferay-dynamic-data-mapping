@@ -31,6 +31,7 @@ import com.liferay.dynamic.data.mapping.service.DDMDataProviderInstanceLinkLocal
 import com.liferay.dynamic.data.mapping.service.DDMDataProviderInstanceLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLayoutLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
+import com.liferay.dynamic.data.mapping.service.permission.DDMStructurePermission;
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.exportimport.kernel.lar.PortletDataException;
@@ -227,6 +228,9 @@ public class DDMStructureStagedModelDataHandler
 		portletDataContext.addClassedModel(
 			structureElement, ExportImportPathUtil.getModelPath(structure),
 			structure);
+
+		portletDataContext.addPermissions(
+			getResourceName(structure), structure.getPrimaryKey());
 	}
 
 	@Override
@@ -384,6 +388,10 @@ public class DDMStructureStagedModelDataHandler
 
 		portletDataContext.importClassedModel(structure, importedStructure);
 
+		portletDataContext.importPermissions(
+			getResourceName(structure), structure.getPrimaryKey(),
+			importedStructure.getPrimaryKey());
+
 		structureKeys.put(
 			structure.getStructureKey(), importedStructure.getStructureKey());
 	}
@@ -532,6 +540,13 @@ public class DDMStructureStagedModelDataHandler
 			serializedDDMFormLayout);
 	}
 
+	protected String getResourceName(DDMStructure structure)
+		throws PortalException {
+
+		return ddmStructurePermission.getStructureModelResourceName(
+			structure.getClassNameId());
+	}
+
 	protected void importDDMDataProviderInstances(
 			PortletDataContext portletDataContext, Element structureElement,
 			DDMForm ddmForm)
@@ -663,6 +678,9 @@ public class DDMStructureStagedModelDataHandler
 	protected void setUserLocalService(UserLocalService userLocalService) {
 		_userLocalService = userLocalService;
 	}
+
+	@Reference
+	protected DDMStructurePermission ddmStructurePermission;
 
 	private static final String _DDM_DATA_PROVIDER_INSTANCE_IDS =
 		"ddm-data-provider-instance-ids";

@@ -19,6 +19,7 @@ import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
+import com.liferay.dynamic.data.mapping.service.permission.DDMTemplatePermission;
 import com.liferay.dynamic.data.mapping.web.internal.exportimport.content.processor.DDMTemplateExportImportContentProcessor;
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
@@ -268,6 +269,16 @@ public class DDMTemplateStagedModelDataHandler
 		portletDataContext.addClassedModel(
 			templateElement, ExportImportPathUtil.getModelPath(template),
 			template);
+
+		try {
+			portletDataContext.addPermissions(
+				getResourceName(template), template.getPrimaryKey());
+		}
+		catch (Exception e) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(e, e);
+			}
+		}
 	}
 
 	@Override
@@ -441,6 +452,17 @@ public class DDMTemplateStagedModelDataHandler
 
 			portletDataContext.importClassedModel(template, importedTemplate);
 
+			try {
+				portletDataContext.importPermissions(
+					getResourceName(template), template.getPrimaryKey(),
+					importedTemplate.getPrimaryKey());
+			}
+			catch (Exception e) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(e, e);
+				}
+			}
+
 			Map<String, String> ddmTemplateKeys =
 				(Map<String, String>)portletDataContext.getNewPrimaryKeysMap(
 					DDMTemplate.class + ".ddmTemplateKey");
@@ -501,6 +523,13 @@ public class DDMTemplateStagedModelDataHandler
 		return null;
 	}
 
+	protected String getResourceName(DDMTemplate template)
+		throws PortalException {
+
+		return ddmTemplatePermission.getTemplateModelResourceName(
+			template.getResourceClassNameId());
+	}
+
 	@Reference(unbind = "-")
 	protected void setDDMStructureLocalService(
 		DDMStructureLocalService ddmStructureLocalService) {
@@ -533,6 +562,9 @@ public class DDMTemplateStagedModelDataHandler
 	protected void setUserLocalService(UserLocalService userLocalService) {
 		_userLocalService = userLocalService;
 	}
+
+	@Reference
+	protected DDMTemplatePermission ddmTemplatePermission;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DDMTemplateStagedModelDataHandler.class);
