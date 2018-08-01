@@ -198,8 +198,16 @@ public class DDMFormEvaluatorHelper {
 				ddmFormFieldEvaluationResult.setValid(valid);
 
 				if (!valid) {
-					ddmFormFieldEvaluationResult.setErrorMessage(
-						ddmFormFieldValidation.getErrorMessage());
+					String errorMessage = ddmFormFieldValidation.getErrorMessage();
+
+					if (Validator.isNull(errorMessage)) {
+						errorMessage = LanguageUtil.format(
+							getResourceBundle(_locale),
+							"this-field-is-invalid-x", ddmFormField.getName(),
+							false);
+					}
+
+					ddmFormFieldEvaluationResult.setErrorMessage(errorMessage);
 				}
 			}
 			catch (NumberFormatException nfe) {
@@ -304,6 +312,13 @@ public class DDMFormEvaluatorHelper {
 		}
 
 		return GetterUtil.getLongStrict(variableValue);
+	}
+
+	protected ResourceBundle getResourceBundle(Locale locale) {
+		Class<?> clazz = this.getClass();
+
+		return ResourceBundleUtil.getBundle(
+			"content.Language", locale, clazz.getClassLoader());
 	}
 
 	protected String getValidationExpression(
