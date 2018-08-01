@@ -201,10 +201,9 @@ public class DDMFormEvaluatorHelper {
 					String errorMessage = ddmFormFieldValidation.getErrorMessage();
 
 					if (Validator.isNull(errorMessage)) {
-						errorMessage = LanguageUtil.format(
+						errorMessage = LanguageUtil.get(
 							getResourceBundle(_locale),
-							"this-field-is-invalid-x", ddmFormField.getName(),
-							false);
+							"this-field-is-invalid");
 					}
 
 					ddmFormFieldEvaluationResult.setErrorMessage(errorMessage);

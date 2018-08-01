@@ -149,7 +149,7 @@ public class DDMFormEvaluatorHelperTest extends PowerMockito {
 		Assert.assertFalse(ddmFormFieldEvaluationResult.isValid());
 
 		String defaultErrorMessage = LanguageUtil.format(
-			LocaleUtil.US, "this-field-is-invalid-x", ddmFormField.getName(),
+			LocaleUtil.US, "this-field-is-invalid", ddmFormField.getName(),
 			false);
 
 		Assert.assertEquals(
