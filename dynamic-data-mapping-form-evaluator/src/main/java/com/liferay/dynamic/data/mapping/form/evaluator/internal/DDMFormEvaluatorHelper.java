@@ -198,7 +198,8 @@ public class DDMFormEvaluatorHelper {
 				ddmFormFieldEvaluationResult.setValid(valid);
 
 				if (!valid) {
-					String errorMessage = ddmFormFieldValidation.getErrorMessage();
+					String errorMessage =
+						ddmFormFieldValidation.getErrorMessage();
 
 					if (Validator.isNull(errorMessage)) {
 						errorMessage = LanguageUtil.get(
@@ -314,7 +315,7 @@ public class DDMFormEvaluatorHelper {
 	}
 
 	protected ResourceBundle getResourceBundle(Locale locale) {
-		Class<?> clazz = this.getClass();
+		Class<?> clazz = getClass();
 
 		return ResourceBundleUtil.getBundle(
 			"content.Language", locale, clazz.getClassLoader());
