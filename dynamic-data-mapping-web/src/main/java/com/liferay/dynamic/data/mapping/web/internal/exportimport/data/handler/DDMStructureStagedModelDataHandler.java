@@ -502,6 +502,8 @@ public class DDMStructureStagedModelDataHandler
 
 		Group group = _groupLocalService.fetchGroup(groupId);
 
+		long companyId = group.getCompanyId();
+
 		while (group != null) {
 			DDMStructure existingStructure = fetchExistingStructure(
 				uuid, group.getGroupId(), classNameId, structureKey, preloaded);
@@ -522,7 +524,15 @@ public class DDMStructureStagedModelDataHandler
 			}
 		}
 
-		return null;
+		Group companyGroup = _groupLocalService.fetchCompanyGroup(companyId);
+
+		if (companyGroup == null) {
+			return null;
+		}
+
+		return fetchExistingStructure(
+			uuid, companyGroup.getGroupId(), classNameId, structureKey,
+			preloaded);
 	}
 
 	protected DDMForm getImportDDMForm(

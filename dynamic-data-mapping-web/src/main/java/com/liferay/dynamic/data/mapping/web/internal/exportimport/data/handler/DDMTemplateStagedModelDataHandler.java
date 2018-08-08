@@ -511,6 +511,8 @@ public class DDMTemplateStagedModelDataHandler
 
 		Group group = _groupLocalService.fetchGroup(groupId);
 
+		long companyId = group.getCompanyId();
+
 		while (group != null) {
 			DDMTemplate existingTemplate = fetchExistingTemplate(
 				uuid, group.getGroupId(), classNameId, templateKey, preloaded);
@@ -531,7 +533,15 @@ public class DDMTemplateStagedModelDataHandler
 			}
 		}
 
-		return null;
+		Group companyGroup = _groupLocalService.fetchCompanyGroup(companyId);
+
+		if (companyGroup == null) {
+			return null;
+		}
+
+		return fetchExistingTemplate(
+			uuid, companyGroup.getGroupId(), classNameId, templateKey,
+			preloaded);
 	}
 
 	protected String getResourceName(DDMTemplate template)
