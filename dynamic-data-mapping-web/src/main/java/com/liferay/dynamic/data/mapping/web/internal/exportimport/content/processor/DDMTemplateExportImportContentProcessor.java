@@ -16,8 +16,6 @@ package com.liferay.dynamic.data.mapping.web.internal.exportimport.content.proce
 
 import com.liferay.exportimport.content.processor.ExportImportContentProcessor;
 import com.liferay.exportimport.content.processor.base.BaseTextExportImportContentProcessor;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -35,8 +33,4 @@ import org.osgi.service.component.annotations.Component;
 @Deprecated
 public class DDMTemplateExportImportContentProcessor
 	extends BaseTextExportImportContentProcessor {
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		DDMTemplateExportImportContentProcessor.class);
-
 }
