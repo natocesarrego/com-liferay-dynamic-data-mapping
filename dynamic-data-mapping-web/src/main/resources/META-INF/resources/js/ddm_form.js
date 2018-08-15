@@ -2726,8 +2726,10 @@ AUI.add(
 						}
 						else {
 							Liferay.after(editorComponentName + ':registered', function() {
-								if (value === localizationMap[instance.get('displayLocale')]) {
-									editor.setHTML(value);
+								if (!editor.instanceReady) {
+									if (value === localizationMap[instance.get('displayLocale')]) {
+										editor.setHTML(value);
+									}
 								}
 							});
 						}
