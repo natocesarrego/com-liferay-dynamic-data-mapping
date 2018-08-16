@@ -519,8 +519,6 @@ public class DDMStructureStagedModelDataHandler
 				if (_log.isDebugEnabled()) {
 					_log.debug(pe, pe);
 				}
-
-				return null;
 			}
 		}
 
