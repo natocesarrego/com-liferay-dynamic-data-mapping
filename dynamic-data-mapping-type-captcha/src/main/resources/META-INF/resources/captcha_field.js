@@ -28,10 +28,22 @@ AUI.add(
 						var container = instance.fetchContainer();
 
 						if (!instance._formGroupNode) {
-							instance._formGroupNode = container.one('.form-group').clone();
+							instance._formGroupNode = container.one('.form-group');
 						}
 
 						var formGroupNode = instance._formGroupNode;
+
+						if (formGroupNode.hasChildNodes()) {
+							instance._formGroupNodeChildren = A.NodeList.create();
+
+							var formGroupNodeChildren = formGroupNode.get('children');
+
+							formGroupNodeChildren.each(
+								function(item, index) {
+									instance._formGroupNodeChildren.push(item.cloneNode(true));
+								}
+							);
+						}
 
 						var fieldName = formGroupNode.attr('data-fieldname');
 
@@ -56,6 +68,10 @@ AUI.add(
 						container.empty();
 
 						var formGroupNode = instance._formGroupNode;
+
+						if (!formGroupNode.hasChildNodes()) {
+							formGroupNode.setHTML(instance._formGroupNodeChildren);
+						}
 
 						formGroupNode.appendTo(container);
 
