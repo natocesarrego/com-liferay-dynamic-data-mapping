@@ -272,7 +272,12 @@ public class DDMFormEvaluatorHelper {
 			return 0.0;
 		}
 
-		return GetterUtil.getDouble(variableValue);
+		try {
+			return Double.parseDouble(variableValue);
+		}
+		catch (NumberFormatException nfe) {
+			throw nfe;
+		}
 	}
 
 	protected String getJSONArrayValueString(String valueString) {
