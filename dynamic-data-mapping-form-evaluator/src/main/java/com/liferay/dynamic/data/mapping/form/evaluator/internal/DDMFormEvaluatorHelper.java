@@ -371,11 +371,18 @@ public class DDMFormEvaluatorHelper {
 
 		for (DDMFormFieldValue ddmFormFieldValue : ddmFormFieldValues) {
 			String name = ddmFormFieldValue.getName();
+			String type = ddmFormFieldValue.getType();
 
 			DDMFormField ddmFormField = _ddmFormFieldsMap.get(name);
 
 			if (ddmFormField.isRepeatable() &&
 				!ancestorDDMFormFieldValues.contains(ddmFormFieldValue)) {
+
+				continue;
+			}
+
+			if ((ddmFormFieldValue.getValue() == null) &&
+				type.equals("paragraph")) {
 
 				continue;
 			}
