@@ -82,8 +82,8 @@ public class DDMFormValuesMergerImpl implements DDMFormValuesMerger {
 				newDDMFormFieldValue.setNestedDDMFormFields(
 					mergedNestedDDMFormFieldValues);
 
-				mergedDDMFormFieldValues.remove(actualDDMFormFieldValue);
 				existingDDMFormFieldValues.remove(actualDDMFormFieldValue);
+				mergedDDMFormFieldValues.remove(actualDDMFormFieldValue);
 			}
 
 			mergedDDMFormFieldValues.add(newDDMFormFieldValue);
