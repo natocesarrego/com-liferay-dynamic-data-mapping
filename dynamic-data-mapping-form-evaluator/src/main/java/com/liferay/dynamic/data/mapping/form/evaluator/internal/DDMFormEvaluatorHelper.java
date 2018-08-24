@@ -371,7 +371,6 @@ public class DDMFormEvaluatorHelper {
 
 		for (DDMFormFieldValue ddmFormFieldValue : ddmFormFieldValues) {
 			String name = ddmFormFieldValue.getName();
-			String type = ddmFormFieldValue.getType();
 
 			DDMFormField ddmFormField = _ddmFormFieldsMap.get(name);
 
@@ -381,9 +380,7 @@ public class DDMFormEvaluatorHelper {
 				continue;
 			}
 
-			if ((ddmFormFieldValue.getValue() == null) &&
-				type.equals("paragraph")) {
-
+			if (ddmFormField.isTransient()) {
 				continue;
 			}
 
