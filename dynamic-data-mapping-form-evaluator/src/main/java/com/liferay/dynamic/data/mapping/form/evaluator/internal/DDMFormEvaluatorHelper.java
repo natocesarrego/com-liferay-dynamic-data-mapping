@@ -329,6 +329,10 @@ public class DDMFormEvaluatorHelper {
 		Object value = ddmFormFieldValueAccessor.getValue(
 			ddmFormFieldValue, _locale);
 
+		if (value == null) {
+			return null;
+		}
+
 		String valueString = value.toString();
 
 		if (value instanceof JSONArray) {
