@@ -179,8 +179,6 @@ AUI.add(
 				if (formId > 0) {
 					var context = instance.getTemplateContext();
 
-					console.log(context);
-
 					var pageContext = context.pages[page - 1];
 
 					var pageTitle = pageContext.title;
