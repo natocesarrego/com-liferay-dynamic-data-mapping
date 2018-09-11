@@ -17,6 +17,7 @@ package com.liferay.dynamic.data.mapping.form.evaluator;
 import com.liferay.dynamic.data.mapping.expression.DDMExpression;
 import com.liferay.dynamic.data.mapping.expression.DDMExpressionFactory;
 import com.liferay.dynamic.data.mapping.form.evaluator.internal.DDMFormEvaluatorHelper;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldValidation;
@@ -158,7 +159,9 @@ public class DDMFormEvaluatorHelperTest extends PowerMockito {
 		throws Exception {
 
 		DDMFormEvaluatorHelper ddmFormEvaluatorHelper =
-			new DDMFormEvaluatorHelper(ddmForm, ddmFormValues, locale);
+			new DDMFormEvaluatorHelper(
+				ddmForm, ddmFormValues, _ddmFormFieldTypeServicesTracker,
+				locale);
 
 		field(
 			DDMFormEvaluatorHelper.class, "_ddmExpressionFactory"
@@ -213,6 +216,9 @@ public class DDMFormEvaluatorHelperTest extends PowerMockito {
 
 	@Mock
 	private DDMExpressionFactory _ddmExpressionFactory;
+
+	@Mock
+	private DDMFormFieldTypeServicesTracker _ddmFormFieldTypeServicesTracker;
 
 	private final JSONFactory _jsonFactory = new JSONFactoryImpl();
 
