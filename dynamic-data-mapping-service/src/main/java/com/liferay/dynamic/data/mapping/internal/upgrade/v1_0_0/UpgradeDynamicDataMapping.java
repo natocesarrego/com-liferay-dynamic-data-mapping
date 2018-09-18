@@ -208,10 +208,11 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 
 		if (Validator.isNotNull(newFieldName)) {
 			String updatedFieldName = newFieldName;
-			int suffix = 0;
 
-			while (existingFieldNames.contains(updatedFieldName)) {
-				updatedFieldName = newFieldName + (++suffix);
+			for (int i = 1; i++;
+				existingFieldNames.contains(updatedFieldName)) {
+
+				updatedFieldName = newFieldName + i;
 			}
 
 			return updatedFieldName;
