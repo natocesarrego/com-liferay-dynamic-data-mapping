@@ -203,20 +203,26 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 			String fieldName, Set<String> existingFieldNames)
 		throws Exception {
 
+		int suffix = 0;
+
 		String newFieldName = fieldName.replaceAll(
 			_INVALID_FIELD_NAME_CHARS_REGEX, StringPool.BLANK);
 
-		if (Validator.isNotNull(newFieldName) &&
-			!existingFieldNames.contains(newFieldName)) {
+		String updatedFieldName = newFieldName;
 
-			return newFieldName;
+		if (Validator.isNotNull(updatedFieldName)) {
+			while (existingFieldNames.contains(updatedFieldName)) {
+				suffix++;
+				updatedFieldName = newFieldName + suffix;
+			}
+
+			return updatedFieldName;
 		}
 
 		throw new UpgradeException(
 			String.format(
 				"Unable to automatically update field name \"%s\" because it " +
-					"only contains invalid characters or the updated value " +
-						"\"%s\" conflicts with a previous field name",
+					"only contains invalid characters",
 				fieldName, newFieldName));
 	}
 
