@@ -203,17 +203,15 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 			String fieldName, Set<String> existingFieldNames)
 		throws Exception {
 
-		int suffix = 0;
-
 		String newFieldName = fieldName.replaceAll(
 			_INVALID_FIELD_NAME_CHARS_REGEX, StringPool.BLANK);
 
-		String updatedFieldName = newFieldName;
+		if (Validator.isNotNull(newFieldName)) {
+			String updatedFieldName = newFieldName;
+			int suffix = 0;
 
-		if (Validator.isNotNull(updatedFieldName)) {
 			while (existingFieldNames.contains(updatedFieldName)) {
-				suffix++;
-				updatedFieldName = newFieldName + suffix;
+				updatedFieldName = newFieldName + (++suffix);
 			}
 
 			return updatedFieldName;
