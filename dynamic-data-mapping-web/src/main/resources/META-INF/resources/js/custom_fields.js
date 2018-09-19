@@ -24,6 +24,8 @@ AUI.add(
 
 		var LOCALIZABLE_FIELD_ATTRS = Liferay.FormBuilder.LOCALIZABLE_FIELD_ATTRS;
 
+		var RESTRICTED_NAME = 'submit';
+
 		var STR_BLANK = '';
 
 		var STR_DASH = '-';
@@ -86,6 +88,14 @@ AUI.add(
 
 		DEFAULTS_FORM_VALIDATOR.RULES.structureFieldName = function(value) {
 			return LiferayFormBuilderUtil.validateFieldName(value);
+		};
+
+		DEFAULTS_FORM_VALIDATOR.STRINGS.structureRestrictedFieldName =
+			Lang.sub(Liferay.Language.get('x-is-a-reserved-word'), [RESTRICTED_NAME]);;
+
+		DEFAULTS_FORM_VALIDATOR.RULES.structureRestrictedFieldName = function(value) {
+
+			return RESTRICTED_NAME != value;
 		};
 
 		var applyStyles = function(node, styleContent) {
@@ -1133,7 +1143,8 @@ AUI.add(
 										value: {
 											required: true,
 											structureDuplicateFieldName: true,
-											structureFieldName: true
+											structureFieldName: true,
+											structureRestrictedFieldName: true
 										}
 									}
 								}
