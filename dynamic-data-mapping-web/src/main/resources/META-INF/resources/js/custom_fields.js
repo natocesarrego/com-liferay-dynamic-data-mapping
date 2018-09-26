@@ -94,7 +94,6 @@ AUI.add(
 			Lang.sub(Liferay.Language.get('x-is-a-reserved-word'), [RESTRICTED_NAME]);
 
 		DEFAULTS_FORM_VALIDATOR.RULES.structureRestrictedFieldName = function(value) {
-
 			return RESTRICTED_NAME !== value;
 		};
 
