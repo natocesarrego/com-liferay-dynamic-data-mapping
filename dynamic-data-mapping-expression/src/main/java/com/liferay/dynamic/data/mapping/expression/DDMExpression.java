@@ -28,6 +28,10 @@ public interface DDMExpression<T> {
 	public Map<String, VariableDependencies> getVariableDependenciesMap()
 		throws DDMExpressionException;
 
+	public default boolean hasVariable(String variableName) {
+		throw new UnsupportedOperationException();
+	}
+
 	public void setBooleanVariableValue(
 		String variableName, Boolean variableValue);
 

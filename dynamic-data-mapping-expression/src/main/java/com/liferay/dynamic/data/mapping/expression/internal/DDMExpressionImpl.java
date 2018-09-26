@@ -103,6 +103,11 @@ public class DDMExpressionImpl<T> implements DDMExpression<T> {
 	}
 
 	@Override
+	public boolean hasVariable(String variableName) {
+		return _variables.containsKey(variableName);
+	}
+
+	@Override
 	public void setBooleanVariableValue(
 		String variableName, Boolean variableValue) {
 
