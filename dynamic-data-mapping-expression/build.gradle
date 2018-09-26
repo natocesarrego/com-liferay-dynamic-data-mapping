@@ -1,3 +1,6 @@
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
 dependencies {
 	compileInclude group: "com.udojava", name: "EvalEx", version: "1.1"
 
