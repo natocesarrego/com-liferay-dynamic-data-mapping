@@ -406,7 +406,7 @@ public class DDMFormEvaluatorHelper {
 			String valueString = getValueString(
 				ddmFormFieldValue, ddmFormField.getType());
 
-			if (valueString != null) {
+			if ((valueString != null) && ddmExpression.hasVariable(name)) {
 				setExpressionVariableValue(
 					ddmExpression, name,
 					getVariableType(ddmFormField.getDataType(), valueString),
