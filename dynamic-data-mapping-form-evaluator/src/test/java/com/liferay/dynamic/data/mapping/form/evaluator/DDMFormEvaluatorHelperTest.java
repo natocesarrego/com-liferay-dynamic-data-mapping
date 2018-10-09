@@ -30,6 +30,8 @@ import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.registry.BasicRegistryImpl;
+import com.liferay.registry.RegistryUtil;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -55,6 +57,8 @@ public class DDMFormEvaluatorHelperTest extends PowerMockito {
 
 	@Before
 	public void setUp() throws Exception {
+		RegistryUtil.setRegistry(new BasicRegistryImpl());
+
 		setDDMExpressionFactory();
 		setUpLanguageUtil();
 		setUpResourceBundleUtil();
