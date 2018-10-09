@@ -166,6 +166,7 @@ public class DDMTemplateStagedModelDataHandler
 		long classNameId = _portal.getClassNameId(
 			referenceElement.attributeValue("referenced-class-name"));
 		String templateKey = referenceElement.attributeValue("template-key");
+
 		boolean preloaded = GetterUtil.getBoolean(
 			referenceElement.attributeValue("preloaded"));
 

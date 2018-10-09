@@ -75,6 +75,7 @@ public class UpdateDataProviderMVCActionCommand
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
+
 		DDMFormValues ddmFormValues = getDDMFormValues(
 			actionRequest, actionResponse);
 

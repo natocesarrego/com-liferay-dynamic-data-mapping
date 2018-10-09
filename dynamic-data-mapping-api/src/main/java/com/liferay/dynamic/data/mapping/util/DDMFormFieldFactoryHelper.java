@@ -63,6 +63,7 @@ public class DDMFormFieldFactoryHelper {
 
 		for (Map.Entry<String, Object> entry : properties.entrySet()) {
 			String key = entry.getKey();
+
 			Object value = entry.getValue();
 
 			if (isLocalizableValue((String)value)) {
