@@ -150,18 +150,7 @@ public class DDMFormInstanceFactoryTest {
 	}
 
 	@DDMForm
-	private interface DynamicFormWithPrimitiveArrayTypes {
-
-		@DDMFormField(name = "boolean")
-		public Boolean[] booleanValues();
-
-		@DDMFormField(name = "string")
-		public String[] stringValues();
-
-	}
-
-	@DDMForm
-	private interface DynamicFormWithPrimitiveTypes {
+	public interface DynamicFormWithPrimitiveTypes {
 
 		@DDMFormField(name = "boolean")
 		public boolean booleanValue();
@@ -183,6 +172,17 @@ public class DDMFormInstanceFactoryTest {
 
 		@DDMFormField(name = "string")
 		public String stringValue();
+
+	}
+
+	@DDMForm
+	private interface DynamicFormWithPrimitiveArrayTypes {
+
+		@DDMFormField(name = "boolean")
+		public Boolean[] booleanValues();
+
+		@DDMFormField(name = "string")
+		public String[] stringValues();
 
 	}
 
