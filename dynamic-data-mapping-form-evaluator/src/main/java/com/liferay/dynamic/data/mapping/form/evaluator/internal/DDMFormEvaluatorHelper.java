@@ -281,7 +281,11 @@ public class DDMFormEvaluatorHelper {
 		}
 
 		try {
-			return Double.parseDouble(variableValue);
+			if (variableValue.matches(_FLOAT_REGEXP)) {
+				return Double.parseDouble(variableValue);
+			}
+
+			throw new NumberFormatException();
 		}
 		catch (NumberFormatException nfe) {
 			throw nfe;
@@ -444,6 +448,8 @@ public class DDMFormEvaluatorHelper {
 	protected void setJSONFactory(JSONFactory jsonFactory) {
 		_jsonFactory = jsonFactory;
 	}
+
+	private static final String _FLOAT_REGEXP = "^([+-]?\\d*\\.?\\d*)$";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DDMFormEvaluatorHelper.class);
