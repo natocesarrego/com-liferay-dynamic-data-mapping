@@ -740,7 +740,7 @@ AUI.add(
 								}
 
 								if (!value) {
-									value = localizationMap[instance.getDefaultLocale()];
+									value = localizationMap[themeDisplay.getDefaultLanguageId()];
 								}
 							}
 							else {
