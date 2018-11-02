@@ -182,6 +182,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public List<DDMTemplate> findByUuid(String uuid, int start, int end,
 		OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		uuid = Objects.toString(uuid, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -205,7 +207,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			if ((list != null) && !list.isEmpty()) {
 				for (DDMTemplate ddmTemplate : list) {
-					if (!Objects.equals(uuid, ddmTemplate.getUuid())) {
+					if (!uuid.equals(ddmTemplate.getUuid())) {
 						list = null;
 
 						break;
@@ -229,10 +231,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindUuid = false;
 
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_UUID_1);
-			}
-			else if (uuid.equals("")) {
+			if (uuid.isEmpty()) {
 				query.append(_FINDER_COLUMN_UUID_UUID_3);
 			}
 			else {
@@ -413,6 +412,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public DDMTemplate[] findByUuid_PrevAndNext(long templateId, String uuid,
 		OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		uuid = Objects.toString(uuid, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -458,10 +459,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindUuid = false;
 
-		if (uuid == null) {
-			query.append(_FINDER_COLUMN_UUID_UUID_1);
-		}
-		else if (uuid.equals("")) {
+		if (uuid.isEmpty()) {
 			query.append(_FINDER_COLUMN_UUID_UUID_3);
 		}
 		else {
@@ -581,6 +579,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByUuid(String uuid) {
+		uuid = Objects.toString(uuid, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
 		Object[] finderArgs = new Object[] { uuid };
@@ -594,10 +594,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindUuid = false;
 
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_UUID_1);
-			}
-			else if (uuid.equals("")) {
+			if (uuid.isEmpty()) {
 				query.append(_FINDER_COLUMN_UUID_UUID_3);
 			}
 			else {
@@ -711,6 +708,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	@Override
 	public DDMTemplate fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache) {
+		uuid = Objects.toString(uuid, "");
+
 		Object[] finderArgs = new Object[] { uuid, groupId };
 
 		Object result = null;
@@ -736,10 +735,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindUuid = false;
 
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
-			}
-			else if (uuid.equals("")) {
+			if (uuid.isEmpty()) {
 				query.append(_FINDER_COLUMN_UUID_G_UUID_3);
 			}
 			else {
@@ -823,6 +819,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByUUID_G(String uuid, long groupId) {
+		uuid = Objects.toString(uuid, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_G;
 
 		Object[] finderArgs = new Object[] { uuid, groupId };
@@ -836,10 +834,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindUuid = false;
 
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
-			}
-			else if (uuid.equals("")) {
+			if (uuid.isEmpty()) {
 				query.append(_FINDER_COLUMN_UUID_G_UUID_3);
 			}
 			else {
@@ -980,6 +975,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public List<DDMTemplate> findByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		uuid = Objects.toString(uuid, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1007,7 +1004,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			if ((list != null) && !list.isEmpty()) {
 				for (DDMTemplate ddmTemplate : list) {
-					if (!Objects.equals(uuid, ddmTemplate.getUuid()) ||
+					if (!uuid.equals(ddmTemplate.getUuid()) ||
 							(companyId != ddmTemplate.getCompanyId())) {
 						list = null;
 
@@ -1032,10 +1029,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindUuid = false;
 
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_C_UUID_1);
-			}
-			else if (uuid.equals("")) {
+			if (uuid.isEmpty()) {
 				query.append(_FINDER_COLUMN_UUID_C_UUID_3);
 			}
 			else {
@@ -1234,6 +1228,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public DDMTemplate[] findByUuid_C_PrevAndNext(long templateId, String uuid,
 		long companyId, OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		uuid = Objects.toString(uuid, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -1279,10 +1275,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindUuid = false;
 
-		if (uuid == null) {
-			query.append(_FINDER_COLUMN_UUID_C_UUID_1);
-		}
-		else if (uuid.equals("")) {
+		if (uuid.isEmpty()) {
 			query.append(_FINDER_COLUMN_UUID_C_UUID_3);
 		}
 		else {
@@ -1408,6 +1401,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByUuid_C(String uuid, long companyId) {
+		uuid = Objects.toString(uuid, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
 
 		Object[] finderArgs = new Object[] { uuid, companyId };
@@ -1421,10 +1416,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindUuid = false;
 
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_C_UUID_1);
-			}
-			else if (uuid.equals("")) {
+			if (uuid.isEmpty()) {
 				query.append(_FINDER_COLUMN_UUID_C_UUID_3);
 			}
 			else {
@@ -2922,6 +2914,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public List<DDMTemplate> findByTemplateKey(String templateKey, int start,
 		int end, OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		templateKey = Objects.toString(templateKey, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -2945,8 +2939,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			if ((list != null) && !list.isEmpty()) {
 				for (DDMTemplate ddmTemplate : list) {
-					if (!Objects.equals(templateKey,
-								ddmTemplate.getTemplateKey())) {
+					if (!templateKey.equals(ddmTemplate.getTemplateKey())) {
 						list = null;
 
 						break;
@@ -2970,10 +2963,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindTemplateKey = false;
 
-			if (templateKey == null) {
-				query.append(_FINDER_COLUMN_TEMPLATEKEY_TEMPLATEKEY_1);
-			}
-			else if (templateKey.equals("")) {
+			if (templateKey.isEmpty()) {
 				query.append(_FINDER_COLUMN_TEMPLATEKEY_TEMPLATEKEY_3);
 			}
 			else {
@@ -3157,6 +3147,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public DDMTemplate[] findByTemplateKey_PrevAndNext(long templateId,
 		String templateKey, OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		templateKey = Objects.toString(templateKey, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -3202,10 +3194,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindTemplateKey = false;
 
-		if (templateKey == null) {
-			query.append(_FINDER_COLUMN_TEMPLATEKEY_TEMPLATEKEY_1);
-		}
-		else if (templateKey.equals("")) {
+		if (templateKey.isEmpty()) {
 			query.append(_FINDER_COLUMN_TEMPLATEKEY_TEMPLATEKEY_3);
 		}
 		else {
@@ -3325,6 +3314,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByTemplateKey(String templateKey) {
+		templateKey = Objects.toString(templateKey, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_TEMPLATEKEY;
 
 		Object[] finderArgs = new Object[] { templateKey };
@@ -3338,10 +3329,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindTemplateKey = false;
 
-			if (templateKey == null) {
-				query.append(_FINDER_COLUMN_TEMPLATEKEY_TEMPLATEKEY_1);
-			}
-			else if (templateKey.equals("")) {
+			if (templateKey.isEmpty()) {
 				query.append(_FINDER_COLUMN_TEMPLATEKEY_TEMPLATEKEY_3);
 			}
 			else {
@@ -3469,6 +3457,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public List<DDMTemplate> findByType(String type, int start, int end,
 		OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		type = Objects.toString(type, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -3492,7 +3482,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			if ((list != null) && !list.isEmpty()) {
 				for (DDMTemplate ddmTemplate : list) {
-					if (!Objects.equals(type, ddmTemplate.getType())) {
+					if (!type.equals(ddmTemplate.getType())) {
 						list = null;
 
 						break;
@@ -3516,10 +3506,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_TYPE_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_TYPE_TYPE_3);
 			}
 			else {
@@ -3700,6 +3687,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public DDMTemplate[] findByType_PrevAndNext(long templateId, String type,
 		OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		type = Objects.toString(type, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -3745,10 +3734,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_TYPE_TYPE_1);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_TYPE_TYPE_3);
 		}
 		else {
@@ -3868,6 +3854,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByType(String type) {
+		type = Objects.toString(type, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_TYPE;
 
 		Object[] finderArgs = new Object[] { type };
@@ -3881,10 +3869,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_TYPE_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_TYPE_TYPE_3);
 			}
 			else {
@@ -4014,6 +3999,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public List<DDMTemplate> findByLanguage(String language, int start,
 		int end, OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		language = Objects.toString(language, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -4037,7 +4024,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			if ((list != null) && !list.isEmpty()) {
 				for (DDMTemplate ddmTemplate : list) {
-					if (!Objects.equals(language, ddmTemplate.getLanguage())) {
+					if (!language.equals(ddmTemplate.getLanguage())) {
 						list = null;
 
 						break;
@@ -4061,10 +4048,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindLanguage = false;
 
-			if (language == null) {
-				query.append(_FINDER_COLUMN_LANGUAGE_LANGUAGE_1);
-			}
-			else if (language.equals("")) {
+			if (language.isEmpty()) {
 				query.append(_FINDER_COLUMN_LANGUAGE_LANGUAGE_3);
 			}
 			else {
@@ -4248,6 +4232,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public DDMTemplate[] findByLanguage_PrevAndNext(long templateId,
 		String language, OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		language = Objects.toString(language, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -4293,10 +4279,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindLanguage = false;
 
-		if (language == null) {
-			query.append(_FINDER_COLUMN_LANGUAGE_LANGUAGE_1);
-		}
-		else if (language.equals("")) {
+		if (language.isEmpty()) {
 			query.append(_FINDER_COLUMN_LANGUAGE_LANGUAGE_3);
 		}
 		else {
@@ -4416,6 +4399,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByLanguage(String language) {
+		language = Objects.toString(language, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_LANGUAGE;
 
 		Object[] finderArgs = new Object[] { language };
@@ -4429,10 +4414,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindLanguage = false;
 
-			if (language == null) {
-				query.append(_FINDER_COLUMN_LANGUAGE_LANGUAGE_1);
-			}
-			else if (language.equals("")) {
+			if (language.isEmpty()) {
 				query.append(_FINDER_COLUMN_LANGUAGE_LANGUAGE_3);
 			}
 			else {
@@ -8632,6 +8614,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	@Override
 	public DDMTemplate fetchByG_C_T(long groupId, long classNameId,
 		String templateKey, boolean retrieveFromCache) {
+		templateKey = Objects.toString(templateKey, "");
+
 		Object[] finderArgs = new Object[] { groupId, classNameId, templateKey };
 
 		Object result = null;
@@ -8662,10 +8646,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindTemplateKey = false;
 
-			if (templateKey == null) {
-				query.append(_FINDER_COLUMN_G_C_T_TEMPLATEKEY_1);
-			}
-			else if (templateKey.equals("")) {
+			if (templateKey.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_T_TEMPLATEKEY_3);
 			}
 			else {
@@ -8751,6 +8732,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByG_C_T(long groupId, long classNameId, String templateKey) {
+		templateKey = Objects.toString(templateKey, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_C_T;
 
 		Object[] finderArgs = new Object[] { groupId, classNameId, templateKey };
@@ -8768,10 +8751,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindTemplateKey = false;
 
-			if (templateKey == null) {
-				query.append(_FINDER_COLUMN_G_C_T_TEMPLATEKEY_1);
-			}
-			else if (templateKey.equals("")) {
+			if (templateKey.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_T_TEMPLATEKEY_3);
 			}
 			else {
@@ -8928,6 +8908,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 		String type, int start, int end,
 		OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		type = Objects.toString(type, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -8957,7 +8939,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 				for (DDMTemplate ddmTemplate : list) {
 					if ((classNameId != ddmTemplate.getClassNameId()) ||
 							(classPK != ddmTemplate.getClassPK()) ||
-							!Objects.equals(type, ddmTemplate.getType())) {
+							!type.equals(ddmTemplate.getType())) {
 						list = null;
 
 						break;
@@ -8985,10 +8967,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_C_C_T_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_C_C_T_TYPE_3);
 			}
 			else {
@@ -9199,6 +9178,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 		long classNameId, long classPK, String type,
 		OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		type = Objects.toString(type, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -9248,10 +9229,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_C_C_T_TYPE_1);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_C_C_T_TYPE_3);
 		}
 		else {
@@ -9379,6 +9357,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	 */
 	@Override
 	public int countByC_C_T(long classNameId, long classPK, String type) {
+		type = Objects.toString(type, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C_T;
 
 		Object[] finderArgs = new Object[] { classNameId, classPK, type };
@@ -9396,10 +9376,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_C_C_T_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_C_C_T_TYPE_3);
 			}
 			else {
@@ -9563,6 +9540,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 		long classPK, String type, int start, int end,
 		OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		type = Objects.toString(type, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -9593,7 +9572,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 					if ((groupId != ddmTemplate.getGroupId()) ||
 							(classNameId != ddmTemplate.getClassNameId()) ||
 							(classPK != ddmTemplate.getClassPK()) ||
-							!Objects.equals(type, ddmTemplate.getType())) {
+							!type.equals(ddmTemplate.getType())) {
 						list = null;
 
 						break;
@@ -9623,10 +9602,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_G_C_C_T_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
 			}
 			else {
@@ -9854,6 +9830,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 		long groupId, long classNameId, long classPK, String type,
 		OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		type = Objects.toString(type, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -9906,10 +9884,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_1);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
 		}
 		else {
@@ -10077,6 +10052,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 				end, orderByComparator);
 		}
 
+		type = Objects.toString(type, "");
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -10102,10 +10079,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_1_SQL);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_3_SQL);
 		}
 		else {
@@ -10199,6 +10173,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 				classPK, type, orderByComparator);
 		}
 
+		type = Objects.toString(type, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -10257,10 +10233,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_1_SQL);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_3_SQL);
 		}
 		else {
@@ -10424,6 +10397,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	@Override
 	public int countByG_C_C_T(long groupId, long classNameId, long classPK,
 		String type) {
+		type = Objects.toString(type, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_C_C_T;
 
 		Object[] finderArgs = new Object[] { groupId, classNameId, classPK, type };
@@ -10443,10 +10418,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_G_C_C_T_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
 			}
 			else {
@@ -10509,6 +10481,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 			return countByG_C_C_T(groupId, classNameId, classPK, type);
 		}
 
+		type = Objects.toString(type, "");
+
 		StringBundler query = new StringBundler(5);
 
 		query.append(_FILTER_SQL_COUNT_DDMTEMPLATE_WHERE);
@@ -10521,10 +10495,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_1_SQL);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_TYPE_3_SQL);
 		}
 		else {
@@ -10700,6 +10671,9 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 		long classPK, String type, String mode, int start, int end,
 		OrderByComparator<DDMTemplate> orderByComparator,
 		boolean retrieveFromCache) {
+		type = Objects.toString(type, "");
+		mode = Objects.toString(mode, "");
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -10730,8 +10704,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 					if ((groupId != ddmTemplate.getGroupId()) ||
 							(classNameId != ddmTemplate.getClassNameId()) ||
 							(classPK != ddmTemplate.getClassPK()) ||
-							!Objects.equals(type, ddmTemplate.getType()) ||
-							!Objects.equals(mode, ddmTemplate.getMode())) {
+							!type.equals(ddmTemplate.getType()) ||
+							!mode.equals(ddmTemplate.getMode())) {
 						list = null;
 
 						break;
@@ -10761,10 +10735,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_3);
 			}
 			else {
@@ -10775,10 +10746,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindMode = false;
 
-			if (mode == null) {
-				query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_1);
-			}
-			else if (mode.equals("")) {
+			if (mode.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_3);
 			}
 			else {
@@ -11021,6 +10989,9 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 		long groupId, long classNameId, long classPK, String type, String mode,
 		OrderByComparator<DDMTemplate> orderByComparator)
 		throws NoSuchTemplateException {
+		type = Objects.toString(type, "");
+		mode = Objects.toString(mode, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -11075,10 +11046,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_1);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_3);
 		}
 		else {
@@ -11089,10 +11057,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindMode = false;
 
-		if (mode == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_1);
-		}
-		else if (mode.equals("")) {
+		if (mode.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_3);
 		}
 		else {
@@ -11268,6 +11233,9 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 				start, end, orderByComparator);
 		}
 
+		type = Objects.toString(type, "");
+		mode = Objects.toString(mode, "");
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -11293,10 +11261,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_1_SQL);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_3_SQL);
 		}
 		else {
@@ -11307,10 +11272,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindMode = false;
 
-		if (mode == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_1_SQL);
-		}
-		else if (mode.equals("")) {
+		if (mode.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_3_SQL);
 		}
 		else {
@@ -11409,6 +11371,9 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 				classNameId, classPK, type, mode, orderByComparator);
 		}
 
+		type = Objects.toString(type, "");
+		mode = Objects.toString(mode, "");
+
 		DDMTemplate ddmTemplate = findByPrimaryKey(templateId);
 
 		Session session = null;
@@ -11468,10 +11433,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_1_SQL);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_3_SQL);
 		}
 		else {
@@ -11482,10 +11444,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindMode = false;
 
-		if (mode == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_1_SQL);
-		}
-		else if (mode.equals("")) {
+		if (mode.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_3_SQL);
 		}
 		else {
@@ -11655,6 +11614,9 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	@Override
 	public int countByG_C_C_T_M(long groupId, long classNameId, long classPK,
 		String type, String mode) {
+		type = Objects.toString(type, "");
+		mode = Objects.toString(mode, "");
+
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_C_C_T_M;
 
 		Object[] finderArgs = new Object[] {
@@ -11676,10 +11638,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindType = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_1);
-			}
-			else if (type.equals("")) {
+			if (type.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_3);
 			}
 			else {
@@ -11690,10 +11649,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			boolean bindMode = false;
 
-			if (mode == null) {
-				query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_1);
-			}
-			else if (mode.equals("")) {
+			if (mode.isEmpty()) {
 				query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_3);
 			}
 			else {
@@ -11761,6 +11717,9 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 			return countByG_C_C_T_M(groupId, classNameId, classPK, type, mode);
 		}
 
+		type = Objects.toString(type, "");
+		mode = Objects.toString(mode, "");
+
 		StringBundler query = new StringBundler(6);
 
 		query.append(_FILTER_SQL_COUNT_DDMTEMPLATE_WHERE);
@@ -11773,10 +11732,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindType = false;
 
-		if (type == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_1_SQL);
-		}
-		else if (type.equals("")) {
+		if (type.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_TYPE_3_SQL);
 		}
 		else {
@@ -11787,10 +11743,7 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 		boolean bindMode = false;
 
-		if (mode == null) {
-			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_1_SQL);
-		}
-		else if (mode.equals("")) {
+		if (mode.isEmpty()) {
 			query.append(_FINDER_COLUMN_G_C_C_T_M_MODE_3_SQL);
 		}
 		else {
