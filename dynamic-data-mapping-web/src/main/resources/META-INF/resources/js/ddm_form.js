@@ -739,8 +739,10 @@ AUI.add(
 									value = localizationMap[instance.get('displayLocale')];
 								}
 
-								if (!value) {
-									value = localizationMap[themeDisplay.getDefaultLanguageId()];
+								var languageValues = instance.get("values");
+
+								if (!value && languageValues) {
+									value = localizationMap[languageValues.defaultLanguageId];
 								}
 							}
 							else {
