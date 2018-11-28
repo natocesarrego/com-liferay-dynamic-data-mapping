@@ -24,7 +24,7 @@ long[] classPKs;
 long searchClassPK = ParamUtil.getLong(request, "classPK");
 
 if (searchClassPK > 0) {
-	classPKs = new long[] {classPK};
+	classPKs = new long[] {searchClassPK};
 }
 else {
 	classPKs = null;
