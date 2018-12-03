@@ -52,6 +52,10 @@ public class TokenExtractor {
 		return _expression;
 	}
 
+	public Map<String, String> getRandomVariableMap() {
+		return _randomVariableMap;
+	}
+
 	public Map<String, String> getVariableMap() {
 		return _variableMap;
 	}
@@ -61,21 +65,35 @@ public class TokenExtractor {
 	}
 
 	protected void createStringVariable(String token) {
-		String variableName = createRandomVariableName();
+		String randomVariableName = null;
 
-		_variableMap.put(variableName, token);
+		do {
+			randomVariableName = createRandomVariableName();
+		}
+		while (_variableMap.containsKey(randomVariableName));
+
+		_variableMap.put(randomVariableName, token);
 
 		_expression = StringUtil.replace(
-			_expression, "\"" + token + "\"", variableName);
+			_expression, "\"" + token + "\"", randomVariableName);
+
+		_randomVariableMap.put(token, randomVariableName);
 	}
 
 	protected void createVariable(String token) {
-		String variableName = createRandomVariableName();
+		String randomVariableName = null;
 
-		_variableMap.put(variableName, token);
+		do {
+			randomVariableName = createRandomVariableName();
+		}
+		while (_variableMap.containsKey(randomVariableName));
+
+		_variableMap.put(randomVariableName, token);
 
 		_expression = _expression.replaceAll(
-			"\\b" + token + "\\b", variableName);
+			"\\b" + token + "\\b", randomVariableName);
+
+		_randomVariableMap.put(token, randomVariableName);
 	}
 
 	protected void extract() throws DDMExpressionException {
@@ -163,6 +181,7 @@ public class TokenExtractor {
 		"\\b(_?)([^0-9_\\s]+[^\\s]*)(?!\\()\\b");
 
 	private String _expression;
+	private final Map<String, String> _randomVariableMap = new HashMap<>();
 	private final Map<String, String> _variableMap = new HashMap<>();
 
 }
