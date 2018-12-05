@@ -91,7 +91,7 @@ AUI.add(
 							instance.get('evaluatorURL'),
 							{
 								data: {
-									languageId: definition.defaultLanguageId,
+									languageId: themeDisplay.getLanguageId(),
 									serializedDDMForm: JSON.stringify(definition),
 									serializedDDMFormValues: JSON.stringify(form.toJSON())
 								},
