@@ -96,6 +96,9 @@ AUI.add(
 							instance.clearErrorMessage();
 						}
 					}
+					else {
+						instance.clearErrorMessage();
+					}
 				}
 			},
 
