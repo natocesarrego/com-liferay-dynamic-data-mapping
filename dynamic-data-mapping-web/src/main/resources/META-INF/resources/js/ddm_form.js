@@ -702,15 +702,15 @@ AUI.add(
 								selectorInput.attr('disabled', instance.get('readOnly'));
 							}
 
-							var checkboxInput = container.one("input[type='checkbox']");
+							var checkboxInput = container.one('input[type=\'checkbox\']');
 
 							if (checkboxInput) {
 								checkboxInput.attr('disabled', instance.get('readOnly'));
 							}
 
-							var disableCheckboxInput = container.one("input[type='checkbox'][name$='disable']");
+							var disableCheckboxInput = container.one('input[type=\'checkbox\'][name$=\'disable\']');
 
-							if (inputNode && disableCheckboxInput && disableCheckboxInput.get("checked")) {
+							if (inputNode && disableCheckboxInput && disableCheckboxInput.get('checked')) {
 								inputNode.attr('disabled', true);
 							}
 						}
@@ -741,7 +741,7 @@ AUI.add(
 									value = localizationMap[instance.get('displayLocale')];
 								}
 
-								var languageValues = instance.get("values");
+								var languageValues = instance.get('values');
 
 								if (!value && languageValues) {
 									value = localizationMap[languageValues.defaultLanguageId];
@@ -1059,17 +1059,19 @@ AUI.add(
 
 						var datePicker = instance.getDatePicker();
 
-						if (!datePicker) {
-							return '';
+						var value = '';
+
+						if (datePicker) {
+							var selectedDate = datePicker.getDate();
+
+							var formattedDate = A.DataType.Date.format(selectedDate);
+
+							var inputNode = instance.getInputNode();
+
+							value = inputNode.val() ? formattedDate : '';
 						}
 
-						var selectedDate = datePicker.getDate();
-
-						var formattedDate = A.DataType.Date.format(selectedDate);
-
-						var inputNode = instance.getInputNode();
-
-						return inputNode.val() ? formattedDate : '';
+						return value;
 					},
 
 					repeat: function() {
@@ -1160,11 +1162,11 @@ AUI.add(
 
 						var documentLibrarySelectorURL = form.get('documentLibrarySelectorURL');
 
-						if (documentLibrarySelectorURL) {
-							return documentLibrarySelectorURL;
+						if (!documentLibrarySelectorURL) {
+							documentLibrarySelectorURL = instance.getDocumentLibraryURL('com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriterion');
 						}
 
-						return instance.getDocumentLibraryURL('com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriterion');
+						return documentLibrarySelectorURL;
 					},
 
 					getDocumentLibraryURL: function(criteria) {
@@ -2527,11 +2529,11 @@ AUI.add(
 
 						var imageSelectorURL = form.get('imageSelectorURL');
 
-						if (imageSelectorURL) {
-							return imageSelectorURL;
+						if (!imageSelectorURL) {
+							imageSelectorURL = instance.getDocumentLibraryURL('com.liferay.journal.item.selector.criterion.JournalItemSelectorCriterion,com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion');
 						}
 
-						return instance.getDocumentLibraryURL('com.liferay.journal.item.selector.criterion.JournalItemSelectorCriterion,com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion');
+						return imageSelectorURL;
 					},
 
 					getValue: function() {
@@ -2745,13 +2747,16 @@ AUI.add(
 							editor.setHTML(value);
 						}
 						else {
-							Liferay.after(editorComponentName + ':registered', function() {
-								if (!editor.instanceReady) {
-									if (value === localizationMap[instance.get('displayLocale')]) {
-										editor.setHTML(value);
+							Liferay.after(
+								editorComponentName + ':registered',
+								function() {
+									if (!editor.instanceReady) {
+										if (value === localizationMap[instance.get('displayLocale')]) {
+											editor.setHTML(value);
+										}
 									}
 								}
-							});
+							);
 						}
 					},
 
@@ -2961,11 +2966,11 @@ AUI.add(
 						setter: A.one
 					},
 
-					documentLibrarySelectorURL: {
-					},
-
 					displayLocale: {
 						valueFn: '_valueDisplayLocale'
+					},
+
+					documentLibrarySelectorURL: {
 					},
 
 					formNode: {
@@ -3119,13 +3124,15 @@ AUI.add(
 
 										var dragNode = event.drag.get('node');
 
-										var dragNodeAncestor =  dragNode.ancestor();
+										var dragNodeAncestor = dragNode.ancestor();
+
+										var dropNodeEqualsDragNode = true;
 
 										if (dropNodeAncestor.get('id') != dragNodeAncestor.get('id')) {
-											return false;
+											dropNodeEqualsDragNode = false;
 										}
 
-										return dropNode.getData('fieldName') === fieldName;
+										return dropNodeEqualsDragNode && (dropNode.getData('fieldName') === fieldName);
 									}
 								}
 							);
