@@ -392,19 +392,13 @@ AUI.add(
 								localizationMap[locale] = predefinedValue;
 							}
 							else {
-								var name = instance.get('name');
+								var defaultLocale = instance.getDefaultLocale();
 
-								var field = instance.getFieldByNameInFieldDefinition(name);
-
-								if (field && field.type) {
-									var type = field.type;
-
-									if (type === 'radio' || type === 'select') {
-										localizationMap[locale] = instance.getValue();
-									}
-									else {
-										localizationMap[locale] = '';
-									}
+								if (defaultLocale && localizationMap[defaultLocale]) {
+									localizationMap[locale] = localizationMap[defaultLocale];
+								}
+								else {
+									localizationMap[locale] = '';
 								}
 							}
 						}
@@ -530,8 +524,16 @@ AUI.add(
 
 						var predefinedValue;
 
-						if (field && field.predefinedValue && field.predefinedValue[locale]) {
-							predefinedValue = field.predefinedValue[locale];
+						if (field) {
+							var type = field.type;
+
+							if (field.predefinedValue && field.predefinedValue[locale]) {
+								predefinedValue = field.predefinedValue[locale];
+							}
+
+							if ((type === 'select' || type === 'radio') && (predefinedValue == '[""]')) {
+								predefinedValue = '';
+							}
 						}
 
 						return predefinedValue;
