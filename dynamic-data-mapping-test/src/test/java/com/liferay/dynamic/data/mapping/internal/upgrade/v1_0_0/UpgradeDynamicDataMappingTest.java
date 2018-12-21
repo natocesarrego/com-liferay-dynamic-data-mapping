@@ -33,15 +33,14 @@ import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.security.permission.ResourceActions;
 import com.liferay.portal.kernel.security.xml.SecureXMLFactoryProviderUtil;
+import com.liferay.portal.kernel.test.util.PropsTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
-import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -931,15 +930,8 @@ public class UpgradeDynamicDataMappingTest extends PowerMockito {
 	}
 
 	protected void setUpPropsUtil() {
-		Props props = mock(Props.class);
-
-		when(
-			props.get(PropsKeys.XML_SECURITY_ENABLED)
-		).thenReturn(
-			Boolean.TRUE.toString()
-		);
-
-		PropsUtil.setProps(props);
+		PropsTestUtil.setProps(
+			PropsKeys.XML_SECURITY_ENABLED, Boolean.TRUE.toString());
 	}
 
 	protected void setUpSAXReaderUtil() {

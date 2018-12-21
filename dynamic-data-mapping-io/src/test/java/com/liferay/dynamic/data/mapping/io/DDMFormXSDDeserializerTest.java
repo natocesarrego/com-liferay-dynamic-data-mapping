@@ -17,10 +17,9 @@ package com.liferay.dynamic.data.mapping.io;
 import com.liferay.dynamic.data.mapping.io.internal.DDMFormXSDDeserializerImpl;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.test.util.PropsTestUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.kernel.xml.UnsecureSAXReaderUtil;
 import com.liferay.portal.util.HtmlImpl;
@@ -77,15 +76,8 @@ public class DDMFormXSDDeserializerTest
 	}
 
 	protected void setUpPropsUtil() {
-		Props props = mock(Props.class);
-
-		when(
-			props.get(PropsKeys.XML_SECURITY_ENABLED)
-		).thenReturn(
-			Boolean.TRUE.toString()
-		);
-
-		PropsUtil.setProps(props);
+		PropsTestUtil.setProps(
+			PropsKeys.XML_SECURITY_ENABLED, Boolean.TRUE.toString());
 	}
 
 	protected void setUpSAXReaderUtil() {
