@@ -536,10 +536,9 @@ public class DDMContentPersistenceImpl extends BasePersistenceImpl<DDMContent>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(ddmContent);
-
-			for (Object value : values) {
-				qPos.add(value);
+			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
+					ddmContent)) {
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -1354,10 +1353,9 @@ public class DDMContentPersistenceImpl extends BasePersistenceImpl<DDMContent>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(ddmContent);
-
-			for (Object value : values) {
-				qPos.add(value);
+			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
+					ddmContent)) {
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -1875,10 +1873,9 @@ public class DDMContentPersistenceImpl extends BasePersistenceImpl<DDMContent>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(ddmContent);
-
-			for (Object value : values) {
-				qPos.add(value);
+			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
+					ddmContent)) {
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -2380,10 +2377,9 @@ public class DDMContentPersistenceImpl extends BasePersistenceImpl<DDMContent>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(ddmContent);
-
-			for (Object value : values) {
-				qPos.add(value);
+			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
+					ddmContent)) {
+				qPos.add(orderByConditionValue);
 			}
 		}
 
