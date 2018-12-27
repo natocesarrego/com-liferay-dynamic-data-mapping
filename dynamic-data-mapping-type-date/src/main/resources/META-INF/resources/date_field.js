@@ -45,6 +45,7 @@ AUI.add(
 							instance.bindContainerEvent('blur', instance._onBlurInput, '.form-control');
 							instance.bindContainerEvent('click', instance._onClickCalendar, '.input-group-addon');
 							instance.bindContainerEvent('focus', instance._fireFocusEvent, '.form-control');
+							instance.bindContainerEvent('keypress', instance._onKeyPressDateForm, '#inputDateForm');
 						}
 					},
 
@@ -165,6 +166,18 @@ AUI.add(
 						instance.getTriggerNode().focus();
 
 						datePicker.show();
+					},
+
+					_onKeyPressDateForm: function(event) {
+						var expression = String.fromCharCode(event.keyCode);
+
+						var inputDate = document.getElementById('inputDateForm');
+
+						var regex = /\d/;
+
+						if (!regex.test(expression) || inputDate.value.length > 7) {
+							event.preventDefault();
+						}
 					},
 
 					_renderErrorMessage: function() {
