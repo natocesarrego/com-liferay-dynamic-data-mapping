@@ -22,7 +22,7 @@ import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -346,8 +346,8 @@ public class DDMFormFieldFactoryHelper {
 	protected ResourceBundle getResourceBundle(Locale locale) {
 		List<ResourceBundle> resourceBundles = new ArrayList<>();
 
-		ResourceBundle portalResourceBundle = ResourceBundleUtil.getBundle(
-			"content.Language", locale, PortalClassLoaderUtil.getClassLoader());
+		ResourceBundle portalResourceBundle = PortalUtil.getResourceBundle(
+			locale);
 
 		resourceBundles.add(portalResourceBundle);
 
