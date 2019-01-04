@@ -743,7 +743,7 @@ AUI.add(
 
 								var languageValues = instance.get('values');
 
-								if (!value && languageValues) {
+								if (Lang.isUndefined(value) && languageValues) {
 									value = localizationMap[languageValues.defaultLanguageId];
 								}
 							}
