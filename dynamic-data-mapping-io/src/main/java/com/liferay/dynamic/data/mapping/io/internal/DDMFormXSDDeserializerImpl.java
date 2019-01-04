@@ -20,6 +20,8 @@ import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldOptions;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -50,21 +52,27 @@ public class DDMFormXSDDeserializerImpl implements DDMFormXSDDeserializer {
 	public DDMForm deserialize(String serializedDDMForm)
 		throws PortalException {
 
+		DDMForm ddmForm = new DDMForm();
+
 		try {
 			Document document = _saxReader.read(serializedDDMForm);
-
-			DDMForm ddmForm = new DDMForm();
 
 			setDDMFormAvailableLocales(document.getRootElement(), ddmForm);
 			setDDMFormDefaultLocale(document.getRootElement(), ddmForm);
 			setDDMFormFields(document.getRootElement(), ddmForm);
-			setDDMFormLocalizedValuesDefaultLocale(ddmForm);
 
-			return ddmForm;
+			setDDMFormLocalizedValuesDefaultLocale(ddmForm);
 		}
 		catch (DocumentException de) {
 			throw new PortalException(de);
 		}
+		catch (NullPointerException npe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(npe, npe);
+			}
+		}
+
+		return ddmForm;
 	}
 
 	protected void addOptionValueLabels(
@@ -393,6 +401,9 @@ public class DDMFormXSDDeserializerImpl implements DDMFormXSDDeserializer {
 	protected void setSAXReader(SAXReader saxReader) {
 		_saxReader = saxReader;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		DDMFormXSDDeserializerImpl.class);
 
 	private SAXReader _saxReader;
 
