@@ -173,9 +173,13 @@ AUI.add(
 
 						var inputDate = document.getElementById('inputDateForm');
 
-						var regex = /\d/;
+						var regex = /[\d|//|\b]/; 
 
-						if (!regex.test(expression) || inputDate.value.length > 7) {
+						if (!regex.test(expression)) {
+							event.preventDefault();
+						}
+
+						if (inputDate.value.length > 9 && event.keyCode != 8 && event.keyCode != 46) {
 							event.preventDefault();
 						}
 					},
