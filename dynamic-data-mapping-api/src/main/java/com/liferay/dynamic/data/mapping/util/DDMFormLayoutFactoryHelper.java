@@ -190,7 +190,8 @@ public class DDMFormLayoutFactoryHelper {
 	protected ResourceBundle getResourceBundle(Locale locale) {
 		List<ResourceBundle> resourceBundles = new ArrayList<>();
 
-		ResourceBundle portalResourceBundle = PortalUtil.getResourceBundle(locale);
+		ResourceBundle portalResourceBundle = PortalUtil.getResourceBundle(
+			locale);
 
 		resourceBundles.add(portalResourceBundle);
 
