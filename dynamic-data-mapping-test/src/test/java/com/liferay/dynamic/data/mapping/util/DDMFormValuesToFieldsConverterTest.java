@@ -29,6 +29,8 @@ import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.dynamic.data.mapping.util.impl.DDMFormValuesToFieldsConverterImpl;
 import com.liferay.dynamic.data.mapping.util.impl.DDMImpl;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 
 import java.io.Serializable;
@@ -37,11 +39,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import org.mockito.Matchers;
 
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
@@ -68,6 +73,7 @@ public class DDMFormValuesToFieldsConverterTest extends BaseDDMTestCase {
 		setUpHtmlUtil();
 		setUpJSONFactoryUtil();
 		setUpLanguageUtil();
+		setUpPortalUtil();
 		setUpPropsUtil();
 		setUpSAXReaderUtil();
 	}
@@ -542,6 +548,22 @@ public class DDMFormValuesToFieldsConverterTest extends BaseDDMTestCase {
 
 		_availableLocales.add(LocaleUtil.BRAZIL);
 		_availableLocales.add(LocaleUtil.US);
+	}
+
+	protected void setUpPortalUtil() {
+		PortalUtil portalUtil = new PortalUtil();
+
+		Portal portal = mock(Portal.class);
+
+		ResourceBundle resourceBundle = mock(ResourceBundle.class);
+
+		when(
+			portal.getResourceBundle(Matchers.any(Locale.class))
+		).thenReturn(
+			resourceBundle
+		);
+
+		portalUtil.setPortal(portal);
 	}
 
 	protected void testField(

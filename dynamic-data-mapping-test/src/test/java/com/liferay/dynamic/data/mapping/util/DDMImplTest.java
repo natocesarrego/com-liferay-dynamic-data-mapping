@@ -31,6 +31,8 @@ import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.dynamic.data.mapping.util.impl.DDMImpl;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ReflectionUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -38,10 +40,14 @@ import java.io.Serializable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import org.mockito.Matchers;
 
 import org.skyscreamer.jsonassert.JSONAssert;
 
@@ -66,6 +72,7 @@ public class DDMImplTest extends BaseDDMTestCase {
 		setUpHtmlUtil();
 		setUpLanguageUtil();
 		setUpLocaleUtil();
+		setUpPortalUtil();
 		setUpPropsUtil();
 		setUpSAXReaderUtil();
 	}
@@ -699,6 +706,22 @@ public class DDMImplTest extends BaseDDMTestCase {
 			DDMFormValuesJSONSerializerImpl.class, "_jsonFactory");
 
 		field.set(_ddmFormValuesJSONSerializer, new JSONFactoryImpl());
+	}
+
+	protected void setUpPortalUtil() {
+		PortalUtil portalUtil = new PortalUtil();
+
+		Portal portal = mock(Portal.class);
+
+		ResourceBundle resourceBundle = mock(ResourceBundle.class);
+
+		when(
+			portal.getResourceBundle(Matchers.any(Locale.class))
+		).thenReturn(
+			resourceBundle
+		);
+
+		portalUtil.setPortal(portal);
 	}
 
 	protected void testValues(
