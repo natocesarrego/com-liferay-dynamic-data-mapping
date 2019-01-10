@@ -66,9 +66,9 @@ public class DDMFormXSDDeserializerImpl implements DDMFormXSDDeserializer {
 		catch (DocumentException de) {
 			throw new PortalException(de);
 		}
-		catch (NullPointerException npe) {
+		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(npe, npe);
+				_log.warn(e, e);
 			}
 		}
 
