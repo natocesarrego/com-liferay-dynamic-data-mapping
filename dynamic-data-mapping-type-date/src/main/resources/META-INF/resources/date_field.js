@@ -169,17 +169,17 @@ AUI.add(
 					},
 
 					_onKeyPressDateForm: function(event) {
-						var expression = String.fromCharCode(event.keyCode);
+						var backspaceKeyCodes = [8, 46];
+
+						var keyCode = event.keyCode;
+
+						var expression = String.fromCharCode(keyCode);
 
 						var inputDate = document.getElementById('inputDateForm');
 
-						var regex = /[\d|//|\b]/; 
+						var regex = /[\d|//|\b]/;
 
-						if (!regex.test(expression)) {
-							event.preventDefault();
-						}
-
-						if (inputDate.value.length > 9 && event.keyCode != 8 && event.keyCode != 46) {
+						if (!regex.test(expression) || (inputDate.value.length > 9 && backspaceKeyCodes.indexOf(keyCode) == -1)) {
 							event.preventDefault();
 						}
 					},
