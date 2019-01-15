@@ -40,24 +40,25 @@
 		<aui:input name="<%= HtmlUtil.getAUICompatibleId(ddmFormValuesInputName) %>" type="hidden" />
 
 		<aui:script use="liferay-ddm-form">
-			var liferayDDMForm = new Liferay.DDM.Form(
-				{
-					container: '#<%= randomNamespace %>',
-					ddmFormValuesInput: '#<portlet:namespace /><%= HtmlUtil.getAUICompatibleId(ddmFormValuesInputName) %>',
-					documentLibrarySelectorURL: '<%= documentLibrarySelectorURL %>',
-					definition: <%= DDMUtil.getDDMFormJSONString(ddmForm) %>,
-					doAsGroupId: <%= scopeGroupId %>,
-					fieldsNamespace: '<%= HtmlUtil.escapeJS(fieldsNamespace) %>',
-					imageSelectorURL: '<%= imageSelectorURL %>',
-					mode: '<%= HtmlUtil.escapeJS(mode) %>',
-					p_l_id: <%= themeDisplay.getPlid() %>,
-					portletNamespace: '<portlet:namespace />',
-					repeatable: <%= repeatable %>
+			var liferayDDMForm = Liferay.component(
+				'<portlet:namespace /><%= HtmlUtil.escapeJS(fieldsNamespace) %>ddmForm',
+				new Liferay.DDM.Form(
+					{
+						container: '#<%= randomNamespace %>',
+						ddmFormValuesInput: '#<portlet:namespace /><%= HtmlUtil.getAUICompatibleId(ddmFormValuesInputName) %>',
+						definition: <%= DDMUtil.getDDMFormJSONString(ddmForm) %>,
+						doAsGroupId: <%= scopeGroupId %>,
+						fieldsNamespace: '<%= HtmlUtil.escapeJS(fieldsNamespace) %>',
+						mode: '<%= HtmlUtil.escapeJS(mode) %>',
+						p_l_id: <%= themeDisplay.getPlid() %>,
+						portletNamespace: '<portlet:namespace />',
+						repeatable: <%= repeatable %>
 
-					<c:if test="<%= ddmFormValues != null %>">
-						, values: <%= DDMUtil.getDDMFormValuesJSONString(ddmFormValues) %>
-					</c:if>
-				}
+						<c:if test="<%= ddmFormValues != null %>">
+							, values: <%= DDMUtil.getDDMFormValuesJSONString(ddmFormValues) %>
+						</c:if>
+					}
+				)
 			);
 
 			var onDestroyPortlet = function(event) {
