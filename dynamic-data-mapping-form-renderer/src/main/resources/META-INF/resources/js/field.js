@@ -220,10 +220,10 @@ AUI.add(
 						var locale = instance.get('locale');
 
 						if (Lang.isObject(label) && locale in label) {
-							label = label[locale];
+							return label[locale] || instance.get('name');
 						}
 
-						return label || instance.get('name');
+						return instance.get('name');
 					},
 
 					getLabelNode: function() {
