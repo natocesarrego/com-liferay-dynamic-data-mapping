@@ -23,7 +23,9 @@ AUI.add(
 					ddmDataProviderInstanceId: {
 						value: 0
 					},
-
+					defaultLocale: {
+							value: "en_US"
+					},
 					multiple: {
 						value: false
 					},
@@ -78,7 +80,7 @@ AUI.add(
 								var label = item.label;
 
 								if (Lang.isObject(label)) {
-									label = label[instance.get('locale')];
+									label = label[instance.get('locale')] || label[instance.get('defaultLocale')];
 								}
 
 								return {

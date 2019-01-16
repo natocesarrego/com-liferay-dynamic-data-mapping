@@ -8,6 +8,10 @@ AUI.add(
 		var CheckboxMultipleField = A.Component.create(
 			{
 				ATTRS: {
+					defaultLocale: {
+						value: "en_US"
+					},
+
 					inline: {
 						value: true
 					},
@@ -40,7 +44,7 @@ AUI.add(
 							instance.get('options'),
 							function(item) {
 								return {
-									label: item.label[instance.get('locale')],
+									label: item.label[instance.get('locale')] || item.label[instance.get('defaultLocale')],
 									status: instance._getOptionStatus(item),
 									value: item.value
 								};

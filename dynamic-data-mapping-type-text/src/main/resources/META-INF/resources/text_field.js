@@ -43,8 +43,8 @@ AUI.add(
 							TextField.superclass.getTemplateContext.apply(instance, arguments),
 							{
 								displayStyle: instance.get('displayStyle'),
-								placeholder: instance.getLocalizedValue(instance.get('placeholder')),
-								tooltip: instance.getLocalizedValue(instance.get('tooltip'))
+								placeholder: instance.getLocalizedValue(instance.get('placeholder')) || "",
+								tooltip: instance.getLocalizedValue(instance.get('tooltip')) || ""
 							}
 						);
 					},

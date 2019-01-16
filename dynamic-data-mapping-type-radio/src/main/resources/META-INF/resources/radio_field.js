@@ -4,6 +4,10 @@ AUI.add(
 		var RadioField = A.Component.create(
 			{
 				ATTRS: {
+					defaultLocale: {
+						value: "en_US"
+					},
+
 					inline: {
 						value: true
 					},
@@ -63,7 +67,7 @@ AUI.add(
 							instance.get('options'),
 							function(item) {
 								return {
-									label: item.label[instance.get('locale')],
+									label: item.label[instance.get('locale')] || label[instance.get('defaultLocale')],
 									status: value === item.value ? 'checked' : '',
 									value: item.value
 								};
